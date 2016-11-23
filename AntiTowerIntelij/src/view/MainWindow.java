@@ -17,22 +17,28 @@ public class MainWindow {
         private JTextField textField;
 
 
-
         //Should only be called on EDT
-        public MainWindow(String title) {
+        public MainWindow(String title, int width, int height) {
                 frame = new JFrame(title);
+                frame.setLayout(new BorderLayout());
+                frame.setMinimumSize(new Dimension(width,height));
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                MenuPanel menuPanel = new MenuPanel(5,5,"Huvudmeny");
+
+                MenuPanel menuPanel = new MenuPanel(50,50,"Huvudmeny");
+                TroopMakerPanel troopMakerPanel = new TroopMakerPanel(12,21,"Fiskar");
+
                 // Build panels
-                //JPanel upperPanel = buildUpperPanel();
-                //JPanel lowerPanel = buildLowerPanel();
-                JPanel middlePanel = menuPanel.returnPanel();
+                JPanel upperPanel = menuPanel.returnPanel();
+                //JPanel lowerPanel = infoPanel.returnPanel();
+                //JPanel middlePanel = playFieldPanel.returPanel();
+                JPanel rightPanel = troopMakerPanel.returnPanel();
 
 
                 //Add panels to the frame
-                //frame.add(upperPanel, BorderLayout.NORTH);
-                frame.add(middlePanel, BorderLayout.CENTER);
+                frame.add(upperPanel, BorderLayout.NORTH);
+                //frame.add(middlePanel, BorderLayout.CENTER);
                 //frame.add(lowerPanel, BorderLayout.SOUTH);
+                frame.add(rightPanel, BorderLayout.EAST);
 
                 frame.pack();
 

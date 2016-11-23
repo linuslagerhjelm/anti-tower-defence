@@ -25,6 +25,7 @@ public class MenuPanel {
                 gameStateButton = new JMenuItem("New Game");
                 restartLevelButton = new JMenuItem("Restart Level");
                 restartLevelButton.setEnabled(false);
+                menuPanel.setSize(width, height);
 
                 menu.add(pauseStateButton);
                 menu.add(quitButton);
