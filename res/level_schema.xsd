@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <!-- Rule to restrict int:s to positive numbers -->
+    <xsd:simpleType name="PositiveInt">
+        <xsd:restriction>
+            <xsd:minInclusive value="0" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Describes a rectangle object -->
+    <xsd:complexType name="Rectangle">
+        <xsd:attribute name="x" type="PositiveInt" />
+        <xsd:attribute name="y" type="PositiveInt" />
+        <xsd:attribute name="width" type="PositiveInt" />
+        <xsd:attribute name="height" type="PositiveInt" />
+    </xsd:complexType>
+
+    <!-- Describes a reference to a node -->
+    <xsd:complexType name="Successor">
+        <xsd:attribute name="refid" type="xsd:int"/>
+    </xsd:complexType>
+
+    <!-- Describes a node which includes references to other nodes-->
+    <xsd:complexType name="Node">
+        <xsd:sequence>
+            <xsd:element name="Successor" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:int"/>
+    </xsd:complexType>
+
+    <!-- Describes a directed graph (like structure) of nodes -->
+    <xsd:complexType name="Path">
+        <xsd:sequence>
+            <xsd:element name="node" type="Node" minOccurs="2" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Describes tower class and amount to be placed -->
+    <xsd:complexType name="Tower">
+        <xsd:attribute name="className" type="xsd:string" />
+        <xsd:attribute name="count" type="PositiveInt" />
+    </xsd:complexType>
+
+    <!-- Describes  -->
+    <xsd:complexType name="Pad">
+        <xsd:sequence>
+            <xsd:element name="rectangle" type="Rectangle" minOccurs="1" maxOccurs="1" />
+        </xsd:sequence>
+        <xsd:attribute name="className" type="xsd:string" />
+    </xsd:complexType>
+
+    <!-- Describes  -->
+    <xsd:complexType name="TowerZones">
+        <xsd:sequence>
+            <xsd:element name="rectangle" type="Rectangle" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Describes  -->
+    <xsd:complexType name="Towers">
+        <xsd:sequence>
+            <xsd:element name="tower" type="Tower" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Describes  -->
+    <xsd:complexType name="Pads">
+        <xsd:sequence>
+            <xsd:element name="pad" type="Pad" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Describes  -->
+    <xsd:element name="level">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="path" type="Pad" />
+                <xsd:element name="towerzones" type="TowerZones" />
+                <xsd:element name="towers" type="Towers" />
+                <xsd:element name="pads" type="Pads" />
+            </xsd:all>
+
+            <xsd:attribute name="name" type="xsd:string" />
+            <xsd:attribute name="width" type="xsd:int" />
+            <xsd:attribute name="height" type="xsd:int" />
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

@@ -1,4 +1,8 @@
-#OS specific files
+# Project specific files
+.db_config
+.db_config_*
+
+# OS specific files
 .DS_Store
 thumbs.db
 ._*
@@ -30,6 +34,7 @@ hs_err_pid*
 
 # IntelliJ
 /out/
+*.iml
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
