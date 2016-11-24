@@ -1,9 +1,11 @@
 package view; /**
- * Created by c15aen on 2016-11-03.
+ * Created by c15aen on 2016-11-03. teset seteste
  */
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
@@ -15,6 +17,7 @@ public class MainWindow {
         private JButton runTestButton;
         private JButton clearButton;
         private JTextField textField;
+        private ActionListener al = e -> System.out.println("Action happened");
 
 
         //Should only be called on EDT
@@ -28,6 +31,21 @@ public class MainWindow {
 
                 MenuPanel menuPanel = new MenuPanel(50,50,"Huvudmeny");
                 TroopMakerPanel troopMakerPanel = new TroopMakerPanel(12,21,"Fiskar");
+
+                String[] buttonNames = new String[4];
+                buttonNames[0] = "Pause";
+                buttonNames[1] = "Quit";
+                buttonNames[2] = "New Game";
+                buttonNames[3] = "Restart Level";
+
+                String[] buttonNames2 = new String[2];
+                buttonNames2[0] = "About";
+                buttonNames2[1] = "Help";
+
+                menuPanel.createMenu(buttonNames, "Main Menu", al);
+                menuPanel.createMenu(buttonNames2, "Info", al);
+
+                menuPanel.changeButtonName("Main Menu", 1, "Loser");
 
                 // Build panels
                 JPanel upperPanel = menuPanel.returnPanel();
@@ -55,6 +73,7 @@ public class MainWindow {
 
                 frame.setVisible(true);
         }
+
 
         /**
          *
