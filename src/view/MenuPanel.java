@@ -39,6 +39,7 @@ public class MenuPanel {
 
 
         }
+
         public void setMenuVisibility(boolean visible) {
 
                 menuBar.setVisible(visible);
@@ -46,10 +47,9 @@ public class MenuPanel {
 
         public void changeStatePauseButton() {
 
-                if(pauseStateButton.getText().equals("Pause")) {
+                if (pauseStateButton.getText().equals("Pause")) {
                         pauseStateButton.setText("Resume");
-                }
-                else {
+                } else {
                         pauseStateButton.setText("Pause");
                 }
 
@@ -57,10 +57,9 @@ public class MenuPanel {
 
         public void changeGameStateButton() {
 
-                if(gameStateButton.getText().equals("New Game")) {
+                if (gameStateButton.getText().equals("New Game")) {
                         gameStateButton.setText("Restart Game");
-                }
-                else {
+                } else {
                         gameStateButton.setText("New Game");
                 }
 

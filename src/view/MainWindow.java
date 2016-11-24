@@ -22,6 +22,8 @@ public class MainWindow {
                 frame = new JFrame(title);
                 frame.setLayout(new BorderLayout());
                 frame.setMinimumSize(new Dimension(width,height));
+                frame.setMaximumSize(new Dimension(width,height));
+                frame.setPreferredSize(new Dimension(width, height));
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 MenuPanel menuPanel = new MenuPanel(50,50,"Huvudmeny");
