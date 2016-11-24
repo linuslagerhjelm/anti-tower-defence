@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * Created by c15aen on 2016-11-23.
@@ -23,10 +24,10 @@ public class MenuPanel {
                 menuPanel = new JPanel();
                 menuPanel.setSize(width, height);
                 menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-                pauseStateButton = new JMenuItem("Pause");
-                quitButton = new JMenuItem("Quit");
-                gameStateButton = new JMenuItem("New Game");
-                restartLevelButton = new JMenuItem("Restart Level");
+                //pauseStateButton = new JMenuItem("Pause");
+                //quitButton = new JMenuItem("Quit");
+                //gameStateButton = new JMenuItem("New Game");
+                //restartLevelButton = new JMenuItem("Restart Level");
                 restartLevelButton.setEnabled(false);
 
                 //menu.add(pauseStateButton);
@@ -35,19 +36,32 @@ public class MenuPanel {
                 //menu.add(restartLevelButton);
                 //menuBar.add(menu);
 
-                String[] buttonNames = new String[4];
+                String[] buttonNames = new String[2];
                 buttonNames[0] = "Pause";
                 buttonNames[1] = "Quit";
 
+                String[] buttonNames2 = new String[2];
+                buttonNames2[0] = "About";
+                buttonNames2[1] = "Help";
+
                 createMenu(buttonNames, "MainMenu");
+                createMenu(buttonNames2, "Info");
 
                 menuPanel.add(menuBar);
 
 
         }
 
-        public void createMenu(String[] inString, String menuName){
-                menuBar.add((new Menu(inString, menuName).getMenu()));
+        public void setMenuListener(int index){
+
+        }
+
+
+
+        public void createMenu(String[] inString, String menuName, ActionListener menuListener){
+                Menu newMenu = new Menu(inString, menuName);
+                newMenu.setButtonAction(menuListener);
+                menuBar.add(newMenu.getMenu());
         }
 
         public void setMenuVisibility(boolean visible) {
