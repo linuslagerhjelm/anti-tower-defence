@@ -8,7 +8,6 @@ import java.awt.*;
  */
 public class MenuPanel {
 
-        private JMenu menu;
         private JMenuBar menuBar = new JMenuBar();
         private JPanel menuPanel;
         private JMenuItem pauseStateButton;
@@ -19,29 +18,39 @@ public class MenuPanel {
 
         public MenuPanel(int width, int height, String menuName) {
 
-                menu = new JMenu(menuName);
+                //JMenu menu = new JMenu(menuName);
+
                 menuPanel = new JPanel();
+                menuPanel.setSize(width, height);
+                menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
                 pauseStateButton = new JMenuItem("Pause");
                 quitButton = new JMenuItem("Quit");
                 gameStateButton = new JMenuItem("New Game");
                 restartLevelButton = new JMenuItem("Restart Level");
                 restartLevelButton.setEnabled(false);
-                menuPanel.setSize(width, height);
-                menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-                menu.add(pauseStateButton);
-                menu.add(quitButton);
-                menu.add(gameStateButton);
-                menu.add(restartLevelButton);
+                //menu.add(pauseStateButton);
+                //menu.add(quitButton);
+                //menu.add(gameStateButton);
+                //menu.add(restartLevelButton);
+                //menuBar.add(menu);
 
-                menuBar.add(menu);
+                String[] buttonNames = new String[4];
+                buttonNames[0] = "Pause";
+                buttonNames[1] = "Quit";
+
+                createMenu(buttonNames, "MainMenu");
+
                 menuPanel.add(menuBar);
 
 
         }
 
-        public void setMenuVisibility(boolean visible) {
+        public void createMenu(String[] inString, String menuName){
+                menuBar.add((new Menu(inString, menuName).getMenu()));
+        }
 
+        public void setMenuVisibility(boolean visible) {
                 menuBar.setVisible(visible);
         }
 
@@ -66,12 +75,11 @@ public class MenuPanel {
         }
 
         public void setRestartLevelButton(boolean enabled) {
-
                 restartLevelButton.setEnabled(enabled);
-
         }
 
         public JPanel returnPanel() {
                 return menuPanel;
         }
+
 }
