@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by c15aen on 2016-11-23.
@@ -26,6 +27,7 @@ public class MenuPanel {
                 restartLevelButton = new JMenuItem("Restart Level");
                 restartLevelButton.setEnabled(false);
                 menuPanel.setSize(width, height);
+                menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
                 menu.add(pauseStateButton);
                 menu.add(quitButton);

@@ -9,27 +9,35 @@ import java.awt.*;
  */
 public class TroopMakerPanel {
 
-        JButton spawnTroop;
-        JButton nextTroop;
-        JButton prevTroop;
+        private JButton spawnTroop;
+        private JButton nextTroop;
+        private JButton prevTroop;
 
-        JTextArea troopInfroArea;
-        JPanel troopMakerPanel = new JPanel();
+        private JTextArea troopInfroArea;
+        private JPanel troopMakerPanel = new JPanel();
 
         public TroopMakerPanel(int width, int height, String menuName) {
 
                 ImageIcon troopIcon = new ImageIcon("/home/c15/c15aen/Downloads/Java/anti-tower-defence/AntiTowerIntelij/src/troopIcon.png");
                 JLabel label = new JLabel();
+                spawnTroop = new JButton();
+                nextTroop = new JButton();
+                prevTroop = new JButton();
+
                 label.setBounds(0, 0, width, height);
                 label.setIcon(troopIcon);
 
                 troopMakerPanel.setBorder(BorderFactory.createTitledBorder("Fiskaktewbg"));
                 troopMakerPanel.setMinimumSize(new Dimension(500,500));
-                troopMakerPanel.setLayout(new BorderLayout());
-                troopMakerPanel.add(label,BorderLayout.CENTER);
+                troopMakerPanel.setLayout(new GridLayout());
+                troopMakerPanel.add(label);
+                troopMakerPanel.add(spawnTroop, BorderLayout.EAST);
+                troopMakerPanel.add(nextTroop, BorderLayout.SOUTH);
+                troopMakerPanel.add(prevTroop, BorderLayout.NORTH);
         }
 
         public JPanel returnPanel(){
+
                 return troopMakerPanel;
         }
 }
