@@ -1,9 +1,13 @@
 package view; /**
- * Created by c15aen on 2016-11-03.
+ * Created by c15aen on 2016-11-03. teset seteste
  */
+
+import control.MenuListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
@@ -15,98 +19,56 @@ public class MainWindow {
         private JButton runTestButton;
         private JButton clearButton;
         private JTextField textField;
+        private ActionListener gameMenuListener = e -> System.out.println("Game menu button has been pressed.\n");
+        private MenuListener infoMenuListener = new MenuListener();
 
+        private MenuPanel menuPanel;
+        private TroopMakerPanel troopMakerPanel;
 
-        //Should only be called on EDT
         public MainWindow(String title, int width, int height) {
                 frame = new JFrame(title);
                 frame.setLayout(new BorderLayout());
                 frame.setMinimumSize(new Dimension(width,height));
+                frame.setMaximumSize(new Dimension(width,height));
+                frame.setPreferredSize(new Dimension(width, height));
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                MenuPanel menuPanel = new MenuPanel(50,50,"Huvudmeny");
-                TroopMakerPanel troopMakerPanel = new TroopMakerPanel(12,21,"Fiskar");
+
+                troopMakerPanel = new TroopMakerPanel(12,21);
+                menuPanel = new MenuPanel(50,50,"Menu bar");
+
+                setupGameMenu();
+                setupInfoMenu();
 
                 // Build panels
                 JPanel upperPanel = menuPanel.returnPanel();
-                //JPanel lowerPanel = infoPanel.returnPanel();
-                //JPanel middlePanel = playFieldPanel.returPanel();
-                JPanel rightPanel = troopMakerPanel.returnPanel();
-
+                JPanel rightPanel = troopMakerPanel.getJPanel();
 
                 //Add panels to the frame
                 frame.add(upperPanel, BorderLayout.NORTH);
-                //frame.add(middlePanel, BorderLayout.CENTER);
-                //frame.add(lowerPanel, BorderLayout.SOUTH);
                 frame.add(rightPanel, BorderLayout.EAST);
 
                 frame.pack();
 
         }
 
-        //Should only be called on EDT
+        private void setupGameMenu(){
+                String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
+                menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
+        }
+
+        private void setupInfoMenu(){
+                String[] infoButtonNames = new String[2];
+                infoButtonNames[0] = "About";
+                infoButtonNames[1] = "Help";
+
+                menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
+        }
 
         /**
          * Sets the GUI to be visible.
          */
-        public void show() {
-
+        public void setVisible() {
                 frame.setVisible(true);
         }
-
-        /**
-         *
-         * @return A panel with flow layout and a "clear" button.
-         *//*
-
-        private JPanel buildLowerPanel() {
-                JPanel lowerPanel = new JPanel();
-                lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-                clearButton = new JButton("Clear");
-                lowerPanel.add(clearButton);
-
-
-                return lowerPanel;
-        }
-
-        *//**
-         *
-         * @return a panel containing a titled border, a text area and two buttonlisteners.
-         *//*
-
-        private JPanel buildMiddlePanel() {
-                JTextArea textArea;
-                JPanel middlePanel = new JPanel();
-                middlePanel.setBorder(BorderFactory.createTitledBorder("Result"));
-                middlePanel.setLayout(new BorderLayout());
-                textArea = new JTextArea(25, 70);
-
-                runTestButton.addActionListener(new ButtonListener(textField, textArea));
-                clearButton.addActionListener(new ButtonListener(textField, textArea));
-
-                textArea.setEditable(false);
-                middlePanel.add(textArea);
-
-                return middlePanel;
-        }
-
-        *//**
-         *
-         * @return a panel with flow layout containing a "run tests" button.
-         *//*
-
-        private JPanel buildUpperPanel() {
-                JPanel upperPanel = new JPanel();
-                upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-                textField = new JTextField(35);
-                upperPanel.add(textField, BorderLayout.CENTER);
-
-                runTestButton = new JButton("Run tests");
-                upperPanel.add(runTestButton);
-
-                return upperPanel;
-        }
-*/
 }

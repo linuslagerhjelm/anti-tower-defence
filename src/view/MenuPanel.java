@@ -2,77 +2,49 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
- * Created by c15aen on 2016-11-23.
+ * Created by c15aen on 2016-11-23. inte längre default
  */
 public class MenuPanel {
 
-        private JMenu menu;
         private JMenuBar menuBar = new JMenuBar();
         private JPanel menuPanel;
-        private JMenuItem pauseStateButton;
-        private JMenuItem quitButton;
-        private JMenuItem gameStateButton;
-        private JMenuItem restartLevelButton;
-
+        private ArrayList<Menu> menus = new ArrayList<>();
 
         public MenuPanel(int width, int height, String menuName) {
 
-                menu = new JMenu(menuName);
                 menuPanel = new JPanel();
-                pauseStateButton = new JMenuItem("Pause");
-                quitButton = new JMenuItem("Quit");
-                gameStateButton = new JMenuItem("New Game");
-                restartLevelButton = new JMenuItem("Restart Level");
-                restartLevelButton.setEnabled(false);
                 menuPanel.setSize(width, height);
                 menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-                menu.add(pauseStateButton);
-                menu.add(quitButton);
-                menu.add(gameStateButton);
-                menu.add(restartLevelButton);
-
-                menuBar.add(menu);
                 menuPanel.add(menuBar);
 
-
         }
-        public void setMenuVisibility(boolean visible) {
 
+
+        public void createMenu(String[] inString, String menuName, ActionListener al){
+                Menu newMenu = new Menu(inString, menuName, al);
+                menuBar.add(newMenu.getJMenu());
+                menus.add(newMenu);
+        }
+
+        public void changeButtonName(String menuName, int id, String nameTo) {
+                for(int i = 0; i < menus.size(); i++) {
+                        if(menus.get(i).getJMenu().getText().equals(menuName)) {
+                                menus.get(i).changeButtonName(id, nameTo);
+                        }
+                }
+        }
+
+        public void setVisibility(boolean visible) {
                 menuBar.setVisible(visible);
         }
 
-        public void changeStatePauseButton() {
-
-                if(pauseStateButton.getText().equals("Pause")) {
-                        pauseStateButton.setText("Resume");
-                }
-                else {
-                        pauseStateButton.setText("Pause");
-                }
-
-        }
-
-        public void changeGameStateButton() {
-
-                if(gameStateButton.getText().equals("New Game")) {
-                        gameStateButton.setText("Restart Game");
-                }
-                else {
-                        gameStateButton.setText("New Game");
-                }
-
-        }
-
-        public void setRestartLevelButton(boolean enabled) {
-
-                restartLevelButton.setEnabled(enabled);
-
-        }
 
         public JPanel returnPanel() {
                 return menuPanel;
         }
+
 }
