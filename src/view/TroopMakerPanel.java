@@ -5,36 +5,49 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by c15aen on 2016-11-23.
+ * Author: Andreas, Arvid
+ * File: TroopMakerPanel
+ * Created: 16-11-23
+ * Description: A panel object to create a TroopMaker JPanel for a frame.
  */
 public class TroopMakerPanel {
 
+        //Buttons in the TroopMaker panel.
         private JButton spawnTroop;
         private JButton nextTroop;
         private JButton prevTroop;
-        private final int DEFAULT_IMAGE_INDEX = 0;
 
-        private JLabel label;
-        private JTextArea troopInfroArea;
-        private JPanel troopMakerPanel = new JPanel();
+        //Sets the default image index to 0.
+        private final int DEFAULT_IMAGE_INDEX = 0;
+        //List of troopImages.
         private ArrayList<ImageIcon> troopIcons = new ArrayList<>();
 
-        public TroopMakerPanel(int width, int height) {
+        private JLabel label;
+        private JPanel troopMakerPanel = new JPanel();
+
+        public TroopMakerPanel() {
                 label = new JLabel();
 
-                //DefaultImage
+                //Load DefaultImage
                 ImageIcon troopIcon = new ImageIcon("./res/images/soldier.jpg");
-                troopIcons.add(DEFAULT_IMAGE_INDEX,troopIcon);
 
-                label.setBounds(0, 0, width, height);
-
+                //Add the default image to the icon list and sets the current image to the default image.
+                addTroopImage(DEFAULT_IMAGE_INDEX,troopIcon);
                 setTroopImage(DEFAULT_IMAGE_INDEX);
+
+                //Setups the buttons.
                 buttonSetup();
+                //Setups the panel.
                 panelSetup();
 
+                //Adds the image frame.
                 troopMakerPanel.add(label, BorderLayout.NORTH);
         }
 
+
+        /**
+         * Setups the buttons needed and configures their sizes.
+         */
         private void buttonSetup(){
                 Dimension buttonDimension = new Dimension(70,30);
 
@@ -50,23 +63,40 @@ public class TroopMakerPanel {
                 prevTroop.setMaximumSize(buttonDimension);
         }
 
+
+        /**
+         * Setups the panel and adds all the button panels
+         * to the Troop Maker Panel.
+         */
         private void panelSetup(){
+                JPanel southPanel = new JPanel();
+                southPanel.setPreferredSize(new Dimension(25,320));
 
                 troopMakerPanel.setBorder(BorderFactory.createTitledBorder("Unit Maker"));
                 troopMakerPanel.setMinimumSize(new Dimension(50,50));
                 troopMakerPanel.setLayout(new BorderLayout());
+
+                //Adds all components.
                 troopMakerPanel.add(spawnTroop, BorderLayout.CENTER);
                 troopMakerPanel.add(nextTroop, BorderLayout.EAST);
                 troopMakerPanel.add(prevTroop, BorderLayout.WEST);
-                JPanel southPanel = new JPanel();
-                southPanel.setPreferredSize(new Dimension(25,320));
                 troopMakerPanel.add(southPanel , BorderLayout.SOUTH);
         }
 
+        /**
+         * Returns a JPanel of the TroopMaker panel.
+         * @return JPanel, returns a JPanel of the TroopMakerPanel.
+         */
         public JPanel getJPanel(){
                 return troopMakerPanel;
         }
 
+
+        /**
+         * Sets the current viewing troop image to the image from the
+         * image list at the given index.
+         * @param index:int, index at the location of the wanted image.
+         */
         public void setTroopImage(int index){
                 try {
                         label.setIcon(troopIcons.get(index));
@@ -75,6 +105,11 @@ public class TroopMakerPanel {
                 }
         }
 
+        /**
+         * Adds the given image to the Troop Image icon list at the given index.
+         * @param index:int, index to store the given image.
+         * @param image:ImageIcon, the image to be stored at the given index.
+         */
         public void addTroopImage(int index, ImageIcon image){
                 try {
                         troopIcons.add(index,image);
@@ -83,8 +118,14 @@ public class TroopMakerPanel {
                 }
         }
 
+        //TODO: Add me ?
         public void getTroopImageList(){
 
+        }
+
+        //TODO: Am I needed?
+        public void clearImageList(){
+                troopIcons.clear();
         }
 }
 
