@@ -16,6 +16,8 @@ public class DatabaseConfigTest {
     private final String ADDRESS = "jdbc:mysql://127.0.0.1:8889";
     private final String USERNAME = "root";
     private final String PASSWORD = "root";
+    private final String DB_NAME = "apjava";
+    private final Integer TIMEOUT = 2;
 
 
     @Test
@@ -40,5 +42,11 @@ public class DatabaseConfigTest {
     public void testGetPassword() throws Exception {
         DatabaseConfig dbConf = new DatabaseConfig(PATH);
         assertEquals(dbConf.getPassword(), PASSWORD);
+    }
+
+    @Test
+    public void testGetTimeout() throws Exception {
+        DatabaseConfig dbConf = new DatabaseConfig(PATH);
+        assertEquals(dbConf.getTimeOut(), TIMEOUT);
     }
 }

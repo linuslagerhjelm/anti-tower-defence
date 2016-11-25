@@ -23,7 +23,7 @@
     <!-- Describes a node which includes references to other nodes-->
     <xsd:complexType name="Node">
         <xsd:sequence>
-            <xsd:element name="Successor" maxOccurs="unbounded" minOccurs="0"/>
+            <xsd:element name="Successor" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:int"/>
     </xsd:complexType>
@@ -41,7 +41,7 @@
         <xsd:attribute name="count" type="PositiveInt" />
     </xsd:complexType>
 
-    <!-- Describes  -->
+    <!-- Describes what SpecialPad class to load and in which area -->
     <xsd:complexType name="Pad">
         <xsd:sequence>
             <xsd:element name="rectangle" type="Rectangle" minOccurs="1" maxOccurs="1" />
@@ -49,28 +49,28 @@
         <xsd:attribute name="className" type="xsd:string" />
     </xsd:complexType>
 
-    <!-- Describes  -->
+    <!-- Describes zones where towers are allowed to be placed-->
     <xsd:complexType name="TowerZones">
         <xsd:sequence>
             <xsd:element name="rectangle" type="Rectangle" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
-    <!-- Describes  -->
+    <!-- Describes how many and of which types of towers to be placed -->
     <xsd:complexType name="Towers">
         <xsd:sequence>
             <xsd:element name="tower" type="Tower" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
-    <!-- Describes  -->
+    <!-- Describes a number of pads to use -->
     <xsd:complexType name="Pads">
         <xsd:sequence>
             <xsd:element name="pad" type="Pad" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
-    <!-- Describes  -->
+    <!-- Describes the structure of the xml file -->
     <xsd:element name="level">
         <xsd:complexType>
             <xsd:all>

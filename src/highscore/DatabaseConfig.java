@@ -20,6 +20,8 @@ public final class DatabaseConfig {
     private String address;
     private String username;
     private String password;
+    private String timeOut;
+    private String dbName;
 
     /**
      * Creates a new DatabaseConfig file from the data within the file
@@ -66,6 +68,8 @@ public final class DatabaseConfig {
         address = "jdbc:mysql://" + map.get("address");
         username = map.get("username");
         password = map.get("password");
+        timeOut = map.get("timeout");
+        dbName = map.get("dbname");
     }
 
     /**
@@ -93,5 +97,13 @@ public final class DatabaseConfig {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getName() {
+        return dbName;
+    }
+
+    public Integer getTimeOut() {
+        return timeOut != null ? Integer.parseInt(timeOut) : null;
     }
 }

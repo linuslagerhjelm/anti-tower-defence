@@ -6,7 +6,7 @@ import java.util.Date;
  * Author: Linus Lagerhjelm
  * File: HighScore
  * Created: 16-11-23
- * Description: Represents a high score containing relevant meta data. Immutable
+ * Description: Represents a high score including relevant meta data. Immutable
  */
 public final class HighScore {
     private final Score score;

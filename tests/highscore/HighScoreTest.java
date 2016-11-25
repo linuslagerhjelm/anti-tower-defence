@@ -39,4 +39,10 @@ public class HighScoreTest {
         HighScore hs = new HighScore(score, date, ID);
         assertEquals(hs.getID(), ID);
     }
+
+    @Test
+    public void testEquals() {
+        assertEquals(new HighScore(score, date, ID),
+                new HighScore(score, date, ID));
+    }
 }
