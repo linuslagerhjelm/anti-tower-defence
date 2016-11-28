@@ -2,6 +2,7 @@ package view; /**
  * Created by c15aen on 2016-11-03. teset seteste
  */
 
+import control.GameMenuListener;
 import control.MenuListener;
 
 import javax.swing.*;
@@ -16,12 +17,6 @@ public class MainWindow {
 
         private JFrame frame;
 
-        private JButton runTestButton;
-        private JButton clearButton;
-        private JTextField textField;
-        private ActionListener gameMenuListener = e -> System.out.println("Game menu button has been pressed.\n");
-        private MenuListener infoMenuListener = new MenuListener();
-
         private MenuPanel menuPanel;
         private TroopMakerPanel troopMakerPanel;
 
@@ -33,14 +28,13 @@ public class MainWindow {
                 frame.setPreferredSize(new Dimension(width, height));
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
-                troopMakerPanel = new TroopMakerPanel(12,21);
+                troopMakerPanel = new TroopMakerPanel();
                 menuPanel = new MenuPanel(50,50,"Menu bar");
 
                 setupGameMenu();
                 setupInfoMenu();
 
-                // Build panels
+                //Build panels
                 JPanel upperPanel = menuPanel.returnPanel();
                 JPanel rightPanel = troopMakerPanel.getJPanel();
 
@@ -54,14 +48,13 @@ public class MainWindow {
 
         private void setupGameMenu(){
                 String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
+                GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
                 menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
         }
 
         private void setupInfoMenu(){
-                String[] infoButtonNames = new String[2];
-                infoButtonNames[0] = "About";
-                infoButtonNames[1] = "Help";
-
+                String[] infoButtonNames = {"About","Help"};
+                MenuListener infoMenuListener = new MenuListener(infoButtonNames);
                 menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
         }
 

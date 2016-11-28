@@ -24,10 +24,17 @@ public class MenuPanel {
         }
 
 
-        public void createMenu(String[] inString, String menuName, ActionListener al){
+
+        public void createMenu(String[] inString, String menuName, ActionListener al) {
                 Menu newMenu = new Menu(inString, menuName, al);
                 menuBar.add(newMenu.getJMenu());
                 menus.add(newMenu);
+                configButtonCommand(inString,newMenu);
+        }
+
+        private void configButtonCommand(String[] inString, Menu inMenu) {
+                for (int i = 0 ; i < inString.length;i++)
+                        inMenu.setActionCommand(i,inString[i]);
         }
 
         public void changeButtonName(String menuName, int id, String nameTo) {

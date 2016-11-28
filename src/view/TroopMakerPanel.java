@@ -44,7 +44,6 @@ public class TroopMakerPanel {
                 troopMakerPanel.add(label, BorderLayout.NORTH);
         }
 
-
         /**
          * Setups the buttons needed and configures their sizes.
          */
@@ -62,7 +61,6 @@ public class TroopMakerPanel {
                 nextTroop.setMaximumSize(buttonDimension);
                 prevTroop.setMaximumSize(buttonDimension);
         }
-
 
         /**
          * Setups the panel and adds all the button panels

@@ -34,6 +34,11 @@ public class Menu {
                         System.out.println("INDEXET FINNS INTE i enable");
                 }
         }
+
+        public void setActionCommand(int index, String command) {
+                buttons.get(index).setActionCommand(command);
+        }
+
         public void disableButton(int index){
                 try {
                         buttons.get(index).setEnabled(false);
