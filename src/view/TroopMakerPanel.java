@@ -25,7 +25,7 @@ public class TroopMakerPanel {
         private JLabel label;
         private JPanel troopMakerPanel = new JPanel();
 
-        public TroopMakerPanel() {
+        public TroopMakerPanel(int i1, int i2) {
                 label = new JLabel();
 
                 //Load DefaultImage
