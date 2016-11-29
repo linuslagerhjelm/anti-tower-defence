@@ -9,10 +9,13 @@ import java.awt.event.ActionListener;
  * Actionlisiner that listens to the game menu buttons being pressed.
  *
  */
+
+
 public class MenuListener implements ActionListener {
 
-    public MenuListener(){
-
+    private String[] buttonNames;
+    public MenuListener(String[] inButtonNames){
+        buttonNames = inButtonNames;
     }
 
     public void getActions(){
@@ -21,8 +24,12 @@ public class MenuListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        System.out.print("\n");
-
+        if (e.getActionCommand() == buttonNames[0]){
+            System.out.print("Button detected: " + e.getActionCommand() + " \n");
+        }else if (e.getActionCommand() == buttonNames[1]){
+            System.out.print("Button detected: " + e.getActionCommand() + " \n");
+        }else{
+            System.out.print("Did not find that button\n");
+        }
     }
 }
