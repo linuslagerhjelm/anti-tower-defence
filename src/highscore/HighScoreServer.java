@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Description: A singleton that is responsible for HighScore synchronization
  * with the high score database.
  */
-public final class HighScoreServer {
+public final class HighScoreServer implements Runnable {
     private static HighScoreServer instance = null;
     private AtomicBoolean initialized = new AtomicBoolean(false);
 
@@ -324,5 +324,10 @@ public final class HighScoreServer {
 
         PreparedStatement statement = connection.prepareStatement(QUERY);
         return statement.executeQuery();
+    }
+
+    @Override
+    public void run() {
+
     }
 }
