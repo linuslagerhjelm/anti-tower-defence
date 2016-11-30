@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * Author: Linus Lagerhjelm
  * File: LevelReaderTest
  * Created: 16-11-28
- * Description: Test cases for the LevelReader class
+ * Description: Test cases for the LevelReader class.
  */
 public class LevelReaderTest {
     private final String FILE_NAME = "level.xml";
