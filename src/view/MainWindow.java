@@ -28,7 +28,7 @@ public class MainWindow {
                 frame.setPreferredSize(new Dimension(width, height));
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                troopMakerPanel = new TroopMakerPanel();
+                troopMakerPanel = new TroopMakerPanel(12, 21);
                 menuPanel = new MenuPanel(50,50,"Menu bar");
 
                 setupGameMenu();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<levels>
+<levels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="level_schema.xsd">
     <level name="Level1" width="800" height="600">
         <path>
             <node id="1" x="8" y="4" start="start">
