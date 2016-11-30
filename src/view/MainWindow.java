@@ -17,7 +17,7 @@ public class MainWindow {
 
         private MenuPanel menuPanel;
         private TroopMakerPanel troopMakerPanel;
-        private GameScreenPanel2 gameScreenPanel;
+        private GameScreenPanel gameScreenPanel;
         private InfoPanel infoPanel;
 
         public MainWindow(String title, int width, int height) {
@@ -31,7 +31,7 @@ public class MainWindow {
                 troopMakerPanel = new TroopMakerPanel();
                 menuPanel = new MenuPanel(50,50);
                 infoPanel = new InfoPanel();
-                gameScreenPanel = new GameScreenPanel2();
+                gameScreenPanel = new GameScreenPanel();
 
                 setupGameMenu();
                 setupInfoMenu();
