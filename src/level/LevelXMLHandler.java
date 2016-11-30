@@ -76,6 +76,9 @@ public class LevelXMLHandler extends DefaultHandler {
             if (attributes.getValue("start") != null) {
                 tmpNode.setStart();
             }
+            if (attributes.getValue("goal") != null) {
+                tmpNode.setGoal();
+            }
 
         } else if(qName.equalsIgnoreCase("path")) {
             path = new Path();
