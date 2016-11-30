@@ -10,12 +10,12 @@ import java.io.File;
 /**
  * Created by c15aen on 2016-11-23. not default layout
  */
-public class GameScreenPanel2 {
+public class GameScreenPanel {
 
     private JPanel gameScreen;
     private BufferedImage troopImage = null;
 
-    public GameScreenPanel2() {
+    public GameScreenPanel() {
 
 	createImage();
 
