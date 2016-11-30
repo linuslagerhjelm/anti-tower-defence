@@ -7,8 +7,6 @@ import control.MenuListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
@@ -19,6 +17,7 @@ public class MainWindow {
 
         private MenuPanel menuPanel;
         private TroopMakerPanel troopMakerPanel;
+        private GameScreenPanel2 gameScreenPanel;
         private InfoPanel infoPanel;
 
         public MainWindow(String title, int width, int height) {
@@ -32,6 +31,7 @@ public class MainWindow {
                 troopMakerPanel = new TroopMakerPanel();
                 menuPanel = new MenuPanel(50,50);
                 infoPanel = new InfoPanel();
+                gameScreenPanel = new GameScreenPanel2();
 
                 setupGameMenu();
                 setupInfoMenu();
@@ -40,11 +40,13 @@ public class MainWindow {
                 JPanel upperPanel = menuPanel.returnPanel();
                 JPanel rightPanel = troopMakerPanel.getJPanel();
                 JPanel lowerPanel = infoPanel.getPanel();
+                JPanel centerPanel = gameScreenPanel.getJPanel();
 
                 //Add panels to the frame
                 frame.add(upperPanel, BorderLayout.NORTH);
                 frame.add(rightPanel, BorderLayout.EAST);
                 frame.add(lowerPanel, BorderLayout.SOUTH);
+                frame.add(centerPanel, BorderLayout.CENTER);
 
                 frame.pack();
 

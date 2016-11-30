@@ -16,6 +16,7 @@ public class GameMenuListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         //New Game pressed.
         if (e.getActionCommand() == buttonNames[0]){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
@@ -30,7 +31,6 @@ public class GameMenuListener implements ActionListener {
         //Pause pressed.
         else if (e.getActionCommand() == buttonNames[2]){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
-
         }
 
         //Quit pressed.
