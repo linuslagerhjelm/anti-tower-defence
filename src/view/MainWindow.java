@@ -19,6 +19,7 @@ public class MainWindow {
 
         private MenuPanel menuPanel;
         private TroopMakerPanel troopMakerPanel;
+        private InfoPanel infoPanel;
 
         public MainWindow(String title, int width, int height) {
                 frame = new JFrame(title);
@@ -28,8 +29,9 @@ public class MainWindow {
                 frame.setPreferredSize(new Dimension(width, height));
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                troopMakerPanel = new TroopMakerPanel(12, 21);
-                menuPanel = new MenuPanel(50,50,"Menu bar");
+                troopMakerPanel = new TroopMakerPanel();
+                menuPanel = new MenuPanel(50,50);
+                infoPanel = new InfoPanel();
 
                 setupGameMenu();
                 setupInfoMenu();
@@ -37,10 +39,12 @@ public class MainWindow {
                 //Build panels
                 JPanel upperPanel = menuPanel.returnPanel();
                 JPanel rightPanel = troopMakerPanel.getJPanel();
+                JPanel lowerPanel = infoPanel.getPanel();
 
                 //Add panels to the frame
                 frame.add(upperPanel, BorderLayout.NORTH);
                 frame.add(rightPanel, BorderLayout.EAST);
+                frame.add(lowerPanel, BorderLayout.SOUTH);
 
                 frame.pack();
 
