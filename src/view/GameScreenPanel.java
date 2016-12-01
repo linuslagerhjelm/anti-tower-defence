@@ -50,7 +50,7 @@ public class GameScreenPanel {
 
     public void createImage() {
         try {
-            troopImage = ImageIO.read(new File("./res/images/troop.jpg"));
+            troopImage = ImageIO.read(new File("./res/images/troops/troop.jpg"));
         } catch (Exception e) {
             System.out.print("Exception");
         }

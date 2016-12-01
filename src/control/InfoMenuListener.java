@@ -1,5 +1,7 @@
 package control;
 
+import view.PopUpMenu;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +11,7 @@ import java.awt.event.ActionListener;
 public class InfoMenuListener implements ActionListener {
 
         private String[] buttonNames;
+
         public InfoMenuListener(String[] inButtonNames){
                 buttonNames = inButtonNames;
         }
@@ -20,9 +23,9 @@ public class InfoMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand() == buttonNames[0]){
-                        System.out.print("Button detected: " + e.getActionCommand() + " \n");
+                        new PopUpMenu("About","This game is a Anti tower defence game.\n Made by masters of programming at umeå university\n The End\n",300,300);
                 }else if (e.getActionCommand() == buttonNames[1]){
-                        System.out.print("Button detected: " + e.getActionCommand() + " \n");
+                        new PopUpMenu("Help","Use cheat code: 1337\n It will give you great power\n The End\n",300,300);
                 }else{
                         System.out.print("Did not find that button\n");
                 }

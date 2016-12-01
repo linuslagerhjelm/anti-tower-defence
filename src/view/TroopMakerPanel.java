@@ -1,7 +1,6 @@
 package view;
 
 import control.TroopMakerListener;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,13 +32,19 @@ public class TroopMakerPanel {
                 label = new JLabel();
 
                 //Load DefaultImage
-                ImageIcon soldierImage = new ImageIcon("./res/images/soldier.jpg");
-                ImageIcon knightImage = new ImageIcon("./res/images/knight.jpeg");
+                ImageIcon soldierImage = new ImageIcon("./res/images/troops/soldier.jpg");
+                ImageIcon knightImage = new ImageIcon("./res/images/troops/knight.jpeg");
+                ImageIcon soldier3 = new ImageIcon("./res/images/troops/3dSoldier.jpg");
+                ImageIcon soldier4 = new ImageIcon("./res/images/troops/spearSoldier.jpg");
+
 
                 //Add the default image to the icon list and sets the current image to the default image.
                 addTroopImage(0,soldierImage);
                 addTroopImage(1,knightImage);
-                setTroopImage(currentImage);
+                addTroopImage(2,soldier3);
+                addTroopImage(3,soldier4);
+
+                setTroopImage(0);
 
                 //Setups the buttons.
                 buttonSetup();
@@ -51,15 +56,14 @@ public class TroopMakerPanel {
         }
 
         public void loadImages(String[] imagesPath){
-                for(int i = 0; i < imagesPath.length; i ++) {
+                for(int i = 1; i < imagesPath.length; i ++) {
                         try{
-                                addTroopImage(i,new ImageIcon(imagesPath[1]));
-                        }catch (NullPointerException e){
+                                addTroopImage(i,new ImageIcon(".res/images/troops/" + imagesPath[i]));
+                        }catch (Exception e){
                                 e.printStackTrace();
+                                System.out.print("Error, no thing");
                         }
-
                 }
-
         }
 
         /**
@@ -133,7 +137,7 @@ public class TroopMakerPanel {
         public void addTroopImage(int index, ImageIcon image){
                 try {
                         troopIcons.add(index,image);
-                } catch (NullPointerException e){
+                } catch (Exception p){
                         System.out.print("Error, index out of bounds");
                 }
         }

@@ -3,7 +3,7 @@ package view; /**
  */
 
 import control.GameMenuListener;
-import control.MenuListener;
+import control.InfoMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,9 +66,18 @@ public class MainWindow {
         infoPanel.addMoney(20);
         infoPanel.displayInfo();
 
-        //troopMakerPanel.loadImages();
+        //loadImages();
 
         frame.pack();
+    }
+
+    private void loadImages(){
+            String[] troopIcons = {"soldier.jpg",
+                    "knight.jpeg",
+                    "3dSoldier.jpg",
+                    "spearSoldier.jpg"
+            };
+        troopMakerPanel.loadImages(troopIcons);
     }
 
     public void drawTroop(int x, int y){
@@ -89,17 +98,15 @@ public class MainWindow {
         return troopMakerPanel.getIconListSize();
     }
 
-
     private static void setupGameMenu(){
         String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
         GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
-
     }
 
     private static void setupInfoMenu(){
         String[] infoButtonNames = {"About","Help"};
-        MenuListener infoMenuListener = new MenuListener(infoButtonNames);
+        InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
     }
 
