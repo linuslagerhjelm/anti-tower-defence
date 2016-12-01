@@ -14,4 +14,5 @@ public interface Troupe extends Entity {
     void setPath(Path path);
     void setKilledListener(KilledListener listener);
     void receiveDamage(int damage);
+    Stats getStats();
 }

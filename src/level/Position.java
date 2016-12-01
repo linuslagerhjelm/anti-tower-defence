@@ -7,27 +7,27 @@ package level;
 
 public class Position {
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
-    public Position(int x, int y) {
+    public Position(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -38,15 +38,19 @@ public class Position {
 
         Position position = (Position) o;
 
-        if (x != position.x) return false;
-        return y == position.y;
+        if (Double.compare(position.x, x) != 0) return false;
+        return Double.compare(position.y, y) == 0;
 
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

@@ -15,34 +15,34 @@ public class PositionTest {
     @Test
     public void shouldGetXPosition() {
         Position pos = new Position(1, 2);
-        assertEquals(1, pos.getX());
+        assertEquals(1.0, pos.getX());
     }
 
     @Test
     public void shouldGetYPosition() {
         Position pos = new Position(1, 2);
-        assertEquals(2, pos.getY());
+        assertEquals(2.0, pos.getY());
     }
 
     @Test
     public void shouldSetXYInConstructor() {
         Position pos = new Position(1, 2);
-        assertEquals(1, pos.getX());
-        assertEquals(2, pos.getY());
+        assertEquals(1.0, pos.getX());
+        assertEquals(2.0, pos.getY());
     }
 
     @Test
     public void shouldSetXPosition() {
         Position pos = new Position(1, 2);
         pos.setX(3);
-        assertEquals(3, pos.getX());
+        assertEquals(3.0, pos.getX());
     }
 
     @Test
     public void shouldSetYPosition() {
         Position pos = new Position(1, 2);
         pos.setY(3);
-        assertEquals(3, pos.getY());
+        assertEquals(3.0, pos.getY());
     }
 
     @Test

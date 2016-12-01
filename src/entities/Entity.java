@@ -11,5 +11,6 @@ public interface Entity {
 
     void update(double dt);
     void interact();
+    void setPosition(Position position);
     Position getPosition();
 }
