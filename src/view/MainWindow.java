@@ -86,25 +86,26 @@ public class MainWindow {
         frame.repaint();
     }
 
-    public static void changeUnitIcon(int index){
+    public void changeUnitIcon(int index){
         troopMakerPanel.setTroopImage(index);
     }
 
-    public static int getTroopIcon_CurrentFrameIndex(){
+    public int getTroopIcon_CurrentFrameIndex(){
         return troopMakerPanel.getCurrentImage();
     }
 
-    public static int getTroopIcon_ListSize(){
+    public int getTroopIcon_ListSize(){
         return troopMakerPanel.getIconListSize();
     }
 
-    private static void setupGameMenu(){
+
+    private void setupGameMenu(){
         String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
         GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
     }
 
-    private static void setupInfoMenu(){
+    private void setupInfoMenu(){
         String[] infoButtonNames = {"About","Help"};
         InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
@@ -113,7 +114,7 @@ public class MainWindow {
     /**
      * Sets the GUI to be visible.
      */
-    public static void setVisible() {
+    public void setVisible() {
         frame.setVisible(true);
     }
 }

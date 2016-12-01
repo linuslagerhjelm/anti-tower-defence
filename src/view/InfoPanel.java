@@ -54,10 +54,12 @@ public class InfoPanel {
         }
 
         public void setScore(int newCurrentScore) {
+
                 currentScore = newCurrentScore;
         }
 
         public void addScore(int scoreToAdd) {
+
                 currentScore += scoreToAdd;
         }
 
@@ -72,18 +74,22 @@ public class InfoPanel {
         }
 
         public void incrementPassed() {
+
                 passed++;
         }
 
         public void setPassed(int newPassed) {
+
                 passed = newPassed;
         }
 
         public void setMoney(int newMoney) {
+
                 money = newMoney;
         }
 
         public void addMoney(int moneyToAdd) {
+
                 money+=moneyToAdd;
         }
 
