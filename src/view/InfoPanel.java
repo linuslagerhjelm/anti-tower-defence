@@ -1,23 +1,30 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 /**
- * Created by c15aen on 2016-11-23.
+ * Created by c15aen on 2016-11-23. INTE DEFAULT, SLUTA KLAGA!
  */
 public class InfoPanel {
 
         private JPanel infoPanel;
-        private JTextField highScore = new JTextField(10);
-        private JTextField currentScore = new JTextField(10);
-        private JTextField money = new JTextField(10);
-        private JTextField passed = new JTextField(10);
+
+        private JTextField highScoreField = new JTextField(10);
+        private JTextField currentScoreField = new JTextField("0",10);
+        private JTextField moneyField = new JTextField(10);
+        private JTextField passedField = new JTextField(10);
+
         private JLabel highScoreLabel = new JLabel("Highscore");
         private JLabel currentScoreLabel = new JLabel("Score");
         private JLabel moneyLabel = new JLabel("Money");
         private JLabel passedLabel = new JLabel("Passed");
+
+        private int requiredPasses = 10;
+        private int passed = 0;
+        private int currentScore = 0;
+        private int money = 0;
+        private int highScore = 0;
 
 
         public InfoPanel() {
@@ -27,16 +34,63 @@ public class InfoPanel {
 
                 infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
                 infoPanel.add(highScoreLabel);
-                infoPanel.add(highScore);
+                infoPanel.add(highScoreField);
                 infoPanel.add(currentScoreLabel);
-                infoPanel.add(currentScore);
+                infoPanel.add(currentScoreField);
                 infoPanel.add(moneyLabel);
-                infoPanel.add(money);
+                infoPanel.add(moneyField);
                 infoPanel.add(passedLabel);
-                infoPanel.add(passed);
+                infoPanel.add(passedField);
+
+                highScoreField.setEditable(false);
+                currentScoreField.setEditable(false);
+                moneyField.setEditable(false);
+                passedField.setEditable(false);
 
         }
         public JPanel getPanel() {
+
                 return infoPanel;
+        }
+
+        public void setScore(int newCurrentScore) {
+                currentScore = newCurrentScore;
+        }
+
+        public void addScore(int scoreToAdd) {
+                currentScore += scoreToAdd;
+        }
+
+        public void setHighScore(int newHighScore) {
+
+                highScore = newHighScore;
+        }
+
+        public void setRequiredPasses(int newRequiredPasses) {
+
+                requiredPasses = newRequiredPasses;
+        }
+
+        public void incrementPassed() {
+                passed++;
+        }
+
+        public void setPassed(int newPassed) {
+                passed = newPassed;
+        }
+
+        public void setMoney(int newMoney) {
+                money = newMoney;
+        }
+
+        public void addMoney(int moneyToAdd) {
+                money+=moneyToAdd;
+        }
+
+        public void displayInfo() {
+                highScoreField.setText(""+highScore);
+                currentScoreField.setText(""+currentScore);
+                moneyField.setText(""+money);
+                passedField.setText(passed+"/"+requiredPasses);
         }
 }

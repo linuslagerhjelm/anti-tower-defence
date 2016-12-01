@@ -13,7 +13,7 @@ import java.util.List;
  * Author: Linus Lagerhjelm
  * File: LevelXMLHandler
  * Created: 16-11-27
- * Description: Responsible for parsing XML - files into level objects
+ * Description: Responsible for parsing XML - files into game objects
  */
 public class LevelXMLHandler extends DefaultHandler {
     private List<Level> levels;
@@ -75,6 +75,9 @@ public class LevelXMLHandler extends DefaultHandler {
 
             if (attributes.getValue("start") != null) {
                 tmpNode.setStart();
+            }
+            if (attributes.getValue("goal") != null) {
+                tmpNode.setGoal();
             }
 
         } else if(qName.equalsIgnoreCase("path")) {

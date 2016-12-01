@@ -36,8 +36,8 @@ public final class HighScore {
     }
 
     /**
-     * Get the level of which this high score is set as a level ID
-     * @return level ID for the high score
+     * Get the game of which this high score is set as a game ID
+     * @return game ID for the high score
      */
     public int getID() {
         return ID;

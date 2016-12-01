@@ -48,6 +48,13 @@ public class MainWindow {
                 frame.add(lowerPanel, BorderLayout.SOUTH);
                 frame.add(centerPanel, BorderLayout.CENTER);
 
+                // Just tests!
+                infoPanel.setMoney(500);
+                infoPanel.setHighScore(1254363);
+                infoPanel.addMoney(20);
+                infoPanel.displayInfo();
+
+
                 frame.pack();
 
         }
@@ -56,6 +63,7 @@ public class MainWindow {
                 String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
                 GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
                 menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
+
         }
 
         private void setupInfoMenu(){

@@ -1,8 +1,4 @@
-package level;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package game;
 
 /**
  * Author: Linus Lagerhjelm
