@@ -59,9 +59,14 @@ public class HighScoreServerTest {
         }
     }
 
+    /*@Test
+    public void testTryConnection() {
+        assertTrue(hsServer.tryConnection());
+    }*/
+
     @Test
     public void testGetScoreSortingOrder() {
-        hsServer.getHighScores((result) -> {
+        hsServer.getHighScores(0, (result) -> {
             Iterator<HighScore> iter = result.iterator();
 
             if (iter.hasNext()) {

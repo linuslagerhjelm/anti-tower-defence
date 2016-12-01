@@ -117,7 +117,7 @@ public final class HighScoreServer implements Runnable {
      * into the underlying database and the cache will be cleared.
      * Upon failure, all items will be stored in cache for later retries.
      */
-    public synchronized void forceUpdate() {
+    public void forceUpdate() {
         msgQueue.add(this::postScores);
     }
 
@@ -126,7 +126,7 @@ public final class HighScoreServer implements Runnable {
      * the cache is cleared. On failure, the cache will persist.
      * @return true/false weather the call was successful or not
      */
-    private boolean postScores() {
+    private synchronized boolean postScores() {
         boolean success = true;
         Connection connection = getConnection();
 
@@ -180,7 +180,7 @@ public final class HighScoreServer implements Runnable {
      * @param limit max limit of return collection
      * @return max-sorted list of scores
      */
-    private List<HighScore> handleGetHighScores(int limit) {
+    private synchronized List<HighScore> handleGetHighScores(int limit) {
         Connection connection = getConnection();
         List<HighScore> result = null;
 
@@ -261,7 +261,7 @@ public final class HighScoreServer implements Runnable {
      * in this class. Will return null on failure
      * @return Physical connection to an external database
      */
-    private synchronized Connection getConnection() {
+    private Connection getConnection() {
         Connection connection;
         try {
             Class.forName(driver);
