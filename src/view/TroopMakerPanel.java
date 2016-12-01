@@ -1,5 +1,7 @@
 package view;
 
+import control.TroopMakerListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class TroopMakerPanel {
 
         //Sets the default image index to 0.
         private final int DEFAULT_IMAGE_INDEX = 0;
+        private int currentImage = 0;
+
         //List of troopImages.
         private ArrayList<ImageIcon> troopIcons = new ArrayList<>();
 
@@ -29,11 +33,13 @@ public class TroopMakerPanel {
                 label = new JLabel();
 
                 //Load DefaultImage
-                ImageIcon troopIcon = new ImageIcon("./res/images/soldier.jpg");
+                ImageIcon soldierImage = new ImageIcon("./res/images/soldier.jpg");
+                ImageIcon knightImage = new ImageIcon("./res/images/knight.jpeg");
 
                 //Add the default image to the icon list and sets the current image to the default image.
-                addTroopImage(DEFAULT_IMAGE_INDEX,troopIcon);
-                setTroopImage(DEFAULT_IMAGE_INDEX);
+                addTroopImage(0,soldierImage);
+                addTroopImage(1,knightImage);
+                setTroopImage(currentImage);
 
                 //Setups the buttons.
                 buttonSetup();
@@ -48,7 +54,7 @@ public class TroopMakerPanel {
          * Setups the buttons needed and configures their sizes.
          */
         private void buttonSetup(){
-                Dimension buttonDimension = new Dimension(70,30);
+                Dimension buttonDimension = new Dimension(70,200);
 
                 spawnTroop = new JButton("spawn");
                 nextTroop = new JButton("next");
@@ -60,6 +66,10 @@ public class TroopMakerPanel {
                 spawnTroop.setMaximumSize(buttonDimension);
                 nextTroop.setMaximumSize(buttonDimension);
                 prevTroop.setMaximumSize(buttonDimension);
+                prevTroop.setMinimumSize(buttonDimension);
+                prevTroop.addActionListener(new TroopMakerListener("prev"));
+                nextTroop.addActionListener(new TroopMakerListener("next"));
+                spawnTroop.addActionListener(new TroopMakerListener("spawn"));
         }
 
         /**
@@ -71,7 +81,7 @@ public class TroopMakerPanel {
                 southPanel.setPreferredSize(new Dimension(25,320));
 
                 troopMakerPanel.setBorder(BorderFactory.createTitledBorder("Unit Maker"));
-                troopMakerPanel.setMinimumSize(new Dimension(50,50));
+                troopMakerPanel.setMinimumSize(new Dimension(40,40));
                 troopMakerPanel.setLayout(new BorderLayout());
 
                 //Adds all components.
@@ -114,6 +124,10 @@ public class TroopMakerPanel {
                 } catch (NullPointerException e){
                         System.out.print("Error, index out of bounds");
                 }
+        }
+
+        public int getCurrentImage() {
+                return currentImage;
         }
 
         //TODO: Add me ?

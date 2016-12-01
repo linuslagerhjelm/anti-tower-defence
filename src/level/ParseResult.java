@@ -13,12 +13,15 @@ public interface ParseResult {
 
     /**
      * Event handler that will receive the result of parsing an XML-file.
-     * If everything were successful, levels will be a list of all the levels
-     * that were read from the file. If an error occurred while reading, levels
-     * will be null.
-     * @param levels list of parsed game objects
+     * Invoked with the result of the parsing if everything were successful.
+     * @param levels list of parsed level objects
      */
-    void receiveResult(List<Level> levels);
+    void onSuccess(List<Level> levels);
 
-
+    /**
+     * Error callback that will be invoked if the parser encountered an error.
+     * Invoked with the exception that were thrown
+     * @param e The exception encountered while parsing
+     */
+    void onError(Exception e);
 }

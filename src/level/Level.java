@@ -14,10 +14,10 @@ import java.util.List;
  * Description:
  */
 public class Level {
-    List<TowerZone> towerZones;
-    List<Tower> towers;
-    List<Pad> pads;
-    Path path;
+    private List<TowerZone> towerZones;
+    private List<Tower> towers;
+    private List<Pad> pads;
+    private Path path;
 
     public interface ChangeListener {
         void onChange();
@@ -52,5 +52,9 @@ public class Level {
 
     public List<TowerZone> getTowerZones() {
         return towerZones;
+    }
+
+    public Path getPath() {
+        return path;
     }
 }

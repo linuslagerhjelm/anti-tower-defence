@@ -7,8 +7,6 @@ import control.MenuListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
@@ -19,6 +17,8 @@ public class MainWindow {
 
         private MenuPanel menuPanel;
         private TroopMakerPanel troopMakerPanel;
+        private GameScreenPanel gameScreenPanel;
+        private InfoPanel infoPanel;
 
         public MainWindow(String title, int width, int height) {
                 frame = new JFrame(title);
@@ -29,7 +29,9 @@ public class MainWindow {
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 troopMakerPanel = new TroopMakerPanel();
-                menuPanel = new MenuPanel(50,50,"Menu bar");
+                menuPanel = new MenuPanel(50,50);
+                infoPanel = new InfoPanel();
+                gameScreenPanel = new GameScreenPanel();
 
                 setupGameMenu();
                 setupInfoMenu();
@@ -37,10 +39,21 @@ public class MainWindow {
                 //Build panels
                 JPanel upperPanel = menuPanel.returnPanel();
                 JPanel rightPanel = troopMakerPanel.getJPanel();
+                JPanel lowerPanel = infoPanel.getPanel();
+                JPanel centerPanel = gameScreenPanel.getJPanel();
 
                 //Add panels to the frame
                 frame.add(upperPanel, BorderLayout.NORTH);
                 frame.add(rightPanel, BorderLayout.EAST);
+                frame.add(lowerPanel, BorderLayout.SOUTH);
+                frame.add(centerPanel, BorderLayout.CENTER);
+
+                // Just tests!
+                infoPanel.setMoney(500);
+                infoPanel.setHighScore(1254363);
+                infoPanel.addMoney(20);
+                infoPanel.displayInfo();
+
 
                 frame.pack();
 
@@ -50,6 +63,7 @@ public class MainWindow {
                 String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
                 GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
                 menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
+
         }
 
         private void setupInfoMenu(){

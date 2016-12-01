@@ -76,6 +76,9 @@ public class LevelXMLHandler extends DefaultHandler {
             if (attributes.getValue("start") != null) {
                 tmpNode.setStart();
             }
+            if (attributes.getValue("goal") != null) {
+                tmpNode.setGoal();
+            }
 
         } else if(qName.equalsIgnoreCase("path")) {
             path = new Path();
@@ -132,7 +135,7 @@ public class LevelXMLHandler extends DefaultHandler {
             pads = null;
 
         } else if (qName.equalsIgnoreCase("levels")) {
-            callback.receiveResult(levels);
+            callback.onSuccess(levels);
         }
     }
 
@@ -141,11 +144,8 @@ public class LevelXMLHandler extends DefaultHandler {
      * the path object
      */
     private void createPath() {
-        nodes.forEach((id, node) -> {
-            successorMap.get(id).forEach(successorId -> {
-                node.addSuccessor(nodes.get(successorId));
-            });
-        });
+        nodes.forEach((id, node) -> successorMap.get(id).forEach(successorId ->
+                node.addSuccessor(nodes.get(successorId))));
         path.addNodes(nodes);
     }
 

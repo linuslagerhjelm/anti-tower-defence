@@ -14,7 +14,7 @@ public class MenuPanel {
         private JPanel menuPanel;
         private ArrayList<Menu> menus = new ArrayList<>();
 
-        public MenuPanel(int width, int height, String menuName) {
+        public MenuPanel(int width, int height) {
 
                 menuPanel = new JPanel();
                 menuPanel.setSize(width, height);

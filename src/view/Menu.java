@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 public class Menu {
 
-        //private JMenuItem restartLevelButton;
         private ArrayList<JMenuItem> buttons = new ArrayList<>();
         private JMenu menu;
 
@@ -52,7 +51,11 @@ public class Menu {
         }
 
         public void changeButtonName(int index, String s) {
-                buttons.get(index).setText(s);
+                try {
+                        buttons.get(index).setText(s);
+                } catch (NullPointerException e) {
+                        System.out.println("INDEXET FINNS INTE i changename");
+                }
         }
 
 

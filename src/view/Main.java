@@ -7,7 +7,7 @@ import view.MainWindow;
  */
 public class Main {
     public static void main(String[] args) {
-            MainWindow main = new MainWindow("Title", 700, 700);
+            MainWindow main = new MainWindow("Title", 800, 750);
             main.setVisible();
     }
 }
