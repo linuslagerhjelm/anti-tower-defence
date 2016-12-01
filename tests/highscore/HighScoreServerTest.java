@@ -27,56 +27,53 @@ public class HighScoreServerTest {
     }
 
     @Test
-    public void testIsInitialized() throws Exception {
+    public void testIsInitialized() {
          assertTrue(hsServer.getInitialized());
     }
 
     @Test
-    public void testSameInstance() throws Exception {
+    public void testSameInstance() {
         assertEquals(hsServer, hsServer.getInstance());
     }
 
     @Test
-    public void testUpdateCacheLimit() throws Exception {
+    public void testUpdateCacheLimit() {
         hsServer.setCacheLimit(CACHE_LIMIT);
         assertEquals(CACHE_LIMIT, hsServer.getCacheLimit());
     }
 
     @Test
-    public void testForceUpdate() throws Exception {
+    public void testForceUpdate() {
         hsServer.addHighScore(SCORE);
         hsServer.addHighScore(SCORE2);
 
-        if (hsServer.tryConnection()) {
-            assertTrue(hsServer.forceUpdate());
-        }
+        hsServer.forceUpdate();
     }
 
     @Test
-    public void testAutoUpdate() throws Exception {
+    public void testAutoUpdate() {
         hsServer.setCacheLimit(CACHE_LIMIT);
         for (int i = 0; i < CACHE_LIMIT; i++) {
             HighScore hs = new HighScore(new Score(i), new Date(), i);
-            if (!hsServer.addHighScore(hs) && hsServer.tryConnection()) {
-                fail();
-            }
+            hsServer.addHighScore(hs);
         }
     }
 
     @Test
-    public void testGetScoreSortingOrder() throws Exception {
-        List<HighScore> result = hsServer.getHighScores();
-        Iterator<HighScore> iter = result.iterator();
+    public void testGetScoreSortingOrder() {
+        hsServer.getHighScores((result) -> {
+            Iterator<HighScore> iter = result.iterator();
 
-        if (iter.hasNext()) {
-            HighScore hs = iter.next();
+            if (iter.hasNext()) {
+                HighScore hs = iter.next();
 
-            while (iter.hasNext()) {
-                HighScore hs2 = iter.next();
-                if (hs2.getScore().getScore() > hs.getScore().getScore()) {
-                    fail();
+                while (iter.hasNext()) {
+                    HighScore hs2 = iter.next();
+                    if (hs2.getScore().getScore() > hs.getScore().getScore()) {
+                        fail();
+                    }
                 }
             }
-        }
+        });
     }
 }
