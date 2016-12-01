@@ -14,7 +14,7 @@ public class Menu {
 
         public Menu(String[] buttonNames, String menuName, ActionListener a) {
                 menu = new JMenu(menuName);
-                for(int i = 0; i < buttonNames.length; i++) {
+                        for(int i = 0; i < buttonNames.length; i++) {
                         JMenuItem newButton = createButton(buttonNames[i]);
                         newButton.addActionListener(a);
                         buttons.add(i,newButton);

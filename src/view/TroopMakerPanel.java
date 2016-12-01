@@ -130,6 +130,10 @@ public class TroopMakerPanel {
                 return currentImage;
         }
 
+        public int getIconListSize() {
+                return troopIcons.size();
+        }
+
         //TODO: Add me ?
         public void getTroopImageList(){
 
