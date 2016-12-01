@@ -1,5 +1,7 @@
-package level;
+package game;
 
+import level.Level;
+import level.LevelReader;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

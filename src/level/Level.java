@@ -5,7 +5,6 @@ import entities.Path;
 import entities.Tower;
 import entities.TowerZone;
 
-import java.util.BitSet;
 import java.util.List;
 
 /**
@@ -20,7 +19,12 @@ public class Level {
     List<Pad> pads;
     Path path;
 
+    public interface ChangeListener {
+        void onChange();
+    }
+
     public Level(String name, int height, int width) {}
+
     public void addPath(Path p) {
         this.path = p;
     }

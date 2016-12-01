@@ -16,7 +16,7 @@ public interface ParseResult {
      * If everything were successful, levels will be a list of all the levels
      * that were read from the file. If an error occurred while reading, levels
      * will be null.
-     * @param levels list of parsed level objects
+     * @param levels list of parsed game objects
      */
     void receiveResult(List<Level> levels);
 

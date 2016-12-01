@@ -5,8 +5,11 @@
  */
 package entities;
 
+import level.Position;
+
 public interface Entity {
 
     void update(double dt);
     void interact();
+    Position getPosition();
 }
