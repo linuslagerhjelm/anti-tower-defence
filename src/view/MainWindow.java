@@ -32,8 +32,6 @@ public class MainWindow {
         return mainWindowInstance;
     }
 
-
-
     private MainWindow(String title, int width, int height) {
         frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
@@ -68,15 +66,9 @@ public class MainWindow {
         infoPanel.addMoney(20);
         infoPanel.displayInfo();
 
+        //troopMakerPanel.loadImages();
 
         frame.pack();
-
-            /*for (int i = 0; i < 99999; i ++){
-                gameScreenPanel.x++;
-                gameScreenPanel.y++;
-                frame.repaint();
-            }*/
-
     }
 
     public void drawTroop(int x, int y){
