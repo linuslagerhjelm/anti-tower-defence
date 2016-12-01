@@ -24,6 +24,8 @@ public final class HighScoreServer implements Runnable {
     private String pass;
     private int timeout = 5;
 
+    private LinkedBlockingQueue<Runnable> msgQueue = new LinkedBlockingQueue<>();
+
     // Cache
     private int cacheLimit = 10;
     private LinkedBlockingQueue<HighScore> cache = new LinkedBlockingQueue<>();
@@ -88,6 +90,7 @@ public final class HighScoreServer implements Runnable {
     public synchronized static HighScoreServer getInstance() {
         if (instance == null) {
             instance = new HighScoreServer();
+            new Thread(instance).start();
         }
         return instance;
     }
@@ -95,20 +98,17 @@ public final class HighScoreServer implements Runnable {
     /**
      * Adds a new high score to the database. In order to improve performance,
      * the high score updates might be temporally stored and then bulk updated.
-     * To force a push the current cache to the database, the forceUpdate
+     * To force a push of the current cache to the database, the forceUpdate
      * method is available.
      * @param score the score to add
-     * @return true/false weather the call was successful or not
      */
-    public synchronized boolean addHighScore(HighScore score) {
-        boolean success = true;
-
-        cache.add(score);
-        if (cache.size() >= cacheLimit) {
-            success = postScores();
-        }
-
-        return success;
+    public synchronized void addHighScore(HighScore score) {
+        msgQueue.add(() -> {
+            cache.add(score);
+            if (cache.size() >= cacheLimit) {
+                postScores();
+            }
+        });
     }
 
     /**
@@ -116,10 +116,9 @@ public final class HighScoreServer implements Runnable {
      * the database. Upon success, all items currently in cache is inserted
      * into the underlying database and the cache will be cleared.
      * Upon failure, all items will be stored in cache for later retries.
-     * @return true/false weather the call was successful or not
      */
-    public synchronized boolean forceUpdate() {
-        return postScores();
+    public void forceUpdate() {
+        msgQueue.add(this::postScores);
     }
 
     /**
@@ -127,7 +126,7 @@ public final class HighScoreServer implements Runnable {
      * the cache is cleared. On failure, the cache will persist.
      * @return true/false weather the call was successful or not
      */
-    private boolean postScores() {
+    private synchronized boolean postScores() {
         boolean success = true;
         Connection connection = getConnection();
 
@@ -150,12 +149,15 @@ public final class HighScoreServer implements Runnable {
 
     /**
      * Gets high scores from the database and returns them as a sorted list of
-     * length in range [0 - current cache size] with the highest score first.
-     * If database call fails, the scores are read from cache.
-     * @return max-sorted list of length in range [0 - current cache size]
+     * length in range [0 - current cache limit] with the highest score first.
+     * If database call fails, the scores are read from cache. The result
+     * is returned in as a callback.
+     * @param callback callback that will receive the result of the request
      */
-    public List<HighScore> getHighScores() {
-        return handleGetHighScores(cacheLimit);
+    public void getHighScores(DatabaseResult callback) {
+        msgQueue.add(() -> {
+            callback.receiveResult(handleGetHighScores(cacheLimit));
+        });
     }
 
     /**
@@ -163,11 +165,13 @@ public final class HighScoreServer implements Runnable {
      * length in range [0 - limit] with the highest score first.
      * If database call fails, the scores are read from cache.
      * @param limit set max number of scores to return
-     * @return max-sorted list of length in range [0 - limit]
+     * @param callback callback that will receive the result of the request
      */
 
-    public List<HighScore> getHighScores(int limit) {
-        return handleGetHighScores(limit);
+    public void getHighScores(int limit, DatabaseResult callback) {
+        msgQueue.add(() -> {
+            callback.receiveResult(handleGetHighScores(limit));
+        });
     }
 
     /**
@@ -176,7 +180,7 @@ public final class HighScoreServer implements Runnable {
      * @param limit max limit of return collection
      * @return max-sorted list of scores
      */
-    private List<HighScore> handleGetHighScores(int limit) {
+    private synchronized List<HighScore> handleGetHighScores(int limit) {
         Connection connection = getConnection();
         List<HighScore> result = null;
 
@@ -309,9 +313,10 @@ public final class HighScoreServer implements Runnable {
 
     /**
      * Performs a query on the database to get the
-      * @param connection
-     * @return
-     * @throws SQLException
+     * @param connection the database connection to use
+     * @param limit max number of entries to receive
+     * @return A ResultSet containing the result of the query
+     * @throws SQLException if something went wrong
      */
     private ResultSet prepareAndExecuteSelect(Connection connection, int limit)
             throws SQLException {
@@ -328,6 +333,11 @@ public final class HighScoreServer implements Runnable {
 
     @Override
     public void run() {
-
+        while (true) {
+            try {
+                msgQueue.take().run();
+            } catch (InterruptedException ignore) {}
+        }
     }
+
 }

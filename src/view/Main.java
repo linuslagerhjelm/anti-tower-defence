@@ -7,7 +7,9 @@ import view.MainWindow;
  */
 public class Main {
     public static void main(String[] args) {
-            MainWindow main = new MainWindow("Title", 800, 750);
-            main.setVisible();
+        MainWindow mainFrame = MainWindow.getInstance();
+        //mainFrame.createWindow("Title",500,500);
+
+        mainFrame.setVisible();
     }
 }

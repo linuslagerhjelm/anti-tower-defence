@@ -1,5 +1,7 @@
 package control;
 
+import view.MainWindow;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,7 +27,6 @@ public class GameMenuListener implements ActionListener {
         //Restart Level pressed.
         else if (e.getActionCommand() == buttonNames[1]){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
-
         }
 
         //Pause pressed.

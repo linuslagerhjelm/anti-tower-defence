@@ -23,8 +23,6 @@ public class MenuPanel {
 
         }
 
-
-
         public void createMenu(String[] inString, String menuName, ActionListener al) {
                 Menu newMenu = new Menu(inString, menuName, al);
                 menuBar.add(newMenu.getJMenu());

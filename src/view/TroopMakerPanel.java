@@ -50,6 +50,18 @@ public class TroopMakerPanel {
                 troopMakerPanel.add(label, BorderLayout.NORTH);
         }
 
+        public void loadImages(String[] imagesPath){
+                for(int i = 0; i < imagesPath.length; i ++) {
+                        try{
+                                addTroopImage(i,new ImageIcon(imagesPath[1]));
+                        }catch (NullPointerException e){
+                                e.printStackTrace();
+                        }
+
+                }
+
+        }
+
         /**
          * Setups the buttons needed and configures their sizes.
          */
@@ -128,6 +140,10 @@ public class TroopMakerPanel {
 
         public int getCurrentImage() {
                 return currentImage;
+        }
+
+        public int getIconListSize() {
+                return troopIcons.size();
         }
 
         //TODO: Add me ?
