@@ -148,3 +148,60 @@ public class GameScreenPanel {
 //    double w = size.getWidth();
 //    double h = size.getHeight();
 
+
+
+        //TODO Add this to make the gamescreen scalable.
+        /*public void drawLevel(Graphics g){
+                Graphics2D g2d = (Graphics2D) g;
+
+                //Makes rendering smooth
+                RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+                g2d.setRenderingHints(rh);
+
+
+                float rateX =  (float)gameScreen.getWidth()/(float)levelImage.getWidth();
+                float rateY = (float)gameScreen.getHeight()/(float)levelImage.getHeight();
+
+                if (rateX>rateY){
+                        int W=(int)(levelImage.getWidth()*rateY);
+                        int H=(int)(levelImage.getHeight()*rateY);
+                        g2d.drawImage(levelImage,0,0,W,H,null);
+                }
+                else{
+                        int W=(int)(levelImage.getWidth()*rateX);
+                        int H=(int)(levelImage.getHeight()*rateX);
+                        g2d.drawImage(levelImage,0,0,W,H,null);
+                }
+
+
+        }
+
+        public void drawSprites(Graphics g){
+                Graphics2D g2d = (Graphics2D) g;
+
+                //Makes rendering smooth
+                RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+                g2d.setRenderingHints(rh);
+
+
+
+                for(int i = 0; i < sprites.size(); i ++){
+                        float rateX =  gameScreen.getWidth()/sprites.get(i).getImage().getWidth();
+                        float rateY = gameScreen.getHeight()/sprites.get(i).getImage().getHeight();
+
+                        if (rateX>rateY){
+                                int W=(int)rateY;
+                                int H=(int)rateY;
+                                g2d.drawImage(sprites.get(i).getImage(),(int)sprites.get(i).getPos().getX()*W, (int)sprites.get(i).getPos().getY()*H,W,H,null);
+
+                        }
+                        else{
+                                int W=(int)rateX;
+                                int H=(int)rateX;
+                                g2d.drawImage(sprites.get(i).getImage(),(int)sprites.get(i).getPos().getX()*W, (int)sprites.get(i).getPos().getY()*H,W,H,null);
+                        }
+
+                }
+        }*/
