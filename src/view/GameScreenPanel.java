@@ -139,7 +139,7 @@ public class GameScreenPanel {
 
         }
 }
-
+//Fiskar
 
 //BufferedImage backGround = new BufferedImage(200,200,BufferedImage.TYPE_INT_RGB);
 //Graphics g = bufferedImage.getGraphics();
