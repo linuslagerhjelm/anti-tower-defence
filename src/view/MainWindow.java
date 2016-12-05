@@ -67,7 +67,7 @@ public class MainWindow {
         infoPanel.displayInfo();
 
         //loadImages();
-
+        frame.setLocationRelativeTo(null);
         frame.pack();
     }
 
@@ -81,8 +81,6 @@ public class MainWindow {
     }
 
     public void drawTroop(int x, int y){
-        gameScreenPanel.x += x;
-        gameScreenPanel.y += y;
         frame.repaint();
     }
 

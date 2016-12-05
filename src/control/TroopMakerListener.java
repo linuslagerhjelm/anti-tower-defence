@@ -31,8 +31,6 @@ public class TroopMakerListener implements ActionListener {
             y=2;
             myWindow.drawTroop(x,y);
 
-
-
             if (currentIconIndex == myWindow.getTroopIcon_ListSize()-1){
 
                 myWindow.changeUnitIcon(0);
@@ -44,8 +42,6 @@ public class TroopMakerListener implements ActionListener {
                 myWindow.changeUnitIcon(currentIconIndex);
 
             }
-
-
 
 
         }else if(e.getActionCommand().equals("prev")){

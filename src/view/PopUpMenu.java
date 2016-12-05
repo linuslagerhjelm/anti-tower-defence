@@ -27,7 +27,7 @@ public class PopUpMenu {
 
 	//Add panels to the frame
 	frame.add(centerPanel, BorderLayout.CENTER);
-
+	frame.setLocationRelativeTo(null);
 	frame.pack();
 	frame.setVisible(true);
     }

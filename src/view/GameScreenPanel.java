@@ -19,14 +19,15 @@ public class GameScreenPanel {
     private BufferedImage levelImage = null;
     private BufferedImage troopImage = null;
     private ArrayList<Sprite> sprites = new ArrayList();
-
-    public int x, y;
-
+    int level_origo_X = 0;
+    int level_origo_Y = 0;
+    int sprite_origo_x = 0;
+    int sprite_origo_y = 0 ;
 
     public GameScreenPanel() {
 
-        createTroop("troop_v2", new Position(40,40));
         createTroop("troop_v2", new Position(0,0));
+        createTroop("troop_v2", new Position(400,400));
         createLevel("defaultLevel");
 
         try{
@@ -75,7 +76,6 @@ public class GameScreenPanel {
         }
     }
 
-
     public void drawLevel(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
 
@@ -84,11 +84,10 @@ public class GameScreenPanel {
         rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHints(rh);
 
-        Dimension screenSize = gameScreen.getSize();
-        int origo_X = (int)(screenSize.getWidth()-levelImage.getWidth()/2);
-        int origo_Y = (int)(screenSize.getHeight()-levelImage.getHeight()/2);
+        level_origo_X = (gameScreen.getWidth()-levelImage.getWidth())/2;
+        level_origo_Y = (gameScreen.getHeight()-levelImage.getHeight())/2;
 
-        g2d.drawImage(levelImage,0,0,origo_X,origo_Y,null);
+        g2d.drawImage(levelImage,level_origo_X,level_origo_Y,null);
     }
 
     public void drawSprites(Graphics g){
@@ -100,18 +99,14 @@ public class GameScreenPanel {
         g2d.setRenderingHints(rh);
 
         for(int i = 0; i < sprites.size(); i ++){
+
+            sprite_origo_x = level_origo_X-(sprites.get(i).getImage().getWidth()/2);
+            sprite_origo_y = level_origo_Y-(sprites.get(i).getImage().getHeight()/2);
+
             g2d.drawImage(sprites.get(i).getImage(),
-                    (int)sprites.get(i).getPos().getX(),
-                    (int)sprites.get(i).getPos().getY(),null);
+                    sprite_origo_x+(int)sprites.get(i).getPos().getX(),
+                    sprite_origo_y+(int)sprites.get(i).getPos().getY(),null);
         }
     }
 }
-
-
-//BufferedImage backGround = new BufferedImage(200,200,BufferedImage.TYPE_INT_RGB);
-//Graphics g = bufferedImage.getGraphics();
-//    //Get screen width and height
-//    Dimension size = gameScreen.getSize();
-//    double w = size.getWidth();
-//    double h = size.getHeight();
 
