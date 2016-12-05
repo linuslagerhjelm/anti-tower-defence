@@ -18,10 +18,12 @@ public class Sprite {
     }
 
     public Position getPos(){
+
         return pos;
     }
 
     public BufferedImage getImage(){
+
         return spriteImage;
     }
 }
