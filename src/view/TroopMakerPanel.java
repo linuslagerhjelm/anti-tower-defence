@@ -2,7 +2,6 @@ package view;
 
 import com.sun.java.swing.plaf.motif.MotifBorders;
 import control.TroopMakerListener;
-import javafx.scene.layout.Border;
 
 import javax.swing.*;
 import java.awt.*;

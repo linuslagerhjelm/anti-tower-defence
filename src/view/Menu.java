@@ -30,7 +30,7 @@ public class Menu {
                 try {
                         buttons.get(index).setEnabled(true);
                 }catch (NullPointerException e) {
-                        System.out.println("INDEXET FINNS INTE i enable");
+                        System.err.println("INDEXET FINNS INTE i enable");
                 }
         }
 
@@ -43,7 +43,7 @@ public class Menu {
                 try {
                         buttons.get(index).setEnabled(false);
                 }catch (NullPointerException e) {
-                        System.out.println("INDEXET FINNS INTE i disable");
+                        System.err.println("INDEXET FINNS INTE i disable");
                 }
         }
 
@@ -55,7 +55,7 @@ public class Menu {
                 try {
                         buttons.get(index).setText(s);
                 } catch (NullPointerException e) {
-                        System.out.println("INDEXET FINNS INTE i changename");
+                        System.err.println("INDEXET FINNS INTE i changename");
                 }
         }
 
