@@ -27,7 +27,7 @@ public class GameScreenPanel {
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
                     drawSoldier(g);
-                    //g.drawImage(troopImage, 0, 0, null);
+                    g.drawImage(troopImage, 40, 0, null);
                 }
             };
 
@@ -41,10 +41,12 @@ public class GameScreenPanel {
     }
 
     public JPanel getGameScreen() {
+
 	    return gameScreen;
     }
 
     public JPanel getJPanel(){
+
 	    return gameScreen;
     }
 

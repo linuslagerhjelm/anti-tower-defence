@@ -44,11 +44,13 @@ public class MenuPanel {
         }
 
         public void setVisibility(boolean visible) {
+
                 menuBar.setVisible(visible);
         }
 
 
         public JPanel returnPanel() {
+
                 return menuPanel;
         }
 

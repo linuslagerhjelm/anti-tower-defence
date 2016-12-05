@@ -143,9 +143,6 @@ public class TroopMakerPanel {
                 buttonPanel.add(spawnTroop, BorderLayout.CENTER);
                 buttonPanel.add(nextTroop, BorderLayout.EAST);
 
-
-
-
         }
 
         private void troopIconPanelSetup() {
@@ -158,6 +155,7 @@ public class TroopMakerPanel {
          * @return JPanel, returns a JPanel of the TroopMakerPanel.
          */
         public JPanel getJPanel(){
+
                 return troopMakerPanel;
         }
 
@@ -174,6 +172,7 @@ public class TroopMakerPanel {
                         System.out.print("Error, index out of bounds");
                 }
         }
+
 
         /**
          * Adds the given image to the Troop Image icon list at the given index.
@@ -196,10 +195,12 @@ public class TroopMakerPanel {
         }
 
         public int getCurrentImage() {
+
                 return currentImage;
         }
 
         public int getIconListSize() {
+
                 return troopIcons.size();
         }
 

@@ -22,7 +22,7 @@ public class Menu {
                 }
         }
 
-        private JMenuItem createButton(String s) {
+        public JMenuItem createButton(String s) {
                 return new JMenuItem(s);
         }
 
@@ -35,6 +35,7 @@ public class Menu {
         }
 
         public void setActionCommand(int index, String command) {
+
                 buttons.get(index).setActionCommand(command);
         }
 
@@ -56,6 +57,10 @@ public class Menu {
                 } catch (NullPointerException e) {
                         System.out.println("INDEXET FINNS INTE i changename");
                 }
+        }
+
+        public ArrayList returnButtons() {
+                return buttons;
         }
 
 

@@ -32,14 +32,19 @@ public class TroopMakerListener implements ActionListener {
             myWindow.drawTroop(x,y);
 
 
+
             if (currentIconIndex == myWindow.getTroopIcon_ListSize()-1){
 
                 myWindow.changeUnitIcon(0);
+                currentIconIndex = 0;
+
             }
             else {
                 currentIconIndex++;
                 myWindow.changeUnitIcon(currentIconIndex);
+
             }
+
 
 
 
@@ -51,12 +56,16 @@ public class TroopMakerListener implements ActionListener {
 
             if (currentIconIndex == 0){
                 myWindow.changeUnitIcon(myWindow.getTroopIcon_ListSize()-1);
+                currentIconIndex = myWindow.getTroopIcon_ListSize()-1;
+
             }
 
-            else {
+            else  {
                 currentIconIndex--;
                 myWindow.changeUnitIcon(currentIconIndex);
+
             }
+
 
 
         }else if(e.getActionCommand().equals("spawn")){
