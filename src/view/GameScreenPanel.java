@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class GameScreenPanel {
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
     private BufferedImage troopImage = null;
+    private BufferedImage laserBeamImage = null;
     private ArrayList<Sprite> sprites = new ArrayList();
     int level_origo_X = 0;
     int level_origo_Y = 0;
@@ -29,6 +31,7 @@ public class GameScreenPanel {
         createTroop("troop_v2", new Position(0,0));
         createTroop("troop_v2", new Position(400,400));
         createLevel("defaultLevel");
+        createLaserBeam("troop");
 
         try{
             gameScreen = new JPanel(){
@@ -37,15 +40,13 @@ public class GameScreenPanel {
                     super.paintComponent(g);
                     drawLevel(g);
                     drawSprites(g);
+                    drawLaser(g, new Position(12, 30), new Position(90,90));
                 }
             };
 
         }catch (Exception p){
             System.err.print("" + p.getCause());
         }
-
-        Graphics g2 = troopImage.createGraphics();
-        g2.drawImage(troopImage, 100, 100, null);
 
         gameScreen.setBackground(Color.BLACK);
     }
@@ -63,7 +64,7 @@ public class GameScreenPanel {
         try {
             troopImage = ImageIO.read(new File("./res/images/troops/"+troopName+".png"));
         } catch (Exception e) {
-            System.out.print("Exception");
+            System.out.print("Troop creation Exception\n");
         }
         sprites.add(new Sprite(troopImage,spawnPosition));
     }
@@ -72,9 +73,19 @@ public class GameScreenPanel {
         try {
             levelImage = ImageIO.read(new File("./res/images/levels/"+levelName+".jpg"));
         } catch (Exception e) {
-            System.out.print("Exception");
+            System.out.print("Level creation Exception\n");
         }
     }
+
+    public void createLaserBeam(String laserpic) {
+            try {
+                    laserBeamImage = ImageIO.read(new File("./res/images/troops/"+laserpic+".jpg"));
+            } catch (Exception e) {
+                    System.out.print("Laser creation Exception\n");
+            }
+
+    }
+
 
     public void drawLevel(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
@@ -93,10 +104,12 @@ public class GameScreenPanel {
     public void drawSprites(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
 
-        //Makes rendering smooth
-        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-        g2d.setRenderingHints(rh);
+            //Makes rendering smooth
+            RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHints(rh);
+
+
 
         for(int i = 0; i < sprites.size(); i ++){
 
@@ -108,5 +121,30 @@ public class GameScreenPanel {
                     sprite_origo_y+(int)sprites.get(i).getPos().getY(),null);
         }
     }
+
+        public void drawLaser(Graphics g, Position startPos, Position endPos) {
+                Graphics2D g2d = (Graphics2D) g;
+
+                //Makes rendering smooth
+                RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+                g2d.setRenderingHints(rh);
+
+                g2d.drawLine((int)startPos.getX(), (int)startPos.getY(), (int)endPos.getX(), (int)endPos.getY());
+
+
+        }
+
+        public void removeLaser() {
+
+        }
 }
+
+
+//BufferedImage backGround = new BufferedImage(200,200,BufferedImage.TYPE_INT_RGB);
+//Graphics g = bufferedImage.getGraphics();
+//    //Get screen width and height
+//    Dimension size = gameScreen.getSize();
+//    double w = size.getWidth();
+//    double h = size.getHeight();
 
