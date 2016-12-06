@@ -28,7 +28,7 @@ public class MainWindow {
 
     public static MainWindow getInstance() {
         if(mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare",965,800);
+            mainWindowInstance = new MainWindow("Fiskare",800,600);
         }
         return mainWindowInstance;
     }

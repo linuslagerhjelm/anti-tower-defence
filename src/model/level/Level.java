@@ -1,5 +1,6 @@
 package model.level;
 
+import controller.eventhandler.SystemEvent;
 import model.entities.Pad;
 import model.entities.Path;
 import model.entities.Tower;
@@ -19,11 +20,10 @@ public class Level {
     private List<Pad> pads;
     private Path path;
 
-    public interface ChangeListener {
-        void onChange();
-    }
 
     public Level(String name, int height, int width) {}
+
+    public void update(long dt) {}
 
     public void addPath(Path p) {
         this.path = p;
@@ -56,5 +56,9 @@ public class Level {
 
     public Path getPath() {
         return path;
+    }
+
+    public void receiveEvents(List<SystemEvent> levelEvents) {
+
     }
 }
