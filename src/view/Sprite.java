@@ -1,6 +1,6 @@
 package view;
 
-import level.Position;
+import model.level.Position;
 
 import java.awt.image.BufferedImage;
 

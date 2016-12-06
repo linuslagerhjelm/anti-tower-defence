@@ -1,7 +1,6 @@
 package view;
 
-import org.junit.Test;
-import player.Currency;
+import model.player.Currency;
 
 import static junit.framework.TestCase.assertEquals;
 

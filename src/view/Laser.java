@@ -1,6 +1,6 @@
 package view;
 
-import level.Position;
+import model.level.Position;
 
 /**
  * Created by c15aen on 2016-12-05.
