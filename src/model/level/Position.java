@@ -55,6 +55,10 @@ public class Position {
         this.x = x;
     }
 
+    public double angle(Position position2) {
+        return Math.atan2(position2.getY()-y, position2.getX()-x);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,9 +66,8 @@ public class Position {
 
         Position position = (Position) o;
 
-        if (Double.compare(position.x, x) != 0) return false;
-        return Double.compare(position.y, y) == 0;
-
+        if (Math.abs(position.x-x) > 0.000001) return false;
+        return Math.abs(position.y-y) < 0.000001;
     }
 
     @Override
@@ -76,5 +79,10 @@ public class Position {
         temp = Double.doubleToLongBits(y);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"{x: "+x+", y:"+y+"}";
     }
 }

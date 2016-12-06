@@ -12,16 +12,16 @@ public class TeleportTroupe implements Troupe {
     public static final Stats STATS = new Stats(10, 12);
 
 
-    private Path path;
     private KilledListener listener;
     private Position position;
     private int health = STATS.getHealth();
+    private Node currentNode;
 
     @Override
-    public void setPath(Path path) {
-        this.path = path;
-        int x = path.getStartNodes().get(0).x;
-        int y = path.getStartNodes().get(0).y;
+    public void setStartNode(Node start) {
+        currentNode = start;
+        int x = currentNode.getX();
+        int y = currentNode.getY();
         position = new Position(x, y);
     }
 
@@ -32,7 +32,10 @@ public class TeleportTroupe implements Troupe {
 
     @Override
     public void update(double dt) {
-        position.setX(30);
+        Node next = currentNode.getNext();
+        double angle = position.angle(new Position(next.getX(), next.getY()));
+        position.setX(nextX(angle, dt));
+        position.setY(nextY(angle, dt));
     }
 
     @Override
@@ -61,5 +64,13 @@ public class TeleportTroupe implements Troupe {
     @Override
     public Stats getStats() {
         return STATS;
+    }
+
+    private double nextX(double angle, double dt) {
+        return position.getX() + Math.cos(angle)*STATS.getSpeed()*dt;
+    }
+
+    private double nextY(double angle, double dt) {
+        return position.getY() + Math.sin(angle)*STATS.getSpeed()*dt;
     }
 }
