@@ -2,6 +2,7 @@ package model.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Author: Linus Lagerhjelm
@@ -10,12 +11,13 @@ import java.util.List;
  * Description:
  */
 public class Node {
-    Integer id;
-    Integer x;
-    Integer y;
-    boolean start = false;
-    boolean goal = false;
-    List<Node> successors = new ArrayList<>();
+    private Integer id;
+    private Integer x;
+    private Integer y;
+    private boolean start = false;
+    private boolean goal = false;
+    private List<Node> successors = new ArrayList<>();
+    private Node nextNode;
 
     public Node(int id, int x, int y) {
         this.id = id;
@@ -33,6 +35,9 @@ public class Node {
 
     public void addSuccessor(Node successor) {
         successors.add(successor);
+        if (nextNode == null) {
+            nextNode = successor;
+        }
     }
 
     public Integer getId() {
@@ -41,6 +46,19 @@ public class Node {
 
     public List<Node> getSuccessors() {
         return successors;
+    }
+
+    public Node getNext() {
+        if (nextNode == null) {
+            throw new NoSuchElementException("Node have no successors");
+        }
+        return nextNode;
+    }
+
+    public void switchSuccessor() {
+        int currentNextIndex = successors.indexOf(nextNode);
+        int switchNextIndex = currentNextIndex+1 % successors.size();
+        nextNode = successors.get(switchNextIndex);
     }
 
     @Override
@@ -67,5 +85,13 @@ public class Node {
 
     public boolean isGoal() {
         return goal;
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public Integer getY() {
+        return y;
     }
 }

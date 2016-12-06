@@ -77,6 +77,19 @@ public class Path {
         walk(walkNodes.subList(1, walkNodes.size()), visited);
     }
 
+    public Node getNext(Node currentNode) {
+        return currentNode.getNext();
+    }
+
+    public Node getNext(int currentNodeID) {
+        Node current = nodes.get(currentNodeID);
+        if (current == null) {
+            throw new NoSuchElementException(
+                    "No such Node with id: "+currentNodeID);
+        }
+        return getNext(current);
+    }
+
     /**
      * Adds the nodes to the path as a HashMap with node id:s as key
      * @param nodes the nodes on the path
