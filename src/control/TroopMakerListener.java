@@ -1,6 +1,7 @@
 package control;
 
 import view.MainWindow;
+import view.PopUpMenu;
 import view.TroopMakerPanel;
 
 import java.awt.event.ActionEvent;
@@ -26,30 +27,41 @@ public class TroopMakerListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("next")){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
-            x=x+2;
-            y=y+2;
+            x=2;
+            y=2;
             myWindow.drawTroop(x,y);
 
-            currentIconIndex++;
-            if (currentIconIndex > myWindow.getTroopIcon_ListSize()-1){
-                currentIconIndex = 0;
-            }
+            if (currentIconIndex == myWindow.getTroopIcon_ListSize()-1){
 
-            myWindow.changeUnitIcon(currentIconIndex);
+                myWindow.changeUnitIcon(0);
+                currentIconIndex = 0;
+
+            }
+            else {
+                currentIconIndex++;
+                myWindow.changeUnitIcon(currentIconIndex);
+
+            }
 
 
         }else if(e.getActionCommand().equals("prev")){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
-            x=x-2;
-            y=y-2;
+            x=-2;
+            y=-2;
             myWindow.drawTroop(x,y);
 
-            currentIconIndex--;
-            if (currentIconIndex < 0){
+            if (currentIconIndex == 0){
+                myWindow.changeUnitIcon(myWindow.getTroopIcon_ListSize()-1);
                 currentIconIndex = myWindow.getTroopIcon_ListSize()-1;
+
             }
 
-            myWindow.changeUnitIcon(currentIconIndex);
+            else  {
+                currentIconIndex--;
+                myWindow.changeUnitIcon(currentIconIndex);
+
+            }
+
 
 
         }else if(e.getActionCommand().equals("spawn")){

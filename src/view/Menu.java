@@ -22,7 +22,7 @@ public class Menu {
                 }
         }
 
-        private JMenuItem createButton(String s) {
+        public JMenuItem createButton(String s) {
                 return new JMenuItem(s);
         }
 
@@ -30,11 +30,12 @@ public class Menu {
                 try {
                         buttons.get(index).setEnabled(true);
                 }catch (NullPointerException e) {
-                        System.out.println("INDEXET FINNS INTE i enable");
+                        System.err.println("INDEXET FINNS INTE i enable");
                 }
         }
 
         public void setActionCommand(int index, String command) {
+
                 buttons.get(index).setActionCommand(command);
         }
 
@@ -42,7 +43,7 @@ public class Menu {
                 try {
                         buttons.get(index).setEnabled(false);
                 }catch (NullPointerException e) {
-                        System.out.println("INDEXET FINNS INTE i disable");
+                        System.err.println("INDEXET FINNS INTE i disable");
                 }
         }
 
@@ -54,8 +55,12 @@ public class Menu {
                 try {
                         buttons.get(index).setText(s);
                 } catch (NullPointerException e) {
-                        System.out.println("INDEXET FINNS INTE i changename");
+                        System.err.println("INDEXET FINNS INTE i changename");
                 }
+        }
+
+        public ArrayList returnButtons() {
+                return buttons;
         }
 
 

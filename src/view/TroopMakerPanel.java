@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.java.swing.plaf.motif.MotifBorders;
 import control.TroopMakerListener;
 
 import javax.swing.*;
@@ -27,27 +28,38 @@ public class TroopMakerPanel {
         private ArrayList<ImageIcon> troopIcons = new ArrayList<>();
 
         private JLabel label;
-        private JPanel troopMakerPanel = new JPanel();
+        private JPanel troopMakerPanel;
+        private JPanel troopInfoPanel;
+        private JPanel buttonPanel;
+        private JPanel troopIconPanel;
+        private JTextPane unitInfoText;
 
         public TroopMakerPanel() {
                 label = new JLabel();
+                troopMakerPanel = new JPanel();
 
                 //Load DefaultImage
-                ImageIcon soldierImage = new ImageIcon("./res/images/soldier.jpg");
-                ImageIcon knightImage = new ImageIcon("./res/images/knight.jpeg");
+                ImageIcon soldierImage = new ImageIcon("./res/images/troops/soldier.jpg");
+                ImageIcon knightImage = new ImageIcon("./res/images/troops/knight.jpeg");
+                ImageIcon soldier3 = new ImageIcon("./res/images/troops/3dSoldier.jpg");
+                ImageIcon soldier4 = new ImageIcon("./res/images/troops/spearSoldier.jpg");
+
 
                 //Add the default image to the icon list and sets the current image to the default image.
                 addTroopImage(0,soldierImage);
                 addTroopImage(1,knightImage);
-                setTroopImage(currentImage);
+                addTroopImage(2,soldier3);
+                addTroopImage(3,soldier4);
 
-                //Setups the buttons.
-                buttonSetup();
+                setTroopImage(0);
+
+
+
                 //Setups the panel.
                 panelSetup();
 
                 //Adds the image frame.
-                troopMakerPanel.add(label, BorderLayout.NORTH);
+                //troopMakerPanel.add(label, BorderLayout.NORTH);
         }
 
         public void loadImages(String[] imagesPath){
@@ -56,6 +68,7 @@ public class TroopMakerPanel {
                                 addTroopImage(i,new ImageIcon(imagesPath[1]));
                         }catch (NullPointerException e){
                                 e.printStackTrace();
+                                System.out.print("Error, no thing");
                         }
 
                 }
@@ -66,7 +79,7 @@ public class TroopMakerPanel {
          * Setups the buttons needed and configures their sizes.
          */
         private void buttonSetup(){
-                Dimension buttonDimension = new Dimension(70,200);
+                Dimension buttonDimension = new Dimension(85,100);
 
                 spawnTroop = new JButton("spawn");
                 nextTroop = new JButton("next");
@@ -78,7 +91,7 @@ public class TroopMakerPanel {
                 spawnTroop.setMaximumSize(buttonDimension);
                 nextTroop.setMaximumSize(buttonDimension);
                 prevTroop.setMaximumSize(buttonDimension);
-                prevTroop.setMinimumSize(buttonDimension);
+
                 prevTroop.addActionListener(new TroopMakerListener("prev"));
                 nextTroop.addActionListener(new TroopMakerListener("next"));
                 spawnTroop.addActionListener(new TroopMakerListener("spawn"));
@@ -89,18 +102,51 @@ public class TroopMakerPanel {
          * to the Troop Maker Panel.
          */
         private void panelSetup(){
-                JPanel southPanel = new JPanel();
-                southPanel.setPreferredSize(new Dimension(25,320));
+
+                troopInfoPanelSetup();
+                buttonPanelSetup();
+                troopIconPanelSetup();
 
                 troopMakerPanel.setBorder(BorderFactory.createTitledBorder("Unit Maker"));
                 troopMakerPanel.setMinimumSize(new Dimension(40,40));
                 troopMakerPanel.setLayout(new BorderLayout());
 
+                //
+                troopMakerPanel.add(troopInfoPanel , BorderLayout.CENTER);
+                troopMakerPanel.add(buttonPanel, BorderLayout.SOUTH);
+                troopMakerPanel.add(troopIconPanel, BorderLayout.NORTH);
+        }
+
+        private void troopInfoPanelSetup() {
+                troopInfoPanel = new JPanel();
+                //troopInfoPanel.setPreferredSize(new Dimension(25,320));
+                unitInfoText = new JTextPane();
+                troopInfoPanel.add(unitInfoText);
+                unitInfoText.setEditable(false);
+                unitInfoText.setBackground(Color.GRAY);
+                unitInfoText.setPreferredSize(new Dimension(220,319));
+                unitInfoText.setBorder(BorderFactory.createTitledBorder("Info"));
+                unitInfoText.setFont(new Font("Serif", Font.BOLD, 16));
+                unitInfoText.setForeground(Color.CYAN);
+                changeUnitInfo("Speed: 20\nCost: 100\nHealth: 45");
+
+
+        }
+
+        private void buttonPanelSetup() {
+                buttonSetup();
+                buttonPanel = new JPanel();
+
                 //Adds all components.
-                troopMakerPanel.add(spawnTroop, BorderLayout.CENTER);
-                troopMakerPanel.add(nextTroop, BorderLayout.EAST);
-                troopMakerPanel.add(prevTroop, BorderLayout.WEST);
-                troopMakerPanel.add(southPanel , BorderLayout.SOUTH);
+                buttonPanel.add(prevTroop, BorderLayout.WEST);
+                buttonPanel.add(spawnTroop, BorderLayout.CENTER);
+                buttonPanel.add(nextTroop, BorderLayout.EAST);
+
+        }
+
+        private void troopIconPanelSetup() {
+                troopIconPanel = new JPanel();
+                troopIconPanel.add(label, BorderLayout.CENTER);
         }
 
         /**
@@ -108,6 +154,7 @@ public class TroopMakerPanel {
          * @return JPanel, returns a JPanel of the TroopMakerPanel.
          */
         public JPanel getJPanel(){
+
                 return troopMakerPanel;
         }
 
@@ -125,6 +172,7 @@ public class TroopMakerPanel {
                 }
         }
 
+
         /**
          * Adds the given image to the Troop Image icon list at the given index.
          * @param index:int, index to store the given image.
@@ -138,11 +186,20 @@ public class TroopMakerPanel {
                 }
         }
 
+        public void changeUnitInfo(String unitInfo) {
+                unitInfoText.setText(unitInfo);
+
+
+
+        }
+
         public int getCurrentImage() {
+
                 return currentImage;
         }
 
         public int getIconListSize() {
+
                 return troopIcons.size();
         }
 

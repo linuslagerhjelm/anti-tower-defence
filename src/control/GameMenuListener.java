@@ -1,7 +1,5 @@
 package control;
 
-import view.MainWindow;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

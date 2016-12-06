@@ -3,7 +3,7 @@ package view; /**
  */
 
 import control.GameMenuListener;
-import control.MenuListener;
+import control.InfoMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +27,7 @@ public class MainWindow {
 
     public static MainWindow getInstance() {
         if(mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare",900,800);
+            mainWindowInstance = new MainWindow("Fiskare",965,800);
         }
         return mainWindowInstance;
     }
@@ -66,47 +66,53 @@ public class MainWindow {
         infoPanel.addMoney(20);
         infoPanel.displayInfo();
 
-        //troopMakerPanel.loadImages();
-
+        //loadImages();
+        frame.setLocationRelativeTo(null);
         frame.pack();
     }
 
+    private void loadImages(){
+            String[] troopIcons = {"soldier.jpg",
+                    "knight.jpeg",
+                    "3dSoldier.jpg",
+                    "spearSoldier.jpg"
+            };
+        troopMakerPanel.loadImages(troopIcons);
+    }
+
     public void drawTroop(int x, int y){
-        gameScreenPanel.x += x;
-        gameScreenPanel.y += y;
         frame.repaint();
     }
 
-    public static void changeUnitIcon(int index){
+    public void changeUnitIcon(int index){
         troopMakerPanel.setTroopImage(index);
     }
 
-    public static int getTroopIcon_CurrentFrameIndex(){
+    public int getTroopIcon_CurrentFrameIndex(){
         return troopMakerPanel.getCurrentImage();
     }
 
-    public static int getTroopIcon_ListSize(){
+    public int getTroopIcon_ListSize(){
         return troopMakerPanel.getIconListSize();
     }
 
 
-    private static void setupGameMenu(){
+    private void setupGameMenu(){
         String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
         GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
-
     }
 
-    private static void setupInfoMenu(){
+    private void setupInfoMenu(){
         String[] infoButtonNames = {"About","Help"};
-        MenuListener infoMenuListener = new MenuListener(infoButtonNames);
+        InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
     }
 
     /**
      * Sets the GUI to be visible.
      */
-    public static void setVisible() {
+    public void setVisible() {
         frame.setVisible(true);
     }
 }
