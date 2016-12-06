@@ -9,7 +9,7 @@ import model.level.Position;
 
 public class TeleportTroupe implements Troupe {
 
-    public static final Stats STATS = new Stats(10, 12);
+    public static final Stats STATS = new Stats(100, 12);
 
 
     private KilledListener listener;
@@ -36,6 +36,11 @@ public class TeleportTroupe implements Troupe {
         double angle = position.angle(new Position(next.getX(), next.getY()));
         position.setX(nextX(angle, dt));
         position.setY(nextY(angle, dt));
+
+        double newAngle = position.angle(new Position(next.getX(), next.getY()));
+        if ((angle - newAngle) > 0.001) {
+            currentNode = next;
+        }
     }
 
     @Override

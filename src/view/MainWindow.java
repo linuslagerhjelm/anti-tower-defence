@@ -7,17 +7,18 @@ import control.InfoMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
  */
 public class MainWindow {
 
-    private static JFrame frame;
-    private static MenuPanel menuPanel;
-    private static TroopMakerPanel troopMakerPanel;
-    private static GameScreenPanel gameScreenPanel;
-    private static InfoPanel infoPanel;
+    private JFrame frame;
+    private MenuPanel menuPanel;
+    private TroopMakerPanel troopMakerPanel;
+    private GameScreenPanel gameScreenPanel;
+    private InfoPanel infoPanel;
 
     private static MainWindow mainWindowInstance = null;
 
@@ -33,6 +34,7 @@ public class MainWindow {
     }
 
     private MainWindow(String title, int width, int height) {
+        SwingUtilities.invokeLater(() -> {
         frame = new JFrame(title);
         frame.setLayout(new BorderLayout());
         frame.setMinimumSize(new Dimension(width,height));
@@ -69,19 +71,34 @@ public class MainWindow {
         //loadImages();
         frame.setLocationRelativeTo(null);
         frame.pack();
+        });
     }
 
     private void loadImages(){
-            String[] troopIcons = {"soldier.jpg",
-                    "knight.jpeg",
-                    "3dSoldier.jpg",
-                    "spearSoldier.jpg"
-            };
+        String[] troopIcons = {
+                "soldier.jpg",
+                "knight.jpeg",
+                "3dSoldier.jpg",
+                "spearSoldier.jpg"
+        };
         troopMakerPanel.loadImages(troopIcons);
     }
 
     public void drawTroop(int x, int y){
         frame.repaint();
+    }
+
+    public GameScreenPanel getGameScreen() {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                // Just wait
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return gameScreenPanel;
     }
 
     public void changeUnitIcon(int index){
@@ -113,6 +130,8 @@ public class MainWindow {
      * Sets the GUI to be visible.
      */
     public void setVisible() {
+        SwingUtilities.invokeLater(() -> {
         frame.setVisible(true);
+        });
     }
 }
