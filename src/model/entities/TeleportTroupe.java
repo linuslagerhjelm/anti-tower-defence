@@ -37,8 +37,13 @@ public class TeleportTroupe implements Troupe {
         position.setX(nextX(angle, dt));
         position.setY(nextY(angle, dt));
 
+        setNextNode(angle);
+    }
+
+    private void setNextNode(double lastAngle) {
+        Node next = currentNode.getNext();
         double newAngle = position.angle(new Position(next.getX(), next.getY()));
-        if ((angle - newAngle) > 0.001) {
+        if ((lastAngle - newAngle) > 0.001) {
             currentNode = next;
         }
     }

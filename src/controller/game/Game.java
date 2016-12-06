@@ -6,8 +6,8 @@
 package controller.game;
 
 import controller.eventhandler.GameEvent;
-import controller.eventhandler.SystemEvent;
 import controller.eventhandler.Pubsub;
+import controller.eventhandler.SystemEvent;
 import model.level.Level;
 import model.level.LevelReader;
 import model.level.ParseResult;
@@ -22,6 +22,7 @@ public class Game {
     private List<Level> levels;
     private Pubsub publisher;
     private MainWindow mainWindow;
+    private Renderer renderer;
     private int currentLevel = 0;
     private boolean isPaused = false;
 
@@ -38,11 +39,13 @@ public class Game {
      * @param levelFile name of the level file
      */
     private void setup(String levelFile) {
-        setupLevels(levelFile);
-
         publisher = new Pubsub();
         mainWindow = MainWindow.getInstance();
         mainWindow.setVisible();
+
+        renderer = new Renderer(mainWindow.getGameScreen()); // Blocking
+
+        setupLevels(levelFile);
     }
 
     /**
@@ -65,6 +68,7 @@ public class Game {
 
             }
         });
+        levelReader.run();
     }
 
 
@@ -72,20 +76,28 @@ public class Game {
      * Runs the game loop and handles the system events
      */
     public void run() {
+
         long time = new Date().getTime();
         while (true) {
-            long dt = new Date().getTime() - time;
+            double dt = (new Date().getTime() - time)/1000.0; // sec
+            time = new Date().getTime();
 
             if (!isPaused) {
                 levels.get(currentLevel).receiveEvents(handleEventQueue());
                 levels.get(currentLevel).update(dt);
+                renderer.render(levels.get(currentLevel).getTroupes());
 
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             } else {
                 handleEventQueue();
             }
 
 
-            time = new Date().getTime();
+
         }
     }
 

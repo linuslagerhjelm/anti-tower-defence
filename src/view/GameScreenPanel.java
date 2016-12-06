@@ -19,7 +19,7 @@ public class GameScreenPanel {
     private BufferedImage levelImage = null;
     private BufferedImage troopImage = null;
     private BufferedImage laserBeamImage = null;
-    private ArrayList<Sprite> sprites = new ArrayList();
+    private ArrayList<Sprite> sprites = new ArrayList<>();
     int level_origo_X = 0;
     int level_origo_Y = 0;
     int sprite_origo_x = 0;

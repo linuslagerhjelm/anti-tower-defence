@@ -3,13 +3,16 @@
         xsi:noNamespaceSchemaLocation="level_schema.xsd">
     <level name="Level1" width="800" height="600">
         <path>
-            <node id="1" x="8" y="4" start="start">
+            <node id="1" x="0" y="0" start="start">
                 <successor refid="2" />
+                <successor refid="4" />
+            </node>
+            <node id="2" x="200" y="200">
                 <successor refid="3" />
             </node>
-            <node id="2" x="9" y="4" goal="goal">
+            <node id="3" x="100" y="30" goal="goal">
             </node>
-            <node id="3" x="10" y="5" goal="goal">
+            <node id="4" x="30" y="100" goal="goal">
             </node>
         </path>
         <towerzones>

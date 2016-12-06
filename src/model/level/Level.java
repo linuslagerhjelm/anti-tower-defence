@@ -1,11 +1,9 @@
 package model.level;
 
 import controller.eventhandler.SystemEvent;
-import model.entities.Pad;
-import model.entities.Path;
-import model.entities.Tower;
-import model.entities.TowerZone;
+import model.entities.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,13 +15,18 @@ import java.util.List;
 public class Level {
     private List<TowerZone> towerZones;
     private List<Tower> towers;
+    private List<Troupe> troupes = new ArrayList<>();
     private List<Pad> pads;
     private Path path;
 
 
     public Level(String name, int height, int width) {}
 
-    public void update(long dt) {}
+    public void update(double dt) {
+        for (Troupe troupe : troupes) {
+            troupe.update(dt);
+        }
+    }
 
     public void addPath(Path p) {
         this.path = p;
@@ -35,6 +38,14 @@ public class Level {
 
     public void addTowers(List<Tower> towers) {
         this.towers = towers;
+    }
+
+    public void addTroupe(Troupe troupe) {
+        troupes.add(troupe);
+    }
+
+    public List<Troupe> getTroupes() {
+        return troupes;
     }
 
     public void addPads(List<Pad> pads) {
