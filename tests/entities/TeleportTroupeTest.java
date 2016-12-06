@@ -54,7 +54,7 @@ public class TeleportTroupeTest {
         Node start = new Node(1, 0, 0);
         start.setStart();
         nodes.put(1, start);
-        Node goal = new Node(2, 999, 999);
+        Node goal = new Node(2, 999, 999); // -45°
         goal.setGoal();
         nodes.put(2, goal);
 
