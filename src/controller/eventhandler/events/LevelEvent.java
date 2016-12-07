@@ -1,4 +1,6 @@
-package controller.eventhandler;
+package controller.eventhandler.events;
+
+import controller.eventhandler.events.SystemEvent;
 
 /**
  * Author: Linus Lagerhjelm

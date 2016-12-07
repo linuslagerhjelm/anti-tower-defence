@@ -1,5 +1,6 @@
 package controller.eventhandler;
 
+import controller.eventhandler.events.SystemEvent;
 import org.junit.Test;
 
 import java.util.List;

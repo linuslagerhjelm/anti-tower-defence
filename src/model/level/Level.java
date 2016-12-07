@@ -1,6 +1,6 @@
 package model.level;
 
-import controller.eventhandler.SystemEvent;
+import controller.eventhandler.events.SystemEvent;
 import model.entities.*;
 
 import java.util.ArrayList;
@@ -70,6 +70,10 @@ public class Level {
     }
 
     public void receiveEvents(List<SystemEvent> levelEvents) {
-
+        if (levelEvents.size() > 0) {
+            Troupe t = new TeleportTroupe();
+            t.setStartNode(path.getStartNodes().get(0));
+            this.addTroupe(t);
+        }
     }
 }

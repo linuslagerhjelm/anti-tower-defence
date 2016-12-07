@@ -1,11 +1,15 @@
 package control;
 
+import controller.eventhandler.Observable;
+import controller.eventhandler.Observer;
 import view.MainWindow;
 import view.PopUpMenu;
 import view.TroopMakerPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,6 +22,7 @@ public class TroopMakerListener implements ActionListener {
     private int x = 0;
     private int y = 0;
     private int currentIconIndex = 0;
+    private static List<Observer> observers = new ArrayList<>();
 
     public TroopMakerListener(String inButton) {
         buttonName = inButton;
@@ -65,6 +70,7 @@ public class TroopMakerListener implements ActionListener {
 
 
         }else if(e.getActionCommand().equals("spawn")){
+            notifyObservers(e);
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
             if (myWindow == null){
                 myWindow = MainWindow.getInstance();
@@ -74,5 +80,30 @@ public class TroopMakerListener implements ActionListener {
             System.out.print("Did not find that button\n");
 
         }
+    }
+
+    /* These method should be accessible from  the controller somehow */
+    //@Override
+    public static void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    //@Override
+    public static void unregisterObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers(Object action) {
+        observers.forEach(observer -> observer.update(new Observable() {
+            @Override
+            public void registerObserver(Observer observer) {
+
+            }
+
+            @Override
+            public void unregisterObserver(Observer observer) {
+
+            }
+        }, action));
     }
 }

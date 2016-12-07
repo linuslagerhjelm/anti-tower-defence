@@ -91,7 +91,7 @@ public class MainWindow {
     public GameScreenPanel getGameScreen() {
         try {
             SwingUtilities.invokeAndWait(() -> {
-                // Just wait
+                // Just wait for swing thread to finish
             });
         } catch (InterruptedException e) {
             e.printStackTrace();

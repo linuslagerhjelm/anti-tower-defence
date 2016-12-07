@@ -72,7 +72,7 @@ public class GameScreenPanel {
     public void createTroop(String troopName, Position spawnPosition) {
         SwingUtilities.invokeLater(() -> {
             try {
-                troopImage = ImageIO.read(new File("./res/images/troops/"+troopName+".png"));
+                troopImage = ImageIO.read(new File(getClass().getResource("/images/troops/"+troopName+".png").getFile()));
             } catch (Exception e) {
                 System.out.print("Troop creation Exception\n");
             }

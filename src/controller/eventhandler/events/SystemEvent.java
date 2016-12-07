@@ -1,4 +1,4 @@
-package controller.eventhandler;
+package controller.eventhandler.events;
 
 /**
  * Author: Linus Lagerhjelm

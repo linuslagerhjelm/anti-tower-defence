@@ -5,9 +5,13 @@
  */
 package controller.game;
 
-import controller.eventhandler.GameEvent;
+import control.TroopMakerListener;
+import controller.eventhandler.GUIObserver;
+import controller.eventhandler.Observer;
+import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.Pubsub;
-import controller.eventhandler.SystemEvent;
+import controller.eventhandler.events.LevelEvent;
+import controller.eventhandler.events.SystemEvent;
 import model.level.Level;
 import model.level.LevelReader;
 import model.level.ParseResult;
@@ -21,6 +25,7 @@ public class Game {
     private LevelReader levelReader;
     private List<Level> levels;
     private Pubsub publisher;
+    private Observer observer;
     private MainWindow mainWindow;
     private Renderer renderer;
     private int currentLevel = 0;
@@ -40,6 +45,9 @@ public class Game {
      */
     private void setup(String levelFile) {
         publisher = new Pubsub();
+        observer = new GUIObserver(publisher);
+        TroopMakerListener.registerObserver(observer);
+
         mainWindow = MainWindow.getInstance();
         mainWindow.setVisible();
 
@@ -96,8 +104,6 @@ public class Game {
                 handleEventQueue();
             }
 
-
-
         }
     }
 
@@ -114,7 +120,7 @@ public class Game {
                 .collect(Collectors.toList());
 
         List<SystemEvent> levelEvents = allEvents.stream()
-                .filter(e -> e instanceof GameEvent)
+                .filter(e -> e instanceof LevelEvent)
                 .collect(Collectors.toList());
 
         handleGameEvents(gameEvents);

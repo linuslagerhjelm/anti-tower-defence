@@ -1,5 +1,6 @@
 package controller.eventhandler;
 
+import controller.eventhandler.events.SystemEvent;
 import exceptions.UnableToRegisterEventException;
 
 import java.util.ArrayList;
