@@ -102,14 +102,17 @@ public class MainWindow {
     }
 
     public void changeUnitIcon(int index){
+
         troopMakerPanel.setTroopImage(index);
     }
 
     public int getTroopIcon_CurrentFrameIndex(){
+
         return troopMakerPanel.getCurrentImage();
     }
 
     public int getTroopIcon_ListSize(){
+
         return troopMakerPanel.getIconListSize();
     }
 
@@ -121,7 +124,7 @@ public class MainWindow {
     }
 
     private void setupInfoMenu(){
-        String[] infoButtonNames = {"About","Help"};
+        String[] infoButtonNames = {"About","Help", "Highscores"};
         InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
     }

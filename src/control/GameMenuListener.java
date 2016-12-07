@@ -35,6 +35,7 @@ public class GameMenuListener implements ActionListener {
         //Quit pressed.
         else if (e.getActionCommand() == buttonNames[3]){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
+            System.exit(0);
 
         }else if (e.getActionCommand() == buttonNames[4]){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");

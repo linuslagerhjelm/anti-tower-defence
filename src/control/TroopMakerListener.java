@@ -85,11 +85,13 @@ public class TroopMakerListener implements ActionListener {
     /* These method should be accessible from  the controller somehow */
     //@Override
     public static void registerObserver(Observer observer) {
+
         observers.add(observer);
     }
 
     //@Override
     public static void unregisterObserver(Observer observer) {
+
         observers.remove(observer);
     }
 

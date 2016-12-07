@@ -1,7 +1,13 @@
 package view;
 
+import model.highscore.DatabaseResult;
+import model.highscore.HighScore;
+import model.highscore.HighScoreServer;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by AnonM on 2016-12-01.
@@ -33,10 +39,14 @@ public class PopUpMenu {
     }
 
     public void setMessage(String message){
+
 	textArea.setText(message);
     }
 
     public void appendMessage(String message){
+
 	textArea.append(message);
     }
+
+
 }

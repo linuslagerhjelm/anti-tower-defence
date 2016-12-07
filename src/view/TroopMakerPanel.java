@@ -1,10 +1,10 @@
 package view;
 
-import com.sun.java.swing.plaf.motif.MotifBorders;
 import control.TroopMakerListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +26,7 @@ public class TroopMakerPanel {
 
         //List of troopImages.
         private ArrayList<ImageIcon> troopIcons = new ArrayList<>();
+        private ArrayList<ActionListener> actionListeners = new ArrayList<>();
 
         private JLabel label;
         private JPanel troopMakerPanel;
@@ -85,6 +86,14 @@ public class TroopMakerPanel {
                 nextTroop = new JButton("next");
                 prevTroop = new JButton("prev");
 
+                TroopMakerListener prevListener = new TroopMakerListener("prev");
+                TroopMakerListener nextListener = new TroopMakerListener("next");
+                TroopMakerListener spawnListener = new TroopMakerListener("spawn");
+
+                actionListeners.add(prevListener);
+                actionListeners.add(nextListener);
+                actionListeners.add(spawnListener);
+
                 prevTroop.setPreferredSize(buttonDimension);
                 nextTroop.setPreferredSize(buttonDimension);
                 spawnTroop.setPreferredSize(buttonDimension);
@@ -92,9 +101,10 @@ public class TroopMakerPanel {
                 nextTroop.setMaximumSize(buttonDimension);
                 prevTroop.setMaximumSize(buttonDimension);
 
-                prevTroop.addActionListener(new TroopMakerListener("prev"));
-                nextTroop.addActionListener(new TroopMakerListener("next"));
-                spawnTroop.addActionListener(new TroopMakerListener("spawn"));
+                prevTroop.addActionListener(prevListener);
+                nextTroop.addActionListener(nextListener);
+                spawnTroop.addActionListener(spawnListener);
+
         }
 
         /**
@@ -203,6 +213,11 @@ public class TroopMakerPanel {
                 return troopIcons.size();
         }
 
+        public ArrayList<ActionListener> getActionListeners() {
+
+                return actionListeners;
+        }
+
         //TODO: Add me ?
         public void getTroopImageList(){
 
@@ -210,6 +225,7 @@ public class TroopMakerPanel {
 
         //TODO: Am I needed?
         public void clearImageList(){
+
                 troopIcons.clear();
         }
 }
