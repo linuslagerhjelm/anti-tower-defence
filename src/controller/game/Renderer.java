@@ -8,7 +8,7 @@ package controller.game;
 import model.entities.Entity;
 import view.GameScreenPanel;
 
-import java.util.List;
+import java.util.Collection;
 
 public class Renderer {
 
@@ -18,7 +18,7 @@ public class Renderer {
         this.board = board;
     }
 
-    public void render(List<? extends Entity> entities) {
+    public void render(Collection<? extends Entity> entities) {
         for (Entity entity : entities) {
             board.drawTroop(entity.getPosition());
         }

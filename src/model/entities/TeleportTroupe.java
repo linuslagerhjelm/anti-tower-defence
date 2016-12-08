@@ -7,12 +7,15 @@ package model.entities;
 
 import model.level.Position;
 
+import java.util.NoSuchElementException;
+
 public class TeleportTroupe implements Troupe {
 
     public static final Stats STATS = new Stats(100, 12);
 
 
-    private KilledListener listener;
+    private KilledListener killedListener;
+    private GoalListener goalListener;
     private Position position;
     private int health = STATS.getHealth();
     private Node currentNode;
@@ -27,12 +30,29 @@ public class TeleportTroupe implements Troupe {
 
     @Override
     public void setKilledListener(KilledListener listener) {
-        this.listener = listener;
+        this.killedListener = listener;
+    }
+
+    @Override
+    public void setGoalListener(GoalListener listener) {
+        this.goalListener = listener;
     }
 
     @Override
     public void update(double dt) {
-        Node next = currentNode.getNext();
+        Node next;
+        try {
+            next = currentNode.getNext();
+        } catch (NoSuchElementException e) {
+            if (currentNode.isGoal()) {
+                if (goalListener != null) {
+                    goalListener.onGoal(this);
+                }
+            } else {
+                // invalid path, won't move
+            }
+            return;
+        }
         double angle = position.angle(new Position(next.getX(), next.getY()));
         position.setX(nextX(angle, dt));
         position.setY(nextY(angle, dt));
@@ -42,9 +62,16 @@ public class TeleportTroupe implements Troupe {
 
     private void setNextNode(double lastAngle) {
         Node next = currentNode.getNext();
-        double newAngle = position.angle(new Position(next.getX(), next.getY()));
+        double newAngle = position.angle(
+                new Position(next.getX(), next.getY()));
+
         if ((lastAngle - newAngle) > 0.001) {
             currentNode = next;
+            if (currentNode.isGoal()) {
+                if (goalListener != null) {
+                    goalListener.onGoal(this);
+                }
+            }
         }
     }
 
@@ -66,8 +93,8 @@ public class TeleportTroupe implements Troupe {
     @Override
     public void receiveDamage(int damage) {
         health -= damage;
-        if (health <= 0 && listener != null) {
-            listener.onKilled(this);
+        if (health <= 0 && killedListener != null) {
+            killedListener.onKilled(this);
         }
     }
 

@@ -59,6 +59,11 @@ public class Position {
         return Math.atan2(position2.getY()-y, position2.getX()-x);
     }
 
+    public boolean inRange(Position position2, double range) {
+        return Math.sqrt(Math.pow(x-position2.getX(), 2) +
+                         Math.pow(y-position2.getY(), 2)) < range;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

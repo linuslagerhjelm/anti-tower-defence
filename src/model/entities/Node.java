@@ -48,6 +48,11 @@ public class Node {
         return successors;
     }
 
+    /**
+     * Get the next node in which this node link to, if there is one
+     * @throws NoSuchElementException No next node exist
+     * @return Next node
+     */
     public Node getNext() {
         if (nextNode == null) {
             throw new NoSuchElementException("Node have no successors");

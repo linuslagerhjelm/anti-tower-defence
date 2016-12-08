@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.level.Position;
+
 import java.util.*;
 
 /**
@@ -88,6 +90,11 @@ public class Path {
                     "No such Node with id: "+currentNodeID);
         }
         return getNext(current);
+    }
+
+    public void switchOnNode(Position position) {
+        nodes.forEach((id, node) -> {
+        });
     }
 
     /**

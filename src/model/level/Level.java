@@ -3,8 +3,10 @@ package model.level;
 import controller.eventhandler.events.SystemEvent;
 import model.entities.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Author: Linus Lagerhjelm
@@ -12,10 +14,11 @@ import java.util.List;
  * Created: 16-11-27
  * Description:
  */
-public class Level {
+public class Level implements Troupe.KilledListener, Troupe.GoalListener{
     private List<TowerZone> towerZones;
     private List<Tower> towers;
-    private List<Troupe> troupes = new ArrayList<>();
+    private Set<Troupe> troupes = new LinkedHashSet<>();
+    private Set<Troupe> troupesToRemove = new HashSet<>();
     private List<Pad> pads;
     private Path path;
 
@@ -25,6 +28,9 @@ public class Level {
     public void update(double dt) {
         for (Troupe troupe : troupes) {
             troupe.update(dt);
+        }
+        for (Troupe toRemove : troupesToRemove) {
+            troupes.remove(toRemove);
         }
     }
 
@@ -42,9 +48,11 @@ public class Level {
 
     public void addTroupe(Troupe troupe) {
         troupes.add(troupe);
+        troupe.setKilledListener(this);
+        troupe.setGoalListener(this);
     }
 
-    public List<Troupe> getTroupes() {
+    public Set<Troupe> getTroupes() {
         return troupes;
     }
 
@@ -75,5 +83,15 @@ public class Level {
             t.setStartNode(path.getStartNodes().get(0));
             this.addTroupe(t);
         }
+    }
+
+    @Override
+    public void onKilled(Troupe troupe) {
+        troupesToRemove.add(troupe);
+    }
+
+    @Override
+    public void onGoal(Troupe troupe) {
+        troupesToRemove.add(troupe);
     }
 }
