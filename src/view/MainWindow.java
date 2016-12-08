@@ -129,8 +129,9 @@ public class MainWindow {
 
 
     private void setupGameMenu(){
-        String[] menuButtonNames = {"New Game","Restart Level","Pause","Quit"};
+        String[] menuButtonNames = {"New Game","Pause","Quit"};
         GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
+        guiListeners.add(gameMenuListener);
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
     }
 

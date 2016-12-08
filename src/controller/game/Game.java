@@ -9,10 +9,8 @@ import control.TroopMakerListener;
 import controller.eventhandler.GUIObserver;
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
-import controller.eventhandler.events.GameEvent;
+import controller.eventhandler.events.*;
 import controller.eventhandler.Pubsub;
-import controller.eventhandler.events.LevelEvent;
-import controller.eventhandler.events.SystemEvent;
 import model.level.Level;
 import model.level.LevelReader;
 import model.level.ParseResult;
@@ -29,6 +27,7 @@ public class Game {
     private Observer observer;
     private MainWindow mainWindow;
     private Renderer renderer;
+    private boolean running = true;
     private int currentLevel = 0;
     private boolean isPaused = false;
 
@@ -94,7 +93,7 @@ public class Game {
     public void run() {
 
         long time = new Date().getTime();
-        while (true) {
+        while (running) {
             double dt = (new Date().getTime() - time)/1000.0; // sec
             time = new Date().getTime();
 
@@ -111,7 +110,6 @@ public class Game {
             } else {
                 handleEventQueue();
             }
-
         }
     }
 
@@ -144,7 +142,11 @@ public class Game {
         gameEvents.forEach(e -> {
             isPaused = ((GameEvent)e).pauseGame();
             currentLevel = ((GameEvent)e).getCurrentLevel();
+            if (e instanceof QuitEvent) {
+                running = false;
+            }
         });
     }
+
 
 }

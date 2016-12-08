@@ -8,5 +8,6 @@ package controller.game;
 public class Runner {
     public static void main(String[] args) {
         Game game = ((args.length > 0) ? new Game(args[0]) : new Game());
+        System.exit(0);
     }
 }

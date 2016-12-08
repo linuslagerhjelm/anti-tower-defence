@@ -27,13 +27,13 @@ public class Level implements Troupe.KilledListener, Troupe.GoalListener {
     public Level(String name, int height, int width) {}
 
     public void update(double dt) {
-        for (Pad pad : pads) {
+        /*for (Pad pad : pads) {
             for (Troupe troupe : troupes) {
                 if (onPad(pad, troupe)) {
                     pad.landOn(troupe);
                 }
             }
-        }
+        }*/
 
         for (Troupe troupe : troupes) {
             troupe.update(dt);
