@@ -3,7 +3,10 @@
  * Author: Fredrik Johansson
  * Date: 2016-11-28
  */
-package model.entities;
+package model.entities.troupe;
+
+import model.entities.Entity;
+import model.entities.Node;
 
 public interface Troupe extends Entity {
 
@@ -19,5 +22,5 @@ public interface Troupe extends Entity {
     void setKilledListener(KilledListener listener);
     void setGoalListener(GoalListener listener);
     void receiveDamage(int damage);
-    Stats getStats();
+    TroupeStats getStats();
 }

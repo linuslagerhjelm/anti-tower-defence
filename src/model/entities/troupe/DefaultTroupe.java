@@ -1,5 +1,8 @@
-package model.entities;
+package model.entities.troupe;
 
+import model.entities.Node;
+import model.entities.troupe.Troupe;
+import model.entities.troupe.TroupeStats;
 import model.level.Position;
 
 /**
@@ -21,12 +24,17 @@ public class DefaultTroupe implements Troupe {
     }
 
     @Override
+    public void setGoalListener(GoalListener listener) {
+
+    }
+
+    @Override
     public void receiveDamage(int damage) {
 
     }
 
     @Override
-    public Stats getStats() {
+    public TroupeStats getStats() {
         return null;
     }
 

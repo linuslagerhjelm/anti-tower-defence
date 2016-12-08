@@ -8,7 +8,7 @@ package model.level;
 /**
  * Position contains two coordinates, x and y
  */
-public class Position {
+public class Position implements Cloneable {
 
     private double x;
     private double y;
@@ -62,6 +62,11 @@ public class Position {
     public boolean inRange(Position position2, double range) {
         return Math.sqrt(Math.pow(x-position2.getX(), 2) +
                          Math.pow(y-position2.getY(), 2)) < range;
+    }
+
+    @Override
+    public Position clone() {
+        return new Position(x, y);
     }
 
     @Override

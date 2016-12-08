@@ -3,9 +3,6 @@ package model.level;
 
 import model.entities.Node;
 import model.entities.Path;
-import model.level.Level;
-import model.level.LevelReader;
-import model.level.ParseResult;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -125,18 +122,21 @@ public class LevelReaderTest {
 
     private Path setUpPath() {
         Path p = new Path();
-        Node n1 = new Node(1, 8, 4);
-        Node n2 = new Node(2, 9, 4);
-        Node n3 = new Node(3, 10, 5);
+        Node n1 = new Node(1, 0, 0);
+        Node n2 = new Node(2, 200, 200);
+        Node n3 = new Node(3, 100, 30);
+        Node n4 = new Node(4, 30, 100);
         n1.setStart();
-        n2.setGoal();
         n3.setGoal();
+        n4.setGoal();
         n1.addSuccessor(n2);
-        n1.addSuccessor(n3);
+        n1.addSuccessor(n4);
+        n2.addSuccessor(n3);
         HashMap<Integer, Node> hm = new HashMap<>();
         hm.put(n1.getId(), n1);
         hm.put(n2.getId(), n2);
         hm.put(n3.getId(), n3);
+        hm.put(n4.getId(), n4);
         p.addNodes(hm);
         p.isValid();
         return p;

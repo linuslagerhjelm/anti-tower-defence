@@ -3,7 +3,7 @@
  * Author: Fredrik Johansson
  * Date: 2016-11-28
  */
-package model.entities;
+package model.entities.troupe;
 
 import exceptions.NotEnoughFounds;
 import model.player.Currency;

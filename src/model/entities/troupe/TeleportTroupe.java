@@ -3,15 +3,16 @@
  * Author: Fredrik Johansson
  * Date: 2016-11-30
  */
-package model.entities;
+package model.entities.troupe;
 
+import model.entities.Node;
 import model.level.Position;
 
 import java.util.NoSuchElementException;
 
 public class TeleportTroupe implements Troupe {
 
-    public static final Stats STATS = new Stats(100, 12);
+    public static final TroupeStats STATS = new TroupeStats(100, 12);
 
 
     private KilledListener killedListener;
@@ -23,9 +24,7 @@ public class TeleportTroupe implements Troupe {
     @Override
     public void setStartNode(Node start) {
         currentNode = start;
-        int x = currentNode.getX();
-        int y = currentNode.getY();
-        position = new Position(x, y);
+        position = start.getPosition().clone();
     }
 
     @Override
@@ -53,7 +52,7 @@ public class TeleportTroupe implements Troupe {
             }
             return;
         }
-        double angle = position.angle(new Position(next.getX(), next.getY()));
+        double angle = position.angle(next.getPosition());
         position.setX(nextX(angle, dt));
         position.setY(nextY(angle, dt));
 
@@ -62,8 +61,7 @@ public class TeleportTroupe implements Troupe {
 
     private void setNextNode(double lastAngle) {
         Node next = currentNode.getNext();
-        double newAngle = position.angle(
-                new Position(next.getX(), next.getY()));
+        double newAngle = position.angle(next.getPosition());
 
         if ((lastAngle - newAngle) > 0.001) {
             currentNode = next;
@@ -99,7 +97,7 @@ public class TeleportTroupe implements Troupe {
     }
 
     @Override
-    public Stats getStats() {
+    public TroupeStats getStats() {
         return STATS;
     }
 

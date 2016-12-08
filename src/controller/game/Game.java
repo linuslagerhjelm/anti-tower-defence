@@ -5,12 +5,11 @@
  */
 package controller.game;
 
-import control.TroopMakerListener;
 import controller.eventhandler.GUIObserver;
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
-import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.Pubsub;
+import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.events.LevelEvent;
 import controller.eventhandler.events.SystemEvent;
 import model.level.Level;
@@ -76,6 +75,9 @@ public class Game {
             @Override
             public void onSuccess(List<Level> read) {
                 levels = read;
+                for (Level level : levels) {
+                    level.build();
+                }
                 run();
             }
 
@@ -102,6 +104,9 @@ public class Game {
                 levels.get(currentLevel).receiveEvents(handleEventQueue());
                 levels.get(currentLevel).update(dt);
                 renderer.render(levels.get(currentLevel).getTroupes());
+                renderer.render(levels.get(currentLevel).getTowers());
+                renderer.renderLasers(levels.get(currentLevel).getShots());
+                levels.get(currentLevel).getShots().clear();
 
                 try {
                     Thread.sleep(30);

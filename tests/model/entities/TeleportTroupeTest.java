@@ -5,6 +5,8 @@
  */
 package model.entities;
 
+import model.entities.troupe.TeleportTroupe;
+import model.entities.troupe.Troupe;
 import model.level.Position;
 import org.junit.BeforeClass;
 import org.junit.Test;

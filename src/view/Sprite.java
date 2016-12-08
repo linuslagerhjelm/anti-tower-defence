@@ -1,7 +1,5 @@
 package view;
 
-import model.level.Position;
-
 import java.awt.image.BufferedImage;
 
 /**
@@ -10,16 +8,21 @@ import java.awt.image.BufferedImage;
 public class Sprite {
 
     private BufferedImage spriteImage = null;
-    private Position pos = null;
+    private double x;
+    private double y;
 
-    public Sprite(BufferedImage bI, Position p){
-        pos = p;
+    public Sprite(BufferedImage bI, double x, double y){
         spriteImage = bI;
+        this.x = x;
+        this.y = y;
     }
 
-    public Position getPos(){
+    public double getX() {
+        return x;
+    }
 
-        return pos;
+    public double getY() {
+        return y;
     }
 
     public BufferedImage getImage(){

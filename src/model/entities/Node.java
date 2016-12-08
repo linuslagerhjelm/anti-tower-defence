@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.level.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,17 +14,15 @@ import java.util.NoSuchElementException;
  */
 public class Node {
     private Integer id;
-    private Integer x;
-    private Integer y;
+    private Position position;
     private boolean start = false;
     private boolean goal = false;
     private List<Node> successors = new ArrayList<>();
     private Node nextNode;
 
-    public Node(int id, int x, int y) {
+    public Node(int id, double x, double y) {
         this.id = id;
-        this.x = x;
-        this.y = y;
+        this.position = new Position(x, y);
     }
 
     public void setStart() {
@@ -74,7 +74,6 @@ public class Node {
         Node node = (Node) o;
 
         return id.equals(node.id) && successors.equals(node.successors);
-
     }
 
     @Override
@@ -92,11 +91,7 @@ public class Node {
         return goal;
     }
 
-    public Integer getX() {
-        return x;
-    }
-
-    public Integer getY() {
-        return y;
+    public Position getPosition() {
+        return position;
     }
 }

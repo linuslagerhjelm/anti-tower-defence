@@ -6,9 +6,9 @@
 package model.level;
 
 import model.entities.Node;
-import model.entities.TeleportTroupe;
-import model.entities.Troupe;
-import org.junit.BeforeClass;
+import model.entities.troupe.TeleportTroupe;
+import model.entities.troupe.Troupe;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -22,8 +22,8 @@ public class LevelTest {
     private static Troupe t;
     private static Node n1;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         n1 = new Node(1, 1, 1);
         Node n2 = new Node(2, 2, 2);
         n1.addSuccessor(n2);

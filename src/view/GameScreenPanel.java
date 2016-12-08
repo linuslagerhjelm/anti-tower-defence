@@ -5,9 +5,11 @@ import model.level.Position;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /** // this is hereasdasd
@@ -20,6 +22,7 @@ public class GameScreenPanel {
         private BufferedImage troopImage = null;
         private BufferedImage teleportPadImage = null;
         private ArrayList<Sprite> sprites = new ArrayList<>();
+        private List<Line2D.Double> lasers = new ArrayList<>();
         int level_origo_X = 0;
         int level_origo_Y = 0;
         int sprite_origo_x = 0;
@@ -42,9 +45,11 @@ public class GameScreenPanel {
                                         super.paintComponent(g);
                                         drawLevel(g);
                                         drawSprites(g);
-                                        drawLaser(g, new Position(12, 30), new Position(90,90));
-                                        drawTeleportPad(g, new Position(100,100));
+                                        drawLasers(g);
+                                        //drawTeleportPad(g, new Position(100,100));
+
                                         sprites.clear();
+                                        lasers.clear();
                                 }
                         };
 
@@ -70,19 +75,22 @@ public class GameScreenPanel {
                 return gameScreen;
         }
 
-        public void drawTroop(Position position) {
-
-                createTroop("troop_v2", position);
+        public void drawTroop(double x, double y) {
+                createTroop("troop_v2", x, y);
         }
 
-        public void createTroop(String troopName, Position spawnPosition) {
+        public void drawLaser(double x1, double y1, double x2, double y2) {
+            lasers.add(new Line2D.Double(x1, y1, x2, y2));
+        }
+
+        public void createTroop(String troopName, double x, double y) {
                 SwingUtilities.invokeLater(() -> {
                         try {
                                 troopImage = ImageIO.read(new File(getClass().getResource("/images/troops/"+troopName+".png").getFile()));
                         } catch (Exception e) {
                                 System.out.print("Troop creation Exception\n");
                         }
-                        sprites.add(new Sprite(troopImage,spawnPosition));
+                        sprites.add(new Sprite(troopImage, x, y));
                 });
         }
 
@@ -100,9 +108,6 @@ public class GameScreenPanel {
                         System.out.print("Pad creation Exception\n");
                 }
         }
-
-
-
 
         public void drawLevel(Graphics g){
                 Graphics2D g2d = (Graphics2D) g;
@@ -126,9 +131,6 @@ public class GameScreenPanel {
                         int H=(int)(levelImage.getHeight()*rateX);
                         g2d.drawImage(levelImage,0,0,W,H,null);
                 }
-
-
-
         }
 
         public void drawSprites(Graphics g){
@@ -147,12 +149,12 @@ public class GameScreenPanel {
 
                         BufferedImage image = sprites.get(i).getImage();
                         g2d.drawImage(image,
-                                sprite_origo_x+(int)sprites.get(i).getPos().getX(),
-                                sprite_origo_y+(int)sprites.get(i).getPos().getY(),null);
+                                sprite_origo_x+(int)sprites.get(i).getX(),
+                                sprite_origo_y+(int)sprites.get(i).getY(),null);
                 }
         }
 
-        public void drawLaser(Graphics g, Position startPos, Position endPos) {
+        public void drawLasers(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
 
                 //Makes rendering smooth
@@ -160,7 +162,10 @@ public class GameScreenPanel {
                 rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
                 g2d.setRenderingHints(rh);
 
-                g2d.drawLine((int)startPos.getX(), (int)startPos.getY(), (int)endPos.getX(), (int)endPos.getY());
+                for (Line2D laser : lasers) {
+                    g2d.drawLine((int) laser.getX1(), (int) laser.getY1(),
+                                 (int) laser.getX2(), (int) laser.getY2());
+                }
 
         }
 
@@ -203,7 +208,6 @@ public class GameScreenPanel {
 //    Dimension size = gameScreen.getSize();
 //    double w = size.getWidth();
 //    double h = size.getHeight();
-
 
 
 //TODO Add this to make the gamescreen scalable.

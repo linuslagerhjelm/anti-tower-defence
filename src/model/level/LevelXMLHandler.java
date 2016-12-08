@@ -2,6 +2,9 @@ package model.level;
 
 import exceptions.NoSuchPadException;
 import model.entities.*;
+import model.entities.tower.Tower;
+import model.entities.tower.TowerFactory;
+import model.entities.tower.TowerZone;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
