@@ -3,8 +3,6 @@ package control;
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
 import view.MainWindow;
-import view.PopUpMenu;
-import view.TroopMakerPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +13,7 @@ import java.util.List;
 /**
  * Created by c15aen on 2016-11-30.
  */
-public class TroopMakerListener implements ActionListener {
+public class TroopMakerListener implements ActionListener, Observable {
 
     private String buttonName;
     private static MainWindow myWindow = null;
@@ -30,6 +28,7 @@ public class TroopMakerListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        notifyObservers(e);
         if (e.getActionCommand().equals("next")){
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
             x=2;
@@ -70,7 +69,6 @@ public class TroopMakerListener implements ActionListener {
 
 
         }else if(e.getActionCommand().equals("spawn")){
-            notifyObservers(e);
             System.out.print("Button detected: " + e.getActionCommand() + " \n");
             if (myWindow == null){
                 myWindow = MainWindow.getInstance();
@@ -82,30 +80,17 @@ public class TroopMakerListener implements ActionListener {
         }
     }
 
-    /* These method should be accessible from  the controller somehow */
-    //@Override
-    public static void registerObserver(Observer observer) {
-
+    @Override
+    public void registerObserver(Observer observer) {
         observers.add(observer);
     }
 
-    //@Override
-    public static void unregisterObserver(Observer observer) {
-
+    @Override
+    public void unregisterObserver(Observer observer) {
         observers.remove(observer);
     }
 
     private void notifyObservers(Object action) {
-        observers.forEach(observer -> observer.update(new Observable() {
-            @Override
-            public void registerObserver(Observer observer) {
-
-            }
-
-            @Override
-            public void unregisterObserver(Observer observer) {
-
-            }
-        }, action));
+        observers.forEach(observer -> observer.update(this, action));
     }
 }

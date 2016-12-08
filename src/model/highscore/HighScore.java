@@ -1,5 +1,6 @@
 package model.highscore;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -41,6 +42,15 @@ public final class HighScore {
      */
     public int getID() {
         return ID;
+    }
+
+    /**
+     * Returns the data in the HighScore as a formatted string, ready to print
+     * @return Formatted string
+     */
+    public String getHighScoreString() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd:HH.mm");
+        return "" + ID + " " + format.format(time) + " " + score.getScore() + "";
     }
 
     /* Intellij generated method */

@@ -214,7 +214,6 @@ public class TroopMakerPanel {
         }
 
         public ArrayList<ActionListener> getActionListeners() {
-
                 return actionListeners;
         }
 

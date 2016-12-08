@@ -7,7 +7,11 @@ import control.InfoMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
@@ -19,6 +23,7 @@ public class MainWindow {
     private TroopMakerPanel troopMakerPanel;
     private GameScreenPanel gameScreenPanel;
     private InfoPanel infoPanel;
+    private List<ActionListener> guiListeners = new ArrayList<>();
 
     private static MainWindow mainWindowInstance = null;
 
@@ -35,43 +40,49 @@ public class MainWindow {
 
     private MainWindow(String title, int width, int height) {
         SwingUtilities.invokeLater(() -> {
-        frame = new JFrame(title);
-        frame.setLayout(new BorderLayout());
-        frame.setMinimumSize(new Dimension(width,height));
-        frame.setMaximumSize(new Dimension(width,height));
-        frame.setPreferredSize(new Dimension(width, height));
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame = new JFrame(title);
+            frame.setLayout(new BorderLayout());
+            frame.setMinimumSize(new Dimension(width,height));
+            frame.setMaximumSize(new Dimension(width,height));
+            frame.setPreferredSize(new Dimension(width, height));
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        troopMakerPanel = new TroopMakerPanel();
-        menuPanel = new MenuPanel(50,50);
-        infoPanel = new InfoPanel();
-        gameScreenPanel = new GameScreenPanel();
+            troopMakerPanel = new TroopMakerPanel();
+            menuPanel = new MenuPanel(50,50);
+            infoPanel = new InfoPanel();
+            gameScreenPanel = new GameScreenPanel();
 
-        setupGameMenu();
-        setupInfoMenu();
+            setupGameMenu();
+            setupInfoMenu();
 
-        //Build panels
-        JPanel upperPanel = menuPanel.returnPanel();
-        JPanel rightPanel = troopMakerPanel.getJPanel();
-        JPanel lowerPanel = infoPanel.getPanel();
-        JPanel centerPanel = gameScreenPanel.getJPanel();
+            //Build panels
+            JPanel upperPanel = menuPanel.returnPanel();
+            JPanel rightPanel = troopMakerPanel.getJPanel();
+            JPanel lowerPanel = infoPanel.getPanel();
+            JPanel centerPanel = gameScreenPanel.getJPanel();
 
-        //Add panels to the frame
-        frame.add(upperPanel, BorderLayout.NORTH);
-        frame.add(rightPanel, BorderLayout.EAST);
-        frame.add(lowerPanel, BorderLayout.SOUTH);
-        frame.add(centerPanel, BorderLayout.CENTER);
+            guiListeners.addAll(troopMakerPanel.getActionListeners());
 
-        // Just tests!
-        infoPanel.setMoney(500);
-        infoPanel.setHighScore(1254363);
-        infoPanel.addMoney(20);
-        infoPanel.displayInfo();
+            //Add panels to the frame
+            frame.add(upperPanel, BorderLayout.NORTH);
+            frame.add(rightPanel, BorderLayout.EAST);
+            frame.add(lowerPanel, BorderLayout.SOUTH);
+            frame.add(centerPanel, BorderLayout.CENTER);
 
-        //loadImages();
-        frame.setLocationRelativeTo(null);
-        frame.pack();
+            // Just tests!
+            infoPanel.setMoney(500);
+            infoPanel.setHighScore(1254363);
+            infoPanel.addMoney(20);
+            infoPanel.displayInfo();
+
+            //loadImages();
+            frame.setLocationRelativeTo(null);
+            frame.pack();
         });
+    }
+
+    public List<ActionListener> getGuiListeners() {
+        return guiListeners;
     }
 
     private void loadImages(){
@@ -134,7 +145,7 @@ public class MainWindow {
      */
     public void setVisible() {
         SwingUtilities.invokeLater(() -> {
-        frame.setVisible(true);
+            frame.setVisible(true);
         });
     }
 }
