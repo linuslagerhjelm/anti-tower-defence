@@ -1,5 +1,8 @@
 package controller.eventhandler;
 
+import controller.eventhandler.events.GameEvent;
+import controller.eventhandler.events.QuitEvent;
+import controller.eventhandler.events.RestartEvent;
 import controller.eventhandler.events.SpawnEvent;
 import exceptions.UnableToRegisterEventException;
 
@@ -30,6 +33,18 @@ public class GUIObserver implements Observer {
         try {
             if (event.getActionCommand().equals("spawn")) {
                 publisher.registerEvent(new SpawnEvent());
+
+            } else if (event.getActionCommand().equals("Pause")) {
+                publisher.registerEvent(new GameEvent(true));
+
+            } else if (event.getActionCommand().equals("Resume")) {
+                publisher.registerEvent(new GameEvent(false));
+
+            } else if (event.getActionCommand().equals("Restart")) {
+                publisher.registerEvent(new RestartEvent());
+
+            } else if (event.getActionCommand().equals("Quit")) {
+                publisher.registerEvent(new QuitEvent());
             }
 
         } catch (UnableToRegisterEventException e) {

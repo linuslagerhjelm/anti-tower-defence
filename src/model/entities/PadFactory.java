@@ -24,10 +24,15 @@ public class PadFactory {
 
         Pad pad = null;
         try {
-            pad = (Pad)Class.forName("model.entities."+type).newInstance();
+            pad = (Pad)Class.forName(type).newInstance();
 
         } catch (ClassNotFoundException e) {
-            throw new NoSuchPadException("Couldn't find pad: " + type);
+            if (!type.startsWith("model.entities")) {
+                pad = newInstance("model.entities"+type);
+
+            } else {
+                throw new NoSuchPadException("Couldn't find pad: " + type);
+            }
         } catch (IllegalAccessException e) {
             throw new NoSuchPadException("Not allowed to create pad: " + type);
         } catch (InstantiationException e) {

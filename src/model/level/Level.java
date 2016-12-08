@@ -34,6 +34,14 @@ public class Level implements Troupe.KilledListener,
     public Level(String name, int height, int width) {}
 
     public void update(double dt) {
+        /*for (Pad pad : pads) {
+            for (Troupe troupe : troupes) {
+                if (onPad(pad, troupe)) {
+                    pad.landOn(troupe);
+                }
+            }
+        }*/
+
         for (Troupe troupe : troupes) {
             troupe.update(dt);
 
@@ -46,9 +54,50 @@ public class Level implements Troupe.KilledListener,
                 }
             }
         }
+
         for (Troupe toRemove : troupesToRemove) {
             troupes.remove(toRemove);
         }
+    }
+
+
+    public boolean onPad(Pad pad, Troupe troupe) {
+        Position M = troupe.getPosition();
+
+        // Upper left corner
+        Position A = pad.getPosition();
+
+        // Upper right corner
+        Position B = new Position(A.getX() + pad.getWidth(), A.getY());
+
+        // Lower right corner
+        Position D = new Position(A.getX(), A.getX() + pad.getHeight());
+
+        /*
+        *  Using th formula: (0<AM⋅AB<AB⋅AB)∧(0<AM⋅AD<AD⋅AD)
+        *  to determine weather the troupe position is inside
+        *  the rectangular area of the pad as suggested by:
+        *  http://math.stackexchange.com/a/190373
+        */
+        double[] AM = createVector(A, M);
+        double[] AB = createVector(A, B);
+        double[] AD = createVector(A, D);
+
+        return ((0 < scalarProduct(AM, AB)) &&
+                (scalarProduct(AM, AB) < scalarProduct(AB, AB))) &&
+                ((0 < scalarProduct(AM, AD)) &&
+                        (scalarProduct(AM, AD) < scalarProduct(AD, AD)));
+    }
+
+    public static double[] createVector(Position p1, Position p2) {
+        double[] vector = new double[2];
+        vector[0] = p2.getX() - p1.getX();
+        vector[1] = p2.getY() - p1.getY();
+        return vector;
+    }
+
+    public static double scalarProduct(double[] v1, double[] v2) {
+        return ((v1[0] * v2[0]) + (v1[1] * v2[1]));
     }
 
     public void addPath(Path p) {

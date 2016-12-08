@@ -1,14 +1,21 @@
 package control;
 
+import controller.eventhandler.Observable;
+import controller.eventhandler.Observer;
+import controller.eventhandler.events.RestartEvent;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by c15awl on 2016-11-28.
  */
-public class GameMenuListener implements ActionListener {
-
+public class GameMenuListener implements ActionListener, Observable {
     private String[] buttonNames;
+    private List<Observer> observers = new ArrayList<>();
 
     public GameMenuListener(String[] inButtonNames) {
         buttonNames = inButtonNames;
@@ -19,30 +26,44 @@ public class GameMenuListener implements ActionListener {
 
         //New Game pressed.
         if (e.getActionCommand() == buttonNames[0]){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
+            if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("new game")) {
+                notifyObservers(e);
+                ((JMenuItem)e.getSource()).setText("Restart");
+
+            } else {
+                notifyObservers(new ActionEvent(new Object(), 0, "Restart"));
+            }
         }
 
-        //Restart Level pressed.
+        //Pause/Resumed pressed.
         else if (e.getActionCommand() == buttonNames[1]){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
+            if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("pause")) {
+                notifyObservers(e);
+                ((JMenuItem)e.getSource()).setText("Resume");
+
+            } else {
+                ((JMenuItem)e.getSource()).setText("Pause");
+                notifyObservers(new ActionEvent(new Object(), 0, "Resume"));
+            }
         }
 
-        //Pause pressed.
-        else if (e.getActionCommand() == buttonNames[2]){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
+        else if (e.getActionCommand() == buttonNames[2]) {
+            notifyObservers(e);
         }
+    }
 
-        //Quit pressed.
-        else if (e.getActionCommand() == buttonNames[3]){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
-            System.exit(0);
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
 
-        }else if (e.getActionCommand() == buttonNames[4]){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
+    @Override
+    public void unregisterObserver(Observer observer) {
+        observers.remove(observer);
+    }
 
-        }else{
-            System.out.print("Did not find that button\n");
-        }
+    private void notifyObservers(ActionEvent e) {
+        observers.forEach(observer -> observer.update(this, e));
     }
 }
 
