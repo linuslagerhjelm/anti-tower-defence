@@ -1,7 +1,11 @@
 package model.highscore;
 
 import org.junit.Test;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -43,5 +47,13 @@ public class HighScoreTest {
     public void testEquals() {
         assertEquals(new HighScore(score, date, ID),
                 new HighScore(score, date, ID));
+    }
+
+    @Test
+    public void testFormattedString() throws Exception {
+        String dateString = "2016-12-07:20.49";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd:HH.mm", Locale.ENGLISH);
+        HighScore hs = new HighScore(score, format.parse(dateString), ID);
+        assertEquals("" + ID + " 2016-12-07:20.49 " + score.getScore(), hs.getHighScoreString());
     }
 }

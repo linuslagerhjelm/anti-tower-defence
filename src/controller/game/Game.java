@@ -7,6 +7,7 @@ package controller.game;
 
 import control.TroopMakerListener;
 import controller.eventhandler.GUIObserver;
+import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
 import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.Pubsub;
@@ -46,12 +47,19 @@ public class Game {
     private void setup(String levelFile) {
         publisher = new Pubsub();
         observer = new GUIObserver(publisher);
-        TroopMakerListener.registerObserver(observer);
+
 
         mainWindow = MainWindow.getInstance();
         mainWindow.setVisible();
 
         renderer = new Renderer(mainWindow.getGameScreen()); // Blocking
+
+        mainWindow.getGuiListeners().forEach(listener -> {
+            if (listener instanceof Observable) {
+                ((Observable) listener).registerObserver(observer);
+            }
+        });
+
 
         setupLevels(levelFile);
     }

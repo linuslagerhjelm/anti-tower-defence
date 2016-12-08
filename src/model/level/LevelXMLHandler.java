@@ -1,5 +1,6 @@
 package model.level;
 
+import exceptions.NoSuchPadException;
 import model.entities.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -91,7 +92,12 @@ public class LevelXMLHandler extends DefaultHandler {
             }
 
         } else if(qName.equalsIgnoreCase("pad")) {
-            tmpPad = PadFactory.newInstance(attributes.getValue("className"));
+            try {
+                tmpPad = PadFactory.newInstance(attributes.getValue("className"));
+
+            } catch (NoSuchPadException ignore) {
+                // Just don't create pad if we couldn't find one
+            }
 
         } else if(qName.equalsIgnoreCase("towerzones")) {
             towerZones = new ArrayList<>();
