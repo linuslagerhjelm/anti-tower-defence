@@ -5,16 +5,14 @@
  */
 package model.level;
 
-import model.entities.Node;
-import model.entities.TeleportTroupe;
-import model.entities.Troupe;
+import model.entities.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.*;
 
 public class LevelTest {
 
@@ -53,5 +51,41 @@ public class LevelTest {
         level.update(1);
         troupes.remove(t);
         assertEquals(troupes, level.getTroupes());
+    }
+
+    @Test
+    public void shouldCreateVector() {
+        Position p1 = new Position(1, 2);
+        Position p2 = new Position(3, 4);
+
+        double[] expected = {2, 2};
+        double[] actual = Level.createVector(p1, p2);
+
+        assertEquals(expected[0], actual[0]);
+        assertEquals(expected[1], actual[1]);
+    }
+
+    @Test
+    public void shouldHaveCorrectScalarProduct() {
+        double[] p1 = {1, 2};
+        double[] p2 = {3, 4};
+        assertEquals(11.0, Level.scalarProduct(p1, p2));
+    }
+
+
+    @Test
+    public void shouldBeInSquare() {
+        TeleportPad pad = new TeleportPad(1, 2, 3, 4);
+        TeleportTroupe troupe = new TeleportTroupe();
+        troupe.setPosition(new Position(2,3));
+        assertTrue(level.onPad(pad, troupe));
+    }
+
+    @Test
+    public void shouldNotBeInSquare() {
+        TeleportPad pad = new TeleportPad(1, 2, 3, 4);
+        TeleportTroupe troupe = new TeleportTroupe();
+        troupe.setPosition(new Position(6,3));
+        assertFalse(level.onPad(pad, troupe));
     }
 }

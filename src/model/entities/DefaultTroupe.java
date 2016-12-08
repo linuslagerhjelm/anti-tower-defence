@@ -21,6 +21,11 @@ public class DefaultTroupe implements Troupe {
     }
 
     @Override
+    public void setGoalListener(GoalListener listener) {
+
+    }
+
+    @Override
     public void receiveDamage(int damage) {
 
     }
