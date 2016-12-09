@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /** // this is hereasdasd
@@ -21,7 +23,7 @@ public class GameScreenPanel {
         private BufferedImage levelImage = null;
         private BufferedImage troopImage = null;
         private BufferedImage teleportPadImage = null;
-        private ArrayList<Sprite> sprites = new ArrayList<>();
+        private Map<Integer, Sprite> sprites = new ConcurrentHashMap<>();
         private List<Line2D.Double> lasers = new ArrayList<>();
         int level_origo_X = 0;
         int level_origo_Y = 0;
@@ -32,7 +34,7 @@ public class GameScreenPanel {
 
         public GameScreenPanel() {
 
-                //createTroop("troop_v2", new Position(0,0));
+                createTroop("troop_v2");
                 //createTroop("troop_v2", new Position(400,400));
                 createLevel("defaultLevel");
                 createTeleportPad();
@@ -76,22 +78,19 @@ public class GameScreenPanel {
         }
 
         public void drawTroop(double x, double y) {
-                createTroop("troop_v2", x, y);
+                sprites.put((int) y, new Sprite(troopImage, x, y));
         }
 
         public void drawLaser(double x1, double y1, double x2, double y2) {
-            lasers.add(new Line2D.Double(x1, y1, x2, y2));
+                lasers.add(new Line2D.Double(x1, y1, x2, y2));
         }
 
-        public void createTroop(String troopName, double x, double y) {
-                SwingUtilities.invokeLater(() -> {
-                        try {
-                                troopImage = ImageIO.read(new File(getClass().getResource("/images/troops/"+troopName+".png").getFile()));
-                        } catch (Exception e) {
-                                System.out.print("Troop creation Exception\n");
-                        }
-                        sprites.add(new Sprite(troopImage, x, y));
-                });
+        public void createTroop(String troopName) {
+                try {
+                    troopImage = ImageIO.read(new File(getClass().getResource("/images/troops/" + troopName + ".png").getFile()));
+                } catch (Exception e) {
+                    System.out.print("Troop creation Exception\n");
+                }
         }
 
         public void createLevel(String levelName) {
@@ -142,15 +141,19 @@ public class GameScreenPanel {
                 g2d.setRenderingHints(rh);
 
 
-                for(int i = 0; i < sprites.size(); i ++){
+                // Draw sprites based on y position (key)
+                List<Integer> keys = new ArrayList<>(sprites.keySet());
+                keys.sort(Integer::compareTo);
+                for (Integer key : keys) {
+                    Sprite sprite = sprites.get(key);
 
-                        sprite_origo_x = level_origo_X-(sprites.get(i).getImage().getWidth()/2);
-                        sprite_origo_y = level_origo_Y-(sprites.get(i).getImage().getHeight()/2);
+                    sprite_origo_x = level_origo_X - (sprite.getImage().getWidth() / 2);
+                    sprite_origo_y = level_origo_Y - (sprite.getImage().getHeight() / 2);
 
-                        BufferedImage image = sprites.get(i).getImage();
-                        g2d.drawImage(image,
-                                sprite_origo_x+(int)sprites.get(i).getX(),
-                                sprite_origo_y+(int)sprites.get(i).getY(),null);
+                    BufferedImage image = sprite.getImage();
+                    g2d.drawImage(image,
+                            sprite_origo_x + (int) sprite.getX(),
+                            sprite_origo_y + (int) sprite.getY(), null);
                 }
         }
 

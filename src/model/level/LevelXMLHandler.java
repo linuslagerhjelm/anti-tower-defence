@@ -1,6 +1,7 @@
 package model.level;
 
 import exceptions.NoSuchPadException;
+import exceptions.NoSuchTowerException;
 import model.entities.*;
 import model.entities.tower.Tower;
 import model.entities.tower.TowerFactory;
@@ -91,7 +92,11 @@ public class LevelXMLHandler extends DefaultHandler {
 
         } else if(qName.equalsIgnoreCase("tower")) {
             for (int i = 0; i < Integer.parseInt(attributes.getValue("count")); ++i) {
-                towers.add(TowerFactory.newInstance(attributes.getValue("className")));
+                try {
+                    towers.add(TowerFactory.newInstance(attributes.getValue("className")));
+                } catch (NoSuchTowerException e) {
+                    // ignore, don't create any such tower
+                }
             }
 
         } else if(qName.equalsIgnoreCase("pad")) {

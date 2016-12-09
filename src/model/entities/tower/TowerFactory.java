@@ -1,5 +1,7 @@
 package model.entities.tower;
 
+import exceptions.NoSuchTowerException;
+
 /**
  * Author: Linus Lagerhjelm
  * File: TowerFactory
@@ -8,7 +10,13 @@ package model.entities.tower;
  */
 public class TowerFactory {
 
-    public static Tower newInstance(String type) {
-        return new SmallTower();
+    public static Tower newInstance(String type) throws NoSuchTowerException {
+        if (type.equals("SmallTower")) {
+            return new SmallTower();
+        } else if (type.equals("LargeTower")) {
+            return new LargeTower();
+        } else {
+            throw new NoSuchTowerException();
+        }
     }
 }

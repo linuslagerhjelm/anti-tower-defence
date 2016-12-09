@@ -11,9 +11,8 @@ import controller.eventhandler.Observer;
 import controller.eventhandler.Pubsub;
 import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.events.LevelEvent;
+import controller.eventhandler.events.QuitEvent;
 import controller.eventhandler.events.SystemEvent;
-import controller.eventhandler.events.*;
-import controller.eventhandler.Pubsub;
 import model.level.Level;
 import model.level.LevelReader;
 import model.level.ParseResult;
@@ -104,6 +103,7 @@ public class Game {
             time = new Date().getTime();
 
             if (!isPaused) {
+                renderer.clear();
                 levels.get(currentLevel).receiveEvents(handleEventQueue());
                 levels.get(currentLevel).update(dt);
                 renderer.render(levels.get(currentLevel).getTroupes());
@@ -111,8 +111,9 @@ public class Game {
                 renderer.renderLasers(levels.get(currentLevel).getShots());
                 levels.get(currentLevel).getShots().clear();
 
+
                 try {
-                    Thread.sleep(30);
+                    Thread.sleep(16);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

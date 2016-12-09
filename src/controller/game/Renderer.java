@@ -19,11 +19,14 @@ public class Renderer {
         this.board = board;
     }
 
+    public void clear() {
+        board.refresh();
+    }
+
     public void render(Collection<? extends Entity> entities) {
         for (Entity entity : entities) {
             board.drawTroop(entity.getPosition().getX(), entity.getPosition().getY());
         }
-        board.refresh();
     }
 
     public void renderLasers(Collection<Line> shots) {
