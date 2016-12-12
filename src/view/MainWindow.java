@@ -34,7 +34,7 @@ public class MainWindow {
 
     public static MainWindow getInstance() {
         if(mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare", 1440, 1080);
+            mainWindowInstance = new MainWindow("Fiskare", 1280, 1080);
         }
         return mainWindowInstance;
     }
@@ -43,7 +43,7 @@ public class MainWindow {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame(title);
             frame.setLayout(new BorderLayout());
-            frame.setMinimumSize(new Dimension(width,height));
+            //frame.setMinimumSize(new Dimension(width,height));
             frame.setMaximumSize(new Dimension(width,height));
             frame.setPreferredSize(new Dimension(width, height));
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -69,7 +69,7 @@ public class MainWindow {
             frame.add(rightPanel, BorderLayout.EAST);
             frame.add(lowerPanel, BorderLayout.SOUTH);
             frame.add(centerPanel, BorderLayout.CENTER);
-            //frame.setResizable(false);
+            frame.setResizable(false);
 
             //loadImages();
             frame.setLocationRelativeTo(null);
