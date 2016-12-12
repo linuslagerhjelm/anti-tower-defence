@@ -146,6 +146,7 @@ public class MainWindow {
     private void setupInfoMenu(){
         String[] infoButtonNames = {"About","Help", "Highscores"};
         InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
+        guiListeners.add(infoMenuListener);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
     }
 

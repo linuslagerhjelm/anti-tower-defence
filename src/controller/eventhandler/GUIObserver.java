@@ -1,10 +1,13 @@
 package controller.eventhandler;
 
+import control.InfoMenuListener;
 import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.events.QuitEvent;
 import controller.eventhandler.events.RestartEvent;
 import controller.eventhandler.events.SpawnEvent;
 import exceptions.UnableToRegisterEventException;
+import model.highscore.HighScoreServer;
+import view.PopUpMenu;
 
 import java.awt.event.ActionEvent;
 
@@ -45,6 +48,12 @@ public class GUIObserver implements Observer {
 
             } else if (event.getActionCommand().equals("Quit")) {
                 publisher.registerEvent(new QuitEvent());
+
+            } else if (event.getActionCommand().equals("Highscores")) {
+                HighScoreServer.getInstance().getHighScores(result -> {
+                    PopUpMenu menu = ((InfoMenuListener)subject).getHighScoreMenu();
+                    result.forEach(highScore -> menu.appendMessage(highScore.getHighScoreString()+"\n"));
+                });
             }
 
         } catch (UnableToRegisterEventException e) {
