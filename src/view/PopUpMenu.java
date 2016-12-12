@@ -16,6 +16,13 @@ public class PopUpMenu {
     private JFrame frame;
     private JTextArea textArea;
 
+    /**
+     *
+     * @param title
+     * @param message
+     * @param width
+     * @param height
+     */
     public PopUpMenu(String title, String message, int width, int height){
 	frame = new JFrame(title);
 	frame.setLayout(new BorderLayout());

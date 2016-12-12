@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -23,6 +24,7 @@ public class GameScreenPanel {
     private BufferedImage levelImage = null;
     private BufferedImage troopImage = null;
     private BufferedImage teleportPadImage = null;
+
     private List<Sprite> sprites = new CopyOnWriteArrayList<>();
     private List<Sprite> newSprites = new CopyOnWriteArrayList<>();
     private List<Line2D.Double> lasers = new CopyOnWriteArrayList<>();
@@ -109,7 +111,7 @@ public class GameScreenPanel {
      */
     private void createTroop(String troopName) {
 	try {
-	    troopImage = ImageIO.read(this.getClass().getResource("/images/troops/" + troopName + ".png"));
+	    troopImage = ImageIO.read(new File(this.getClass().getResource("/images/troops/" + troopName + ".png").getFile()));
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    System.out.print("Troop creation Exception\n");
@@ -122,7 +124,7 @@ public class GameScreenPanel {
      */
     private void createLevel(String levelName) {
 	try {
-	    levelImage = ImageIO.read(this.getClass().getResource("/images/levels/"+levelName+".jpg"));
+	    levelImage = ImageIO.read(new File(this.getClass().getResource("/images/levels/"+levelName+".jpg").getFile()));
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    System.out.print("Level creation Exception\n");
