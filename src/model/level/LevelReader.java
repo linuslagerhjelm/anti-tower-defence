@@ -53,7 +53,6 @@ public class LevelReader implements Runnable {
             Schema schema = schemaFactory.newSchema(new File(
                     getClass().getResource("/" + schemaName).getFile()));
 
-            //saxParserFactory.setSchema(schema);
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(file));
 

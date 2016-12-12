@@ -28,7 +28,7 @@ public class PadFactory {
 
         } catch (ClassNotFoundException e) {
             if (!type.startsWith("model.entities")) {
-                pad = newInstance("model.entities"+type);
+                pad = newInstance("model.entities."+type);
 
             } else {
                 throw new NoSuchPadException("Couldn't find pad: " + type);
