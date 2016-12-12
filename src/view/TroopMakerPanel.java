@@ -1,6 +1,6 @@
 package view;
 
-import control.TroopMakerListener;
+import view.listeners.TroopMakerListener;
 
 import javax.swing.*;
 import java.awt.*;

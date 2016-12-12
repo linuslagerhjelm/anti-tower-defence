@@ -1,6 +1,6 @@
 package controller.eventhandler;
 
-import control.InfoMenuListener;
+import view.listeners.InfoMenuListener;
 import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.events.QuitEvent;
 import controller.eventhandler.events.RestartEvent;

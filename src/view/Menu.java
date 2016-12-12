@@ -48,6 +48,7 @@ public class Menu {
         }
 
         public JMenu getJMenu(){
+
                 return menu;
         }
 
@@ -60,6 +61,7 @@ public class Menu {
         }
 
         public ArrayList returnButtons() {
+
                 return buttons;
         }
 

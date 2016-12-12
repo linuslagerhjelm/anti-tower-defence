@@ -47,6 +47,7 @@ public class GameScreenPanel {
                         drawLevel(g);
                         drawSprites(g);
                         drawLasers(g);
+                            drawTeleportPad(g,new Position(100,100));
                     }
                 };
 
@@ -114,19 +115,8 @@ public class GameScreenPanel {
                 g2d.setRenderingHints(rh);
 
 
-                float rateX =  (float)gameScreen.getWidth()/(float)levelImage.getWidth();
-                float rateY = (float)gameScreen.getHeight()/(float)levelImage.getHeight();
+                        g2d.drawImage(levelImage,0,0,1000,1000,null);
 
-                if (rateX>rateY){
-                        int W=(int)(levelImage.getWidth()*rateY);
-                        int H=(int)(levelImage.getHeight()*rateY);
-                        g2d.drawImage(levelImage,0,0,W,H,null);
-                }
-                else{
-                        int W=(int)(levelImage.getWidth()*rateX);
-                        int H=(int)(levelImage.getHeight()*rateX);
-                        g2d.drawImage(levelImage,0,0,W,H,null);
-                }
         }
 
         private void drawSprites(Graphics g){
@@ -177,23 +167,9 @@ public class GameScreenPanel {
                 pad_origo_x = teleportPadImage.getWidth()/2;
                 pad_origo_y = teleportPadImage.getHeight()/2;
 
-                float rateX = (float)gameScreen.getWidth()/(float)teleportPadImage.getWidth();
-                float rateY = (float)gameScreen.getHeight()/(float)teleportPadImage.getHeight();
-                //rateX = rateX*1/10;
-                //rateY = rateY*1/10;
 
-                if (rateX>rateY){
-                        int W=(int)(teleportPadImage.getWidth()*rateY);
-                        int H=(int)(teleportPadImage.getHeight()*rateY);
-                        g2d.drawImage(teleportPadImage,(int)padPosition.getX()-pad_origo_x,(int)padPosition.getX()-pad_origo_x,W,H,null);
-                }
-                else{
-                        int W=(int)(teleportPadImage.getWidth()*rateX);
-                        int H=(int)(teleportPadImage.getHeight()*rateX);
-                        g2d.drawImage(teleportPadImage,(int)padPosition.getX()-pad_origo_x,(int)padPosition.getX()-pad_origo_x,W,H,null);
-                }
 
-                //g2d.drawImage(teleportPadImage, (int)padPosition.getX()-pad_origo_x, (int)padPosition.getX()-pad_origo_x,null);
+                g2d.drawImage(teleportPadImage, (int)padPosition.getX()-pad_origo_x, (int)padPosition.getX()-pad_origo_x,null);
 
         }
 

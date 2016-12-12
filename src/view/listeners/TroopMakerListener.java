@@ -1,4 +1,4 @@
-package control;
+package view.listeners;
 
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;

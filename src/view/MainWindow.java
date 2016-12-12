@@ -2,8 +2,8 @@ package view; /**
  * Created by c15aen on 2016-11-03. teset seteste
  */
 
-import control.GameMenuListener;
-import control.InfoMenuListener;
+import view.listeners.GameMenuListener;
+import view.listeners.InfoMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,8 +33,8 @@ public class MainWindow {
     }
 
     public static MainWindow getInstance() {
-        if (mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare",800,600);
+        if(mainWindowInstance == null) {
+            mainWindowInstance = new MainWindow("Fiskare", 800, 600);
         }
         return mainWindowInstance;
     }
@@ -43,7 +43,7 @@ public class MainWindow {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame(title);
             frame.setLayout(new BorderLayout());
-            frame.setMinimumSize(new Dimension(width,height));
+            //frame.setMinimumSize(new Dimension(width,height));
             frame.setMaximumSize(new Dimension(width,height));
             frame.setPreferredSize(new Dimension(width, height));
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -69,15 +69,21 @@ public class MainWindow {
             frame.add(rightPanel, BorderLayout.EAST);
             frame.add(lowerPanel, BorderLayout.SOUTH);
             frame.add(centerPanel, BorderLayout.CENTER);
+            frame.setResizable(false);
 
             frame.setLocationRelativeTo(null);
             frame.pack();
+
+            centerPanel.setSize(new Dimension(1000,1000));
+            System.out.println(centerPanel.getWidth());
+            System.out.println(centerPanel.getHeight());
 
             frame.setVisible(true);
         });
     }
 
     public List<ActionListener> getGuiListeners() {
+
         return guiListeners;
     }
 

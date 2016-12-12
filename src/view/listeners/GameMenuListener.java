@@ -1,4 +1,4 @@
-package control;
+package view.listeners;
 
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by c15awl on 2016-11-28.
+ *
  */
 public class GameMenuListener implements ActionListener, Observable {
     private String[] buttonNames;
