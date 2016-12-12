@@ -12,7 +12,7 @@ import model.entities.troupe.TroupeFactory;
 
 public class Player {
 
-    private Wallet wallet = new Wallet(new Currency(100000));
+    private Wallet wallet = new Wallet(new Currency(20000));
 
     public Troupe createTroupe(String troupeType) throws NotEnoughFoundsException {
         Payment payment;
@@ -31,6 +31,10 @@ public class Player {
     }
 
     public String getCurrency() {
-        return wallet.getContent();
+        return wallet.getFormattedContent();
+    }
+
+    public boolean canAfford(Currency c) {
+        return wallet.compareTo(c) >= 0;
     }
 }

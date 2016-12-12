@@ -8,6 +8,7 @@ import model.entities.Path;
 import model.entities.tower.Tower;
 import model.entities.tower.TowerZone;
 import model.entities.troupe.Troupe;
+import model.entities.troupe.TroupeFactory;
 import model.player.Currency;
 import model.player.Player;
 
@@ -24,6 +25,12 @@ public class Level implements Troupe.KilledListener,
                               Tower.ShootListener, Cloneable {
 
     private WinListener winListener;
+
+    public boolean hasLost() {
+        boolean a = player.canAfford(TroupeFactory.getCheapestCost());
+        boolean b = troupes.size() > 0;
+        return !a && !b;
+    }
 
     public interface WinListener {
         void onWin();
@@ -259,7 +266,6 @@ public class Level implements Troupe.KilledListener,
                 }
             }
         });
-
     }
 
     public String getMoney() {

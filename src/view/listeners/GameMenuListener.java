@@ -47,6 +47,7 @@ public class GameMenuListener implements ActionListener, Observable {
             }
         }
 
+        // Quit was pressed
         else if (e.getActionCommand().equals(buttonNames[2])) {
             notifyObservers(e);
         }
