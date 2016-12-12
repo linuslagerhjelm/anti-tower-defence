@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * view.MainWindow creates a simple GUI consisting of three panels. Largely based on the class ThreePanels by Johan Eliasson.
+ * view.MainWindow creates a simple GUI consisting of three panels.
+ * Largely based on the class ThreePanels by Johan Eliasson.
  */
 public class MainWindow {
 
@@ -32,7 +33,7 @@ public class MainWindow {
     }
 
     public static MainWindow getInstance() {
-        if(mainWindowInstance == null) {
+        if (mainWindowInstance == null) {
             mainWindowInstance = new MainWindow("Fiskare",800,600);
         }
         return mainWindowInstance;
@@ -69,12 +70,6 @@ public class MainWindow {
             frame.add(lowerPanel, BorderLayout.SOUTH);
             frame.add(centerPanel, BorderLayout.CENTER);
 
-            // Just tests!
-            infoPanel.setMoney(500);
-            infoPanel.setHighScore(1254363);
-            infoPanel.addMoney(20);
-            infoPanel.displayInfo();
-
             //loadImages();
             frame.setLocationRelativeTo(null);
             frame.pack();
@@ -95,7 +90,7 @@ public class MainWindow {
         troopMakerPanel.loadImages(troopIcons);
     }
 
-    public void drawTroop(int x, int y){
+    public void drawTroop(int x, int y) {
         frame.repaint();
     }
 
@@ -107,9 +102,22 @@ public class MainWindow {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            // no code is run = no exception possible
         }
         return gameScreenPanel;
+    }
+
+    public InfoPanel getInfoPanel() {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                // Just wait for swing thread to finish
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            // no code is run = no exception possible
+        }
+        return infoPanel;
     }
 
     public void changeUnitIcon(int index){
@@ -117,7 +125,7 @@ public class MainWindow {
         troopMakerPanel.setTroopImage(index);
     }
 
-    public int getTroopIcon_CurrentFrameIndex(){
+    public int getTroopIcon_CurrentFrameIndex() {
 
         return troopMakerPanel.getCurrentImage();
     }

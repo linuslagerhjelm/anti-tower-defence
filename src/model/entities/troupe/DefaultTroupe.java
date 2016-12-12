@@ -1,8 +1,6 @@
 package model.entities.troupe;
 
 import model.entities.Node;
-import model.entities.troupe.Troupe;
-import model.entities.troupe.TroupeStats;
 import model.level.Position;
 
 /**
@@ -36,6 +34,11 @@ public class DefaultTroupe implements Troupe {
     @Override
     public TroupeStats getStats() {
         return null;
+    }
+
+    @Override
+    public double getLengthWalked() {
+        return 0;
     }
 
     @Override

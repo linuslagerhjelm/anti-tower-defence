@@ -44,6 +44,10 @@ public class Node {
         return id;
     }
 
+    public boolean hasSuccessor() {
+        return successors.size() > 0;
+    }
+
     public List<Node> getSuccessors() {
         return successors;
     }

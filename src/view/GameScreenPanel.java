@@ -25,7 +25,9 @@ public class GameScreenPanel {
         private BufferedImage troopImage = null;
         private BufferedImage teleportPadImage = null;
         private Map<Integer, Sprite> sprites = new ConcurrentHashMap<>();
+        private Map<Integer, Sprite> newSprites = new ConcurrentHashMap<>();
         private List<Line2D.Double> lasers = new CopyOnWriteArrayList<>();
+        private List<Line2D.Double> newLasers = new CopyOnWriteArrayList<>();
         int level_origo_X = 0;
         int level_origo_Y = 0;
         int sprite_origo_x = 0;
@@ -35,40 +37,36 @@ public class GameScreenPanel {
 
         public GameScreenPanel() {
 
-                createTroop("troop_v2");
+                createTroop("troop_v3");
                 //createTroop("troop_v2", new Position(400,400));
                 createLevel("defaultLevel");
                 createTeleportPad();
 
-
-                try{
-                        gameScreen = new JPanel(){
-                                @Override
-                                protected void paintComponent(Graphics g) {
-                                        super.paintComponent(g);
-                                        drawLevel(g);
-                                        drawSprites(g);
-                                        drawLasers(g);
-                                        //drawTeleportPad(g, new Position(100,100));
-
-                                        sprites.clear();
-                                        lasers.clear();
-                                }
-                        };
-
-                }catch (Exception p){
-                        System.err.print("" + p.getCause());
-                }
+                gameScreen = new JPanel() {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+                        drawLevel(g);
+                        drawSprites(g);
+                        drawLasers(g);
+                    }
+                };
 
                 gameScreen.setBackground(Color.BLACK);
         }
 
         public JPanel getGameScreen() {
-
                 return gameScreen;
         }
 
         public void refresh() {
+                sprites.clear();
+                lasers.clear();
+                sprites.putAll(newSprites);
+                lasers.addAll(newLasers);
+                newSprites.clear();
+                newLasers.clear();
+
                 SwingUtilities.invokeLater(() -> {
                         gameScreen.repaint();
                 });
@@ -79,11 +77,11 @@ public class GameScreenPanel {
         }
 
         public void drawTroop(double x, double y) {
-                sprites.put((int) y, new Sprite(troopImage, x, y));
+                newSprites.put((int) y, new Sprite(troopImage, x, y));
         }
 
         public void drawLaser(double x1, double y1, double x2, double y2) {
-                lasers.add(new Line2D.Double(x1, y1, x2, y2));
+                newLasers.add(new Line2D.Double(x1, y1, x2, y2));
         }
 
         public void createTroop(String troopName) {

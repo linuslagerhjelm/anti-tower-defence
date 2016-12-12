@@ -61,7 +61,7 @@ public class TeleportTroupeTest {
     @Test
     public void shouldMoveOnUpdate() {
         Troupe t = new TeleportTroupe();
-        t.setStartNode(path.getStartNodes().get(0));
+        t.setStartNode(path.getStartNode());
 
         t.update(1);
         assertNotNull(t.getPosition());
@@ -71,7 +71,7 @@ public class TeleportTroupeTest {
     @Test
     public void shouldMoveAlongPath() {
         Troupe t = new TeleportTroupe();
-        t.setStartNode(path.getStartNodes().get(0));
+        t.setStartNode(path.getStartNode());
 
         double time = 1;
         t.update(time);

@@ -64,6 +64,11 @@ public class Position implements Cloneable {
                          Math.pow(y-position2.getY(), 2)) < range;
     }
 
+    public double lengthTo(Position position2) {
+        return Math.sqrt(Math.pow(x-position2.getX(), 2) +
+                         Math.pow(y-position2.getY(), 2));
+    }
+
     @Override
     public Position clone() {
         return new Position(x, y);

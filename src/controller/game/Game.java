@@ -53,7 +53,8 @@ public class Game {
         mainWindow = MainWindow.getInstance();
         mainWindow.setVisible();
 
-        renderer = new Renderer(mainWindow.getGameScreen()); // Blocking
+        renderer = new Renderer(mainWindow.getGameScreen(),
+                                mainWindow.getInfoPanel()); // Blocking
 
         mainWindow.getGuiListeners().forEach(listener -> {
             if (listener instanceof Observable) {
@@ -110,6 +111,7 @@ public class Game {
                 renderer.render(levels.get(currentLevel).getTowers());
                 renderer.renderLasers(levels.get(currentLevel).getShots());
                 levels.get(currentLevel).getShots().clear();
+                renderer.renderMoney(levels.get(currentLevel).getMoney());
 
 
                 try {

@@ -7,6 +7,8 @@ import model.entities.tower.Tower;
 import model.entities.tower.TowerZone;
 import model.entities.troupe.TeleportTroupe;
 import model.entities.troupe.Troupe;
+import model.player.*;
+import model.player.Currency;
 
 import java.util.*;
 
@@ -27,6 +29,7 @@ public class Level implements Troupe.KilledListener,
     private List<Line> shots = new ArrayList<>();
     private List<Pad> pads;
     private Path path;
+    private Player player = new Player();
 
     private boolean build = false;
 
@@ -179,15 +182,21 @@ public class Level implements Troupe.KilledListener,
     public void receiveEvents(List<SystemEvent> levelEvents) {
         if (levelEvents.size() > 0) {
             Troupe t = new TeleportTroupe();
-            t.setStartNode(path.getStartNodes().get(0));
+            t.setStartNode(path.getStartNode());
             this.addTroupe(t);
         }
+    }
+
+    public String getMoney() {
+        return player.getCurrency();
     }
 
 
     @Override
     public void onKilled(Troupe troupe) {
         troupesToRemove.add(troupe);
+        player.addCurrency(
+                new Currency((int) Math.round(troupe.getLengthWalked())));
     }
 
     @Override

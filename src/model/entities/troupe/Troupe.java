@@ -23,4 +23,5 @@ public interface Troupe extends Entity {
     void setGoalListener(GoalListener listener);
     void receiveDamage(int damage);
     TroupeStats getStats();
+    double getLengthWalked();
 }

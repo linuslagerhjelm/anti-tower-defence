@@ -7,4 +7,13 @@ package model.player;
 
 public class Player {
 
+    private Wallet wallet = new Wallet();
+
+    public void addCurrency(Currency addition) {
+        wallet.add(addition);
+    }
+
+    public String getCurrency() {
+        return wallet.getContent();
+    }
 }

@@ -23,7 +23,7 @@ public class InfoPanel {
         private int requiredPasses = 10;
         private int passed = 0;
         private int currentScore = 0;
-        private int money = 0;
+        private String money = "0$";
         private int highScore = 0;
 
 
@@ -83,20 +83,17 @@ public class InfoPanel {
                 passed = newPassed;
         }
 
-        public void setMoney(int newMoney) {
-
+        public void setMoney(String newMoney) {
+            SwingUtilities.invokeLater(() -> {
                 money = newMoney;
+                displayInfo();
+            });
         }
 
-        public void addMoney(int moneyToAdd) {
-
-                money+=moneyToAdd;
-        }
-
-        public void displayInfo() {
+        private void displayInfo() {
                 highScoreField.setText(""+highScore);
                 currentScoreField.setText(""+currentScore);
-                moneyField.setText(""+money);
+                moneyField.setText(money);
                 passedField.setText(passed+"/"+requiredPasses);
         }
 }

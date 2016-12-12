@@ -20,6 +20,7 @@ public class TeleportTroupe implements Troupe {
     private Position position;
     private int health = STATS.getHealth();
     private Node currentNode;
+    private double walkedLength;
 
     @Override
     public void setStartNode(Node start) {
@@ -53,8 +54,11 @@ public class TeleportTroupe implements Troupe {
             return;
         }
         double angle = position.angle(next.getPosition());
-        position.setX(nextX(angle, dt));
-        position.setY(nextY(angle, dt));
+        double nextX = nextX(angle, dt);
+        double nextY = nextY(angle, dt);
+        walkedLength += position.lengthTo(new Position(nextX, nextY));
+        position.setX(nextX);
+        position.setY(nextY);
 
         setNextNode(angle);
     }
@@ -99,6 +103,11 @@ public class TeleportTroupe implements Troupe {
     @Override
     public TroupeStats getStats() {
         return STATS;
+    }
+
+    @Override
+    public double getLengthWalked() {
+        return walkedLength;
     }
 
     private double nextX(double angle, double dt) {

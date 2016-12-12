@@ -50,6 +50,14 @@ public class Wallet implements Comparable<Currency> {
         return new Payment(amount);
     }
 
+    public String getContent() {
+        return value.getValue()+"$";
+    }
+
+    public String toString() {
+        return super.toString()+"{"+value.getValue()+"$}";
+    }
+
     @Override
     public int compareTo(Currency o) {
         return value.getValue() - o.getValue();

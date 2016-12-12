@@ -13,7 +13,7 @@ import java.util.*;
 public class Path {
     private boolean isValid = true;
     private boolean isValidated = false;
-    private List<Node> start = new ArrayList<>();
+    private Node start;
     private List<Node> goal = new ArrayList<>();
 
     private HashMap<Integer, Node> nodes;
@@ -41,7 +41,7 @@ public class Path {
 
         walkNodes.forEach(node -> {
             if (node.isStart()) {
-                start.add(node);
+                start = node;
                 visited.add(node);
             }
             if (node.isGoal()) goal.add(node);
@@ -52,7 +52,7 @@ public class Path {
         isValid = visited.containsAll(nodes.values());
 
         // AND at least one start
-        isValid = isValid && (start.size() > 0);
+        isValid = isValid && (start != null);
 
         // AND at least one end
         isValid = isValid && (goal.size() > 0);
@@ -79,6 +79,11 @@ public class Path {
         walk(walkNodes.subList(1, walkNodes.size()), visited);
     }
 
+    /**
+     * Get a nodes successor
+     * @param currentNode Current node
+     * @return The successor to the current node
+     */
     public Node getNext(Node currentNode) {
         return currentNode.getNext();
     }
@@ -111,7 +116,7 @@ public class Path {
      * Get all the start nodes on the path
      * @return List of start nodes
      */
-    public List<Node> getStartNodes() {
+    public Node getStartNode() {
         return start;
     }
 

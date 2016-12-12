@@ -52,6 +52,13 @@ public class PositionTest {
         assertEquals(Math.PI/4, pos1.angle(pos2));
     }
 
+    @Test
+    public void shouldCalculateLengthBetweenToPositions() {
+        Position pos1 = new Position(1, 1);
+        Position pos2 = new Position(2, 2);
+        assertEquals(Math.sqrt(2), pos1.lengthTo(pos2));
+    }
+
 
     @Test
     public void shouldEquals() {
