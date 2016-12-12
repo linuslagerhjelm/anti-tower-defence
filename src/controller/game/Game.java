@@ -66,7 +66,6 @@ public class Game implements Level.WinListener, ParseResult {
             }
         });
 
-
         setupLevels(levelFile);
     }
 
@@ -92,7 +91,11 @@ public class Game implements Level.WinListener, ParseResult {
 
     @Override // from ParseResult
     public void onError(Exception e) {
+        // remove unhelpful xml error info
+        int colonIndex = e.getMessage().indexOf(':') + 1;
+        String message = e.getMessage().substring(colonIndex);
 
+        mainWindow.fatalError(message); // blocking 'til user accepts
     }
 
 

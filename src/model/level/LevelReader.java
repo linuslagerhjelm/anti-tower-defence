@@ -37,15 +37,17 @@ public class LevelReader implements Runnable {
         String fullPath = getClass().getResource("/" + fileName).getFile();
         file = new File(fullPath);
         this.callback = callback;
-        handler = new LevelXMLHandler(this.callback);
-        validate(schema);
+        if (validate(schema)) {
+            handler = new LevelXMLHandler(this.callback);
+        }
     }
 
     /**
      * Validate the XML-file against the provideSd Schema.
      * @param schemaName name of the schema file
+     * @return if XML-fil is valid
      */
-    private void validate(String schemaName) {
+    private boolean validate(String schemaName) {
         // Set the validation schema
         SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -59,8 +61,9 @@ public class LevelReader implements Runnable {
 
         } catch (SAXException | IOException e) {
             callback.onError(e);
+            return false;
         }
-
+        return true;
     }
 
     @Override

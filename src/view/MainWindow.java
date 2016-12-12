@@ -1,4 +1,5 @@
-package view; /**
+package view;
+/**
  * Created by c15aen on 2016-11-03. teset seteste
  */
 
@@ -87,7 +88,7 @@ public class MainWindow {
         return guiListeners;
     }
 
-    private void loadImages(){
+    private void loadImages() {
         String[] troopIcons = {
                 "soldier.jpg",
                 "knight.jpeg",
@@ -125,17 +126,30 @@ public class MainWindow {
     }
 
 
-    private void setupGameMenu(){
+    private void setupGameMenu() {
         String[] menuButtonNames = {"New Game","Pause","Quit"};
         GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
         guiListeners.add(gameMenuListener);
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
     }
 
-    private void setupInfoMenu(){
+    private void setupInfoMenu() {
         String[] infoButtonNames = {"About","Help", "Highscores"};
         InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
         guiListeners.add(infoMenuListener);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
+    }
+
+    public void fatalError(String message) {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                JOptionPane.showMessageDialog(frame, message, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }
