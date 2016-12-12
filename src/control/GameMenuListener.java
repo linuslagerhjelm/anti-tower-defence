@@ -24,8 +24,8 @@ public class GameMenuListener implements ActionListener, Observable {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        //New Game pressed.
-        if (e.getActionCommand() == buttonNames[0]){
+        // New Game pressed.
+        if (e.getActionCommand().equals(buttonNames[0])){
             if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("new game")) {
                 notifyObservers(e);
                 ((JMenuItem)e.getSource()).setText("Restart");
@@ -35,8 +35,8 @@ public class GameMenuListener implements ActionListener, Observable {
             }
         }
 
-        //Pause/Resumed pressed.
-        else if (e.getActionCommand() == buttonNames[1]){
+        // Pause/Resumed pressed.
+        else if (e.getActionCommand().equals(buttonNames[1])){
             if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("pause")) {
                 notifyObservers(e);
                 ((JMenuItem)e.getSource()).setText("Resume");
@@ -47,7 +47,7 @@ public class GameMenuListener implements ActionListener, Observable {
             }
         }
 
-        else if (e.getActionCommand() == buttonNames[2]) {
+        else if (e.getActionCommand().equals(buttonNames[2])) {
             notifyObservers(e);
         }
     }
