@@ -30,7 +30,7 @@ public abstract class Tower implements Entity {
 
     public abstract TowerStats getStats();
 
-    public void addShootListener(ShootListener listener) {
+    public void setShootListener(ShootListener listener) {
         this.listener = listener;
     }
 

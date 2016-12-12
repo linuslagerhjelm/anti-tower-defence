@@ -117,7 +117,6 @@ public class Level implements Troupe.KilledListener,
 
     public void addTowers(Collection<Tower> towers) {
         for (Tower tower : towers) {
-            tower.addShootListener(this);
             this.towers.add(tower);
         }
     }
@@ -163,9 +162,14 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void build() {
-        placeTowersInZones();
-        build = true;
+        buildWithoutInitialState();
         initialState = this.clone();
+    }
+
+    private void buildWithoutInitialState() {
+        placeTowersInZones();
+        setListeners();
+        build = true;
     }
 
     public Level clone() {
@@ -184,12 +188,26 @@ public class Level implements Troupe.KilledListener,
         level.addPads(lpads);
         level.addPath(this.path);
 
+        if (initialState != null) {
+            level.initialState = this.initialState;
+        }
+
+        buildWithoutInitialState();
+
         return level;
     }
 
     public Level reset() {
         initialState.getPath().resetSwitches();
         return initialState;
+    }
+
+    private void setListeners() {
+        troupes.forEach(troupe -> {
+            troupe.setGoalListener(this);
+            troupe.setKilledListener(this);
+        });
+        towers.forEach(tower -> tower.setShootListener(this));
     }
 
     private void placeTowersInZones() {
