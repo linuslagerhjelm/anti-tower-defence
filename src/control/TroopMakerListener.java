@@ -30,7 +30,6 @@ public class TroopMakerListener implements ActionListener, Observable {
     public void actionPerformed(ActionEvent e) {
         notifyObservers(e);
         if (e.getActionCommand().equals("next")){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
             x=2;
             y=2;
             myWindow.drawTroop(x,y);
@@ -44,12 +43,10 @@ public class TroopMakerListener implements ActionListener, Observable {
             else {
                 currentIconIndex++;
                 myWindow.changeUnitIcon(currentIconIndex);
-
             }
 
 
         }else if(e.getActionCommand().equals("prev")){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
             x=-2;
             y=-2;
             myWindow.drawTroop(x,y);
@@ -57,19 +54,15 @@ public class TroopMakerListener implements ActionListener, Observable {
             if (currentIconIndex == 0){
                 myWindow.changeUnitIcon(myWindow.getTroopIcon_ListSize()-1);
                 currentIconIndex = myWindow.getTroopIcon_ListSize()-1;
-
             }
 
             else  {
                 currentIconIndex--;
                 myWindow.changeUnitIcon(currentIconIndex);
-
             }
 
 
-
         }else if(e.getActionCommand().equals("spawn")){
-            System.out.print("Button detected: " + e.getActionCommand() + " \n");
             if (myWindow == null){
                 myWindow = MainWindow.getInstance();
             }

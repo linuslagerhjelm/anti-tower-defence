@@ -9,12 +9,19 @@ import exceptions.NotEnoughFounds;
 import model.entities.troupe.Troupe;
 import model.entities.troupe.TroupeFactory;
 
+
 public class Player {
 
-    private Wallet wallet = new Wallet();
+    private Wallet wallet = new Wallet(new Currency(100000));
 
     public Troupe createTroupe(String troupeType) throws NotEnoughFounds {
-        Payment payment = wallet.getPayment(TroupeFactory.getCost(troupeType));
+        Payment payment;
+        try {
+            payment = wallet.getPayment(TroupeFactory.getCost(troupeType));
+
+        } catch (IllegalArgumentException e) {
+            throw new NotEnoughFounds("Not enough founds");
+        }
 
         return TroupeFactory.buyTroupe(payment, troupeType);
     }

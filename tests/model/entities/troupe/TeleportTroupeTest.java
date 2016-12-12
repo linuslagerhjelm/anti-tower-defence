@@ -3,9 +3,10 @@
  * Author: Fredrik Johansson
  * Date: 2016-12-01
  */
-package model.entities;
+package model.entities.troupe;
 
-import model.entities.troupe.TeleportTroupe;
+import model.entities.Node;
+import model.entities.Path;
 import model.entities.troupe.Troupe;
 import model.level.Position;
 import org.junit.BeforeClass;

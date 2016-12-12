@@ -35,7 +35,7 @@ public class GUIObserver implements Observer {
 
         try {
             if (event.getActionCommand().equals("spawn")) {
-                publisher.registerEvent(new SpawnEvent());
+                publisher.registerEvent(new SpawnEvent("TeleportTroupe"));
 
             } else if (event.getActionCommand().equals("Pause")) {
                 publisher.registerEvent(new GameEvent(true));

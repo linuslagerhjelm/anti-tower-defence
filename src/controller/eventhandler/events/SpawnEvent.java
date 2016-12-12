@@ -7,4 +7,13 @@ package controller.eventhandler.events;
  * Description:
  */
 public class SpawnEvent extends LevelEvent {
+    private String type;
+
+    public SpawnEvent(String type) {
+        this.type = type;
+    }
+
+    public String getTroupeType() {
+        return type;
+    }
 }

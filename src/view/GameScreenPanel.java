@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -138,7 +139,7 @@ public class GameScreenPanel {
 
 
                 // Draw sprites based on y position
-                sprites.sort((s1, s2) -> Double.compare(s1.getY(), s2.getY()));
+                sprites.sort(Comparator.comparingDouble(Sprite::getY));
                 for (Sprite sprite : sprites) {
                     sprite_origo_x = level_origo_X - (sprite.getImage().getWidth() / 2);
                     sprite_origo_y = level_origo_Y - (sprite.getImage().getHeight() / 2);

@@ -153,4 +153,8 @@ public class Path {
         result = 31 * result + nodes.hashCode();
         return result;
     }
+
+    public void resetSwitches() {
+
+    }
 }

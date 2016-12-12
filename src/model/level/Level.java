@@ -1,6 +1,8 @@
 package model.level;
 
+import controller.eventhandler.events.SpawnEvent;
 import controller.eventhandler.events.SystemEvent;
+import exceptions.NotEnoughFounds;
 import model.entities.Pad;
 import model.entities.Path;
 import model.entities.tower.Tower;
@@ -19,7 +21,9 @@ import java.util.*;
  */
 public class Level implements Troupe.KilledListener,
                               Troupe.GoalListener,
-                              Tower.ShootListener {
+                              Tower.ShootListener, Cloneable {
+
+    private Level initialState;
 
     private List<TowerZone> towerZones;
     private Set<Tower> towers = new HashSet<>();
@@ -30,9 +34,10 @@ public class Level implements Troupe.KilledListener,
     private Path path;
     private Player player = new Player();
 
+
     private boolean build = false;
 
-
+    public Level() {}
     public Level(String name, int height, int width) {}
 
     public void update(double dt) {
@@ -118,6 +123,7 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void addTroupe(Troupe troupe) {
+        troupe.setStartNode(path.getStartNode());
         troupes.add(troupe);
         troupe.setKilledListener(this);
         troupe.setGoalListener(this);
@@ -159,6 +165,31 @@ public class Level implements Troupe.KilledListener,
     public void build() {
         placeTowersInZones();
         build = true;
+        initialState = this.clone();
+    }
+
+    public Level clone() {
+        Level level = new Level();
+        List<TowerZone> lTowerZones = new ArrayList<>();
+        Set<Tower> ltowers = new HashSet<>();
+        List<Pad> lpads = new ArrayList<>();
+
+        towerZones.forEach(lTowerZones::add);
+        towers.forEach(ltowers::add);
+        pads.forEach(lpads::add);
+
+        troupes.forEach(level::addTroupe);
+        level.addTowerZones(lTowerZones);
+        level.addTowers(ltowers);
+        level.addPads(lpads);
+        level.addPath(this.path);
+
+        return level;
+    }
+
+    public Level reset() {
+        initialState.getPath().resetSwitches();
+        return initialState;
     }
 
     private void placeTowersInZones() {
@@ -179,12 +210,28 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void receiveEvents(List<SystemEvent> levelEvents) {
+        if (levelEvents.size() == 0) {
+            return;
+        }
+
+        levelEvents.forEach(event -> {
+            if (event instanceof SpawnEvent) {
+                try {
+                    SpawnEvent e = ((SpawnEvent)event);
+                    this.addTroupe(player.createTroupe(e.getTroupeType()));
+
+                } catch (NotEnoughFounds e) {
+                    /* TODO: give feedback to user */
+                    System.out.println(1);
+                }
+            }
+        });
+
     }
 
     public String getMoney() {
         return player.getCurrency();
     }
-
 
     @Override
     public void onKilled(Troupe troupe) {

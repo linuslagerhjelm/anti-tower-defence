@@ -57,7 +57,7 @@ public class TroupeFactory {
     private static Troupe buyTeleportTroupe(Payment payment)
             throws NotEnoughFounds {
 
-        if (payment.compareTo(teleportTroupeCost) < 0) {
+        if (payment.compareTo(teleportTroupeCost) >= 0) {
             return new TeleportTroupe();
         } else {
             throw new NotEnoughFounds("Payment not enough, should be: " +
@@ -74,7 +74,7 @@ public class TroupeFactory {
     private static Troupe buyDefaultTroupe(Payment payment)
             throws NotEnoughFounds {
 
-        if (payment.compareTo(defaultTroupeCost) < 0) {
+        if (payment.compareTo(defaultTroupeCost) >= 0) {
             return new DefaultTroupe();
         } else {
             throw new NotEnoughFounds("Payment not enough, should be: " +
