@@ -33,8 +33,8 @@ public class MainWindow {
     }
 
     public static MainWindow getInstance() {
-        if (mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare",800,600);
+        if(mainWindowInstance == null) {
+            mainWindowInstance = new MainWindow("Fiskare", 1440, 1080);
         }
         return mainWindowInstance;
     }
@@ -69,14 +69,20 @@ public class MainWindow {
             frame.add(rightPanel, BorderLayout.EAST);
             frame.add(lowerPanel, BorderLayout.SOUTH);
             frame.add(centerPanel, BorderLayout.CENTER);
+            //frame.setResizable(false);
 
             //loadImages();
             frame.setLocationRelativeTo(null);
             frame.pack();
+            centerPanel.setSize(new Dimension(1000,1000));
+            System.out.println(centerPanel.getWidth());
+            System.out.println(centerPanel.getHeight());
+
         });
     }
 
     public List<ActionListener> getGuiListeners() {
+
         return guiListeners;
     }
 
