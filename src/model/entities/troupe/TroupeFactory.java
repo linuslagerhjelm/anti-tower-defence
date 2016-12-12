@@ -9,10 +9,25 @@ import exceptions.NotEnoughFounds;
 import model.player.Currency;
 import model.player.Payment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TroupeFactory {
 
     public final static Currency defaultTroupeCost = new Currency(5);
     public final static Currency teleportTroupeCost = new Currency(20);
+
+    private final static Map<String, Currency> costs = new HashMap<>();
+
+    static {
+        costs.put("TeleportTroupe", teleportTroupeCost);
+        costs.put("DefaultTroupe", defaultTroupeCost);
+    }
+
+    public static Currency getCost(String name) {
+        return costs.get(name);
+    }
+
 
     /**
      * Buy a new Troupe of type specified by troupeType. If the payment is

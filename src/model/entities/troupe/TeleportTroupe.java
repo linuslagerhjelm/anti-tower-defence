@@ -10,7 +10,7 @@ import model.level.Position;
 
 import java.util.NoSuchElementException;
 
-public class TeleportTroupe implements Troupe {
+class TeleportTroupe implements Troupe {
 
     public static final TroupeStats STATS = new TroupeStats(100, 12);
 

@@ -5,10 +5,9 @@ import model.entities.Pad;
 import model.entities.Path;
 import model.entities.tower.Tower;
 import model.entities.tower.TowerZone;
-import model.entities.troupe.TeleportTroupe;
 import model.entities.troupe.Troupe;
-import model.player.*;
 import model.player.Currency;
+import model.player.Player;
 
 import java.util.*;
 
@@ -180,11 +179,6 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void receiveEvents(List<SystemEvent> levelEvents) {
-        if (levelEvents.size() > 0) {
-            Troupe t = new TeleportTroupe();
-            t.setStartNode(path.getStartNode());
-            this.addTroupe(t);
-        }
     }
 
     public String getMoney() {

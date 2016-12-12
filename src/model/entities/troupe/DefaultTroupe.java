@@ -10,7 +10,7 @@ import model.level.Position;
  * Description: The Troupe that will be instantiated if no other
  * Troupe type were specified.
  */
-public class DefaultTroupe implements Troupe {
+class DefaultTroupe implements Troupe {
     @Override
     public void setStartNode(Node start) {
 
