@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 /** // this is hereasdasd
@@ -24,7 +25,7 @@ public class GameScreenPanel {
         private BufferedImage troopImage = null;
         private BufferedImage teleportPadImage = null;
         private Map<Integer, Sprite> sprites = new ConcurrentHashMap<>();
-        private List<Line2D.Double> lasers = new ArrayList<>();
+        private List<Line2D.Double> lasers = new CopyOnWriteArrayList<>();
         int level_origo_X = 0;
         int level_origo_Y = 0;
         int sprite_origo_x = 0;
