@@ -1,14 +1,19 @@
 package model.level;
 
+import controller.eventhandler.events.NewPadEvent;
 import controller.eventhandler.events.SpawnEvent;
 import controller.eventhandler.events.SystemEvent;
+import exceptions.NoSuchPadException;
 import exceptions.NotEnoughFoundsException;
 import model.entities.Pad;
+import model.entities.PadFactory;
 import model.entities.Path;
+import model.entities.TeleportPad;
 import model.entities.tower.Tower;
 import model.entities.tower.TowerZone;
 import model.entities.troupe.Troupe;
 import model.entities.troupe.TroupeFactory;
+import model.highscore.Score;
 import model.player.Currency;
 import model.player.Player;
 
@@ -26,16 +31,12 @@ public class Level implements Troupe.KilledListener,
 
     private WinListener winListener;
 
-    public boolean hasLost() {
-        boolean a = player.canAfford(TroupeFactory.getCheapestCost());
-        boolean b = troupes.size() > 0;
-        return !a && !b;
-    }
 
     public interface WinListener {
-        void onWin();
+        void onWin(Score score);
     }
 
+    private final int MAX_SCORE = Integer.MAX_VALUE;
     private final String name;
     private final int height;
     private final int width;
@@ -49,8 +50,10 @@ public class Level implements Troupe.KilledListener,
     private Set<Troupe> troupesToRemove = new HashSet<>();
     private List<Line> shots = new ArrayList<>();
     private List<Pad> pads = new ArrayList<>();
+    private List<TeleportPad> teleportPads = new ArrayList<>();
     private Path path;
     private Player player = new Player();
+    private long startTime;
 
 
     private boolean build = false;
@@ -150,6 +153,11 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void addPads(List<Pad> pads) {
+        pads.forEach(pad -> {
+            if (pad instanceof TeleportPad) {
+                addTeleportPad((TeleportPad) pad);
+            }
+        });
         this.pads = pads;
     }
 
@@ -264,8 +272,32 @@ public class Level implements Troupe.KilledListener,
                     /* TODO: give feedback to user */
                     System.out.println(1);
                 }
+            } else if (event instanceof NewPadEvent) {
+                NewPadEvent e = ((NewPadEvent)event);
+                createPadFromEvent(e);
             }
         });
+    }
+
+    private void createPadFromEvent(NewPadEvent e) {
+        try {
+            Pad pad = PadFactory.newInstance(e.getType());
+            pad.setProperties(e.getX(), e.getY(), e.getWidth(), e.getHeight());
+            pads.add(pad);
+            if (e.getType().equalsIgnoreCase("teleportpad")) {
+                addTeleportPad((TeleportPad) pad);
+            }
+
+        } catch (NoSuchPadException ignore) {
+            /* Ignore */
+        }
+    }
+
+    private void addTeleportPad(TeleportPad pad) {
+        if (teleportPads.size() % 2 != 0) {
+            teleportPads.get(teleportPads.size() - 1).setTarget(pad);
+        }
+        teleportPads.add(pad);
     }
 
     public String getMoney() {
@@ -285,13 +317,27 @@ public class Level implements Troupe.KilledListener,
         troupesInGoal++;
         if (hasWon()) {
             if (winListener != null) {
-                winListener.onWin();
+                winListener.onWin(getScore());
             }
         }
     }
 
     public boolean hasWon() {
         return troupesInGoal >= troupesToWin;
+    }
+
+    public Score getScore() {
+        return new Score(MAX_SCORE - (int)(new Date().getTime() - startTime)/1000);
+    }
+
+    public boolean hasLost() {
+        boolean a = player.canAfford(TroupeFactory.getCheapestCost());
+        boolean b = troupes.size() > 0;
+        return !a && !b;
+    }
+
+    public void start() {
+        startTime = new Date().getTime();
     }
 
     @Override
