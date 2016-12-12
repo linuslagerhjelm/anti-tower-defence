@@ -125,7 +125,8 @@ public class LevelXMLHandler extends DefaultHandler {
             throws SAXException {
 
         if (qName.equalsIgnoreCase("level")) {
-            levels.add(tmpLevel);
+            tmpLevel.setInitialState(tmpLevel);
+            levels.add(tmpLevel.clone());
 
         } else if (qName.equalsIgnoreCase("path")) {
             createPath();
@@ -144,7 +145,9 @@ public class LevelXMLHandler extends DefaultHandler {
             tmpLevel.addTowers(towers);
 
         } else if (qName.equalsIgnoreCase("pad")) {
-            pads.add(tmpPad);
+            if (tmpPad != null) {
+                pads.add(tmpPad);
+            }
 
         } else if (qName.equalsIgnoreCase("pads")) {
             tmpLevel.addPads(pads);

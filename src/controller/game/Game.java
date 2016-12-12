@@ -9,10 +9,7 @@ import controller.eventhandler.GUIObserver;
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
 import controller.eventhandler.Pubsub;
-import controller.eventhandler.events.GameEvent;
-import controller.eventhandler.events.LevelEvent;
-import controller.eventhandler.events.QuitEvent;
-import controller.eventhandler.events.SystemEvent;
+import controller.eventhandler.events.*;
 import model.highscore.DatabaseConfig;
 import model.highscore.HighScoreServer;
 import model.level.Level;
@@ -162,7 +159,6 @@ public class Game implements Level.WinListener, ParseResult {
         return levelEvents;
     }
 
-
     /**
      * Performs the actions proposed by the events
      * @param gameEvents list of game events
@@ -173,7 +169,11 @@ public class Game implements Level.WinListener, ParseResult {
             currentLevel = ((GameEvent)e).getCurrentLevel();
             if (e instanceof QuitEvent) {
                 running = false;
+            } else if (e instanceof RestartEvent) {
+                levels.set(currentLevel, levels.get(currentLevel).reset());
             }
         });
     }
+
+
 }

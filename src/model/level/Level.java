@@ -41,7 +41,7 @@ public class Level implements Troupe.KilledListener,
     private Set<Troupe> troupes = new LinkedHashSet<>();
     private Set<Troupe> troupesToRemove = new HashSet<>();
     private List<Line> shots = new ArrayList<>();
-    private List<Pad> pads;
+    private List<Pad> pads = new ArrayList<>();
     private Path path;
     private Player player = new Player();
 
@@ -57,13 +57,13 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void update(double dt) {
-        /*for (Pad pad : pads) {
+        for (Pad pad : pads) {
             for (Troupe troupe : troupes) {
                 if (onPad(pad, troupe)) {
                     pad.landOn(troupe);
                 }
             }
-        }*/
+        }
 
         for (Troupe troupe : troupes) {
             troupe.update(dt);
@@ -177,7 +177,6 @@ public class Level implements Troupe.KilledListener,
 
     public void build() {
         buildWithoutInitialState();
-        initialState = this.clone();
     }
 
     private void buildWithoutInitialState() {
@@ -202,9 +201,7 @@ public class Level implements Troupe.KilledListener,
         level.addPads(lpads);
         level.addPath(this.path);
 
-        if (initialState != null) {
-            level.initialState = this.initialState;
-        }
+        level.setInitialState(initialState);
 
         buildWithoutInitialState();
 
@@ -213,7 +210,7 @@ public class Level implements Troupe.KilledListener,
 
     public Level reset() {
         initialState.getPath().resetSwitches();
-        return initialState;
+        return initialState.clone();
     }
 
     private void setEntityListeners() {
@@ -310,5 +307,9 @@ public class Level implements Troupe.KilledListener,
         double y = randomDoubleInRange(generator, zone.getY(),
                                                   zone.getY()+zone.getHeight());
         return new Position(x, y);
+    }
+
+    public void setInitialState(Level initialState) {
+        this.initialState = initialState;
     }
 }

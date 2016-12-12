@@ -3,7 +3,10 @@ package view;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by c15awl on 2016-12-05.
+ * Author: Andreas, Arvid.
+ * File: Sprite.java
+ * Created: 2016-12-05
+ * Description: Sprite with a position and an buffer image.
  */
 public class Sprite {
 
@@ -17,16 +20,27 @@ public class Sprite {
         this.y = y;
     }
 
+    /**
+     * Gets the x position of the sprite.
+     * @return x:int, x position of the sprite.
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Gets the y position of the sprite.
+     * @return y:int, y position of the sprite.
+     */
     public double getY() {
         return y;
     }
 
+    /**
+     * Gets the Image being used of the sprite.
+     * @return spriteImage:BufferedImage, image of the sprite.
+     */
     public BufferedImage getImage(){
-
         return spriteImage;
     }
 }
