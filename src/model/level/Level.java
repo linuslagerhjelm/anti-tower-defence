@@ -132,9 +132,7 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void addTowers(Collection<Tower> towers) {
-        for (Tower tower : towers) {
-            this.towers.add(tower);
-        }
+        this.towers.addAll(towers);
     }
 
     public void addTroupe(Troupe troupe) {

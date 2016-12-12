@@ -56,7 +56,6 @@ public class Game implements Level.WinListener, ParseResult {
 
 
         mainWindow = MainWindow.getInstance();
-        mainWindow.setVisible();
 
         renderer = new Renderer(mainWindow.getGameScreen(),
                                 mainWindow.getInfoPanel()); // Blocking

@@ -2,7 +2,7 @@ package control;
 
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
-import view.MainWindow;
+import view.TroopMakerPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,62 +15,44 @@ import java.util.List;
  */
 public class TroopMakerListener implements ActionListener, Observable {
 
-    private String buttonName;
-    private static MainWindow myWindow = null;
-    private int x = 0;
-    private int y = 0;
+    private final TroopMakerPanel panel;
     private int currentIconIndex = 0;
     private static List<Observer> observers = new ArrayList<>();
 
-    public TroopMakerListener(String inButton) {
-        buttonName = inButton;
+    public TroopMakerListener(TroopMakerPanel panel) {
+        this.panel = panel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        notifyObservers(e);
-        if (e.getActionCommand().equals("next")){
-            x=2;
-            y=2;
-            myWindow.drawTroop(x,y);
+        if (e.getActionCommand().equals("next")) {
+            panel.refresh();
 
-            if (currentIconIndex == myWindow.getTroopIcon_ListSize()-1){
+            if (currentIconIndex == panel.getIconListSize()-1){
 
-                myWindow.changeUnitIcon(0);
+                panel.setTroopImage(0);
                 currentIconIndex = 0;
 
-            }
-            else {
+            } else {
                 currentIconIndex++;
-                myWindow.changeUnitIcon(currentIconIndex);
+                panel.setTroopImage(currentIconIndex);
             }
 
 
-        }else if(e.getActionCommand().equals("prev")){
-            x=-2;
-            y=-2;
-            myWindow.drawTroop(x,y);
+        } else if (e.getActionCommand().equals("prev")){
+            panel.refresh();
 
-            if (currentIconIndex == 0){
-                myWindow.changeUnitIcon(myWindow.getTroopIcon_ListSize()-1);
-                currentIconIndex = myWindow.getTroopIcon_ListSize()-1;
-            }
+            if (currentIconIndex == 0) {
+                panel.setTroopImage(panel.getIconListSize()-1);
+                currentIconIndex = panel.getIconListSize()-1;
 
-            else  {
+            } else  {
                 currentIconIndex--;
-                myWindow.changeUnitIcon(currentIconIndex);
+                panel.setTroopImage(currentIconIndex);
             }
-
-
-        }else if(e.getActionCommand().equals("spawn")){
-            if (myWindow == null){
-                myWindow = MainWindow.getInstance();
-            }
-
-        }else {
-            System.out.print("Did not find that button\n");
-
         }
+
+        notifyObservers(e);
     }
 
     @Override

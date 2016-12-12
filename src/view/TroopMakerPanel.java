@@ -47,10 +47,10 @@ public class TroopMakerPanel {
 
 
                 //Add the default image to the icon list and sets the current image to the default image.
-                addTroopImage(0,soldierImage);
-                addTroopImage(1,knightImage);
-                addTroopImage(2,soldier3);
-                addTroopImage(3,soldier4);
+                addTroopImage(0, soldierImage);
+                addTroopImage(1, knightImage);
+                addTroopImage(2, soldier3);
+                addTroopImage(3, soldier4);
 
                 setTroopImage(0);
 
@@ -61,6 +61,10 @@ public class TroopMakerPanel {
 
                 //Adds the image frame.
                 //troopMakerPanel.add(label, BorderLayout.NORTH);
+        }
+
+        public void refresh() {
+                troopIconPanel.repaint();
         }
 
         public void loadImages(String[] imagesPath){
@@ -86,12 +90,8 @@ public class TroopMakerPanel {
                 nextTroop = new JButton("next");
                 prevTroop = new JButton("prev");
 
-                TroopMakerListener prevListener = new TroopMakerListener("prev");
-                TroopMakerListener nextListener = new TroopMakerListener("next");
-                TroopMakerListener spawnListener = new TroopMakerListener("spawn");
+                TroopMakerListener spawnListener = new TroopMakerListener(this);
 
-                actionListeners.add(prevListener);
-                actionListeners.add(nextListener);
                 actionListeners.add(spawnListener);
 
                 prevTroop.setPreferredSize(buttonDimension);
@@ -101,8 +101,8 @@ public class TroopMakerPanel {
                 nextTroop.setMaximumSize(buttonDimension);
                 prevTroop.setMaximumSize(buttonDimension);
 
-                prevTroop.addActionListener(prevListener);
-                nextTroop.addActionListener(nextListener);
+                prevTroop.addActionListener(spawnListener);
+                nextTroop.addActionListener(spawnListener);
                 spawnTroop.addActionListener(spawnListener);
 
         }
@@ -121,7 +121,6 @@ public class TroopMakerPanel {
                 troopMakerPanel.setMinimumSize(new Dimension(40,40));
                 troopMakerPanel.setLayout(new BorderLayout());
 
-                //
                 troopMakerPanel.add(troopInfoPanel , BorderLayout.CENTER);
                 troopMakerPanel.add(buttonPanel, BorderLayout.SOUTH);
                 troopMakerPanel.add(troopIconPanel, BorderLayout.NORTH);
@@ -139,8 +138,6 @@ public class TroopMakerPanel {
                 unitInfoText.setFont(new Font("Serif", Font.BOLD, 16));
                 unitInfoText.setForeground(Color.CYAN);
                 changeUnitInfo("Speed: 20\nCost: 100\nHealth: 45");
-
-
         }
 
         private void buttonPanelSetup() {
@@ -178,7 +175,7 @@ public class TroopMakerPanel {
                 try {
                         label.setIcon(troopIcons.get(index));
                 } catch (NullPointerException e){
-                        System.out.print("Error, index out of bounds");
+                        System.out.print("Error, index out of bounds"); // FIXME proper exception handling
                 }
         }
 
@@ -192,24 +189,15 @@ public class TroopMakerPanel {
                 try {
                         troopIcons.add(index,image);
                 } catch (NullPointerException e){
-                        System.out.print("Error, index out of bounds");
+                        System.out.print("Error, index out of bounds"); // FIXME proper exception handling
                 }
         }
 
         public void changeUnitInfo(String unitInfo) {
                 unitInfoText.setText(unitInfo);
-
-
-
-        }
-
-        public int getCurrentImage() {
-
-                return currentImage;
         }
 
         public int getIconListSize() {
-
                 return troopIcons.size();
         }
 
@@ -217,15 +205,5 @@ public class TroopMakerPanel {
                 return actionListeners;
         }
 
-        //TODO: Add me ?
-        public void getTroopImageList(){
-
-        }
-
-        //TODO: Am I needed?
-        public void clearImageList(){
-
-                troopIcons.clear();
-        }
 }
 

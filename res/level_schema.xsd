@@ -28,8 +28,8 @@
         <xsd:attribute name="id" type="xsd:int" use="required" />
         <xsd:attribute name="x" type="xsd:int" use="required" />
         <xsd:attribute name="y" type="xsd:int" use="required" />
-        <xsd:attribute name="start" type="xsd:string" use="required" />
-        <xsd:attribute name="goal" type="xsd:string" use="required" />
+        <xsd:attribute name="start" type="xsd:string" use="optional" />
+        <xsd:attribute name="goal" type="xsd:string" use="optional" />
     </xsd:complexType>
 
     <!-- Describes a directed graph (like structure) of nodes -->

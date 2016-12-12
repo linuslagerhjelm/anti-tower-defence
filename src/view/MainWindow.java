@@ -70,9 +70,10 @@ public class MainWindow {
             frame.add(lowerPanel, BorderLayout.SOUTH);
             frame.add(centerPanel, BorderLayout.CENTER);
 
-            //loadImages();
             frame.setLocationRelativeTo(null);
             frame.pack();
+
+            frame.setVisible(true);
         });
     }
 
@@ -90,9 +91,6 @@ public class MainWindow {
         troopMakerPanel.loadImages(troopIcons);
     }
 
-    public void drawTroop(int x, int y) {
-        frame.repaint();
-    }
 
     public GameScreenPanel getGameScreen() {
         try {
@@ -120,21 +118,6 @@ public class MainWindow {
         return infoPanel;
     }
 
-    public void changeUnitIcon(int index){
-
-        troopMakerPanel.setTroopImage(index);
-    }
-
-    public int getTroopIcon_CurrentFrameIndex() {
-
-        return troopMakerPanel.getCurrentImage();
-    }
-
-    public int getTroopIcon_ListSize(){
-
-        return troopMakerPanel.getIconListSize();
-    }
-
 
     private void setupGameMenu(){
         String[] menuButtonNames = {"New Game","Pause","Quit"};
@@ -148,14 +131,5 @@ public class MainWindow {
         InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
         guiListeners.add(infoMenuListener);
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
-    }
-
-    /**
-     * Sets the GUI to be visible.
-     */
-    public void setVisible() {
-        SwingUtilities.invokeLater(() -> {
-            frame.setVisible(true);
-        });
     }
 }
