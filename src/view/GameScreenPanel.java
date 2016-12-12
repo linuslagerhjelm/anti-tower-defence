@@ -8,10 +8,7 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
@@ -24,16 +21,16 @@ public class GameScreenPanel {
         private BufferedImage levelImage = null;
         private BufferedImage troopImage = null;
         private BufferedImage teleportPadImage = null;
-        private Map<Integer, Sprite> sprites = new ConcurrentHashMap<>();
-        private Map<Integer, Sprite> newSprites = new ConcurrentHashMap<>();
+        private List<Sprite> sprites = new CopyOnWriteArrayList<>();
+        private List<Sprite> newSprites = new CopyOnWriteArrayList<>();
         private List<Line2D.Double> lasers = new CopyOnWriteArrayList<>();
         private List<Line2D.Double> newLasers = new CopyOnWriteArrayList<>();
-        int level_origo_X = 0;
-        int level_origo_Y = 0;
-        int sprite_origo_x = 0;
-        int sprite_origo_y = 0 ;
-        int pad_origo_x = 0;
-        int pad_origo_y = 0 ;
+        private int level_origo_X = 0;
+        private int level_origo_Y = 0;
+        private int sprite_origo_x = 0;
+        private int sprite_origo_y = 0 ;
+        private int pad_origo_x = 0;
+        private int pad_origo_y = 0 ;
 
         public GameScreenPanel() {
 
@@ -62,7 +59,7 @@ public class GameScreenPanel {
         public void refresh() {
                 sprites.clear();
                 lasers.clear();
-                sprites.putAll(newSprites);
+                sprites.addAll(newSprites);
                 lasers.addAll(newLasers);
                 newSprites.clear();
                 newLasers.clear();
@@ -77,14 +74,14 @@ public class GameScreenPanel {
         }
 
         public void drawTroop(double x, double y) {
-                newSprites.put((int) y, new Sprite(troopImage, x, y));
+                newSprites.add(new Sprite(troopImage, x, y));
         }
 
         public void drawLaser(double x1, double y1, double x2, double y2) {
                 newLasers.add(new Line2D.Double(x1, y1, x2, y2));
         }
 
-        public void createTroop(String troopName) {
+        private void createTroop(String troopName) {
                 try {
                     troopImage = ImageIO.read(new File(getClass().getResource("/images/troops/" + troopName + ".png").getFile()));
                 } catch (Exception e) {
@@ -92,14 +89,14 @@ public class GameScreenPanel {
                 }
         }
 
-        public void createLevel(String levelName) {
+        private void createLevel(String levelName) {
                 try {
                         levelImage = ImageIO.read(new File(getClass().getResource("/images/levels/"+levelName+".jpg").getFile()));
                 } catch (Exception e) {
                         System.out.print("Level creation Exception\n");
                 }
         }
-        public void createTeleportPad() {
+        private void createTeleportPad() {
                 try {
                         teleportPadImage = ImageIO.read(new File(getClass().getResource("/images/levels/Portal.png").getFile()));
                 } catch (Exception e) {
@@ -107,7 +104,7 @@ public class GameScreenPanel {
                 }
         }
 
-        public void drawLevel(Graphics g){
+        private void drawLevel(Graphics g){
                 Graphics2D g2d = (Graphics2D) g;
 
                 //Makes rendering smooth
@@ -131,7 +128,7 @@ public class GameScreenPanel {
                 }
         }
 
-        public void drawSprites(Graphics g){
+        private void drawSprites(Graphics g){
                 Graphics2D g2d = (Graphics2D) g;
 
                 //Makes rendering smooth
@@ -140,12 +137,9 @@ public class GameScreenPanel {
                 g2d.setRenderingHints(rh);
 
 
-                // Draw sprites based on y position (key)
-                List<Integer> keys = new ArrayList<>(sprites.keySet());
-                keys.sort(Integer::compareTo);
-                for (Integer key : keys) {
-                    Sprite sprite = sprites.get(key);
-
+                // Draw sprites based on y position
+                sprites.sort((s1, s2) -> Double.compare(s1.getY(), s2.getY()));
+                for (Sprite sprite : sprites) {
                     sprite_origo_x = level_origo_X - (sprite.getImage().getWidth() / 2);
                     sprite_origo_y = level_origo_Y - (sprite.getImage().getHeight() / 2);
 
@@ -156,7 +150,7 @@ public class GameScreenPanel {
                 }
         }
 
-        public void drawLasers(Graphics g) {
+        private void drawLasers(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
 
                 //Makes rendering smooth
@@ -171,7 +165,7 @@ public class GameScreenPanel {
 
         }
 
-        public void drawTeleportPad(Graphics g, Position padPosition) {
+        private void drawTeleportPad(Graphics g, Position padPosition) {
                 Graphics2D g2d = (Graphics2D) g;
 
                 //Makes rendering smooth
