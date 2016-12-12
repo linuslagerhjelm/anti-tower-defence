@@ -2,7 +2,6 @@ package control;
 
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
-import controller.eventhandler.events.RestartEvent;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -13,6 +13,9 @@ import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.events.LevelEvent;
 import controller.eventhandler.events.QuitEvent;
 import controller.eventhandler.events.SystemEvent;
+import exceptions.InvalidConnectionDataException;
+import model.highscore.DatabaseConfig;
+import model.highscore.HighScoreServer;
 import model.level.Level;
 import model.level.LevelReader;
 import model.level.ParseResult;
@@ -29,6 +32,7 @@ public class Game {
     private Observer observer;
     private MainWindow mainWindow;
     private Renderer renderer;
+    private HighScoreServer highScores = HighScoreServer.getInstance();
     private boolean running = true;
     private int currentLevel = 0;
     private boolean isPaused = false;
@@ -48,6 +52,7 @@ public class Game {
     private void setup(String levelFile) {
         publisher = new Pubsub();
         observer = new GUIObserver(publisher);
+        highScores.initialize(new DatabaseConfig(".db_config"));
 
 
         mainWindow = MainWindow.getInstance();
