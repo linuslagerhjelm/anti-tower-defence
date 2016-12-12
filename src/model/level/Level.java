@@ -2,7 +2,7 @@ package model.level;
 
 import controller.eventhandler.events.SpawnEvent;
 import controller.eventhandler.events.SystemEvent;
-import exceptions.NotEnoughFounds;
+import exceptions.NotEnoughFoundsException;
 import model.entities.Pad;
 import model.entities.Path;
 import model.entities.tower.Tower;
@@ -253,7 +253,7 @@ public class Level implements Troupe.KilledListener,
                     SpawnEvent e = ((SpawnEvent)event);
                     this.addTroupe(player.createTroupe(e.getTroupeType()));
 
-                } catch (NotEnoughFounds e) {
+                } catch (NotEnoughFoundsException e) {
                     /* TODO: give feedback to user */
                     System.out.println(1);
                 }
