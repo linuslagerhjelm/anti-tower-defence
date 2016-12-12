@@ -13,7 +13,6 @@ import controller.eventhandler.events.GameEvent;
 import controller.eventhandler.events.LevelEvent;
 import controller.eventhandler.events.QuitEvent;
 import controller.eventhandler.events.SystemEvent;
-import exceptions.InvalidConnectionDataException;
 import model.highscore.DatabaseConfig;
 import model.highscore.HighScoreServer;
 import model.level.Level;
@@ -25,7 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Game {
+public class Game implements Level.WinListener, ParseResult {
+
     private LevelReader levelReader;
     private List<Level> levels;
     private Pubsub publisher;
@@ -77,24 +77,23 @@ public class Game {
      * @param levelFile filename to level path
      */
     private void setupLevels(String levelFile) {
-        levelReader = new LevelReader(levelFile,
-                "level_schema.xsd", new ParseResult() {
-
-            @Override
-            public void onSuccess(List<Level> read) {
-                levels = read;
-                for (Level level : levels) {
-                    level.build();
-                }
-                run();
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
+        levelReader = new LevelReader(levelFile, "level_schema.xsd", this);
         levelReader.run();
+    }
+
+    @Override // from ParseResult
+    public void onSuccess(List<Level> read) {
+        levels = read;
+        for (Level level : levels) {
+            level.build();
+            level.setWinListener(this);
+        }
+        run();
+    }
+
+    @Override // from ParseResult
+    public void onError(Exception e) {
+
     }
 
 
@@ -130,6 +129,16 @@ public class Game {
         }
     }
 
+    @Override // from Level.WinListener
+    public void onWin() {
+        nextLevel();
+    }
+
+    private void nextLevel() {
+        currentLevel = Math.min(levels.size()-1, currentLevel+1);
+        levels.get(currentLevel).setWinListener(this);
+    }
+
     /**
      * Retrieves all the events from the event Queue, handles the game events
      * and returns the level events.
@@ -151,6 +160,7 @@ public class Game {
         return levelEvents;
     }
 
+
     /**
      * Performs the actions proposed by the events
      * @param gameEvents list of game events
@@ -164,6 +174,4 @@ public class Game {
             }
         });
     }
-
-
 }

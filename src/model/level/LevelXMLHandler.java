@@ -49,7 +49,8 @@ public class LevelXMLHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("level")) {
             tmpLevel = new Level(attributes.getValue("name"),
                     Integer.parseInt(attributes.getValue("height")),
-                    Integer.parseInt(attributes.getValue("width")));
+                    Integer.parseInt(attributes.getValue("width")),
+                    Integer.parseInt(attributes.getValue("troupesToWin")));
 
 
         } else if(qName.equalsIgnoreCase("rectangle")) {

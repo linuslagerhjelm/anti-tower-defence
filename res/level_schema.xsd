@@ -9,15 +9,15 @@
 
     <!-- Describes a rectangle object -->
     <xsd:complexType name="Rectangle">
-        <xsd:attribute name="x" type="PositiveInt" />
-        <xsd:attribute name="y" type="PositiveInt" />
-        <xsd:attribute name="width" type="PositiveInt" />
-        <xsd:attribute name="height" type="PositiveInt" />
+        <xsd:attribute name="x" type="PositiveInt" use="required" />
+        <xsd:attribute name="y" type="PositiveInt" use="required" />
+        <xsd:attribute name="width" type="PositiveInt" use="required" />
+        <xsd:attribute name="height" type="PositiveInt" use="required" />
     </xsd:complexType>
 
     <!-- Describes a reference to a node -->
     <xsd:complexType name="Successor">
-        <xsd:attribute name="refid" type="xsd:int"/>
+        <xsd:attribute name="refid" type="xsd:int" use="required" />
     </xsd:complexType>
 
     <!-- Describes a node which includes references to other nodes-->
@@ -25,11 +25,11 @@
         <xsd:sequence>
             <xsd:element name="successor" type="Successor" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:int"/>
-        <xsd:attribute name="x" type="xsd:int"/>
-        <xsd:attribute name="y" type="xsd:int"/>
-        <xsd:attribute name="start" type="xsd:string"/>
-        <xsd:attribute name="goal" type="xsd:string"/>
+        <xsd:attribute name="id" type="xsd:int" use="required" />
+        <xsd:attribute name="x" type="xsd:int" use="required" />
+        <xsd:attribute name="y" type="xsd:int" use="required" />
+        <xsd:attribute name="start" type="xsd:string" use="required" />
+        <xsd:attribute name="goal" type="xsd:string" use="required" />
     </xsd:complexType>
 
     <!-- Describes a directed graph (like structure) of nodes -->
@@ -41,8 +41,8 @@
 
     <!-- Describes tower class and amount to be placed -->
     <xsd:complexType name="Tower">
-        <xsd:attribute name="className" type="xsd:string" />
-        <xsd:attribute name="count" type="PositiveInt" />
+        <xsd:attribute name="className" type="xsd:string" use="required" />
+        <xsd:attribute name="count" type="PositiveInt" use="required" />
     </xsd:complexType>
 
     <!-- Describes what SpecialPad class to load and in which area -->
@@ -50,7 +50,7 @@
         <xsd:sequence>
             <xsd:element name="rectangle" type="Rectangle" minOccurs="1" maxOccurs="1" />
         </xsd:sequence>
-        <xsd:attribute name="className" type="xsd:string" />
+        <xsd:attribute name="className" type="xsd:string" use="required" />
     </xsd:complexType>
 
     <!-- Describes zones where towers are allowed to be placed-->
@@ -83,9 +83,10 @@
             <xsd:element name="pads" type="Pads" />
         </xsd:all>
 
-        <xsd:attribute name="name" type="xsd:string" />
-        <xsd:attribute name="width" type="xsd:int" />
-        <xsd:attribute name="height" type="xsd:int" />
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <xsd:attribute name="width" type="xsd:int" use="required" />
+        <xsd:attribute name="height" type="xsd:int" use="required" />
+        <xsd:attribute name="troupesToWin" type="xsd:positiveInteger" use="required" />
     </xsd:complexType>
 
     <!-- Defines a list of levels -->

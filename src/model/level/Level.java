@@ -23,6 +23,17 @@ public class Level implements Troupe.KilledListener,
                               Troupe.GoalListener,
                               Tower.ShootListener, Cloneable {
 
+    private WinListener winListener;
+
+    public interface WinListener {
+        void onWin();
+    }
+
+    private final String name;
+    private final int height;
+    private final int width;
+    private final int troupesToWin;
+    private int troupesInGoal = 0;
     private Level initialState;
 
     private List<TowerZone> towerZones;
@@ -37,8 +48,13 @@ public class Level implements Troupe.KilledListener,
 
     private boolean build = false;
 
-    public Level() {}
-    public Level(String name, int height, int width) {}
+    public Level(String name, int height, int width, int troupesToWin) {
+
+        this.name = name;
+        this.height = height;
+        this.width = width;
+        this.troupesToWin = troupesToWin;
+    }
 
     public void update(double dt) {
         /*for (Pad pad : pads) {
@@ -168,12 +184,12 @@ public class Level implements Troupe.KilledListener,
 
     private void buildWithoutInitialState() {
         placeTowersInZones();
-        setListeners();
+        setEntityListeners();
         build = true;
     }
 
     public Level clone() {
-        Level level = new Level();
+        Level level = new Level(name, height, width, troupesToWin);
         List<TowerZone> lTowerZones = new ArrayList<>();
         Set<Tower> ltowers = new HashSet<>();
         List<Pad> lpads = new ArrayList<>();
@@ -202,12 +218,16 @@ public class Level implements Troupe.KilledListener,
         return initialState;
     }
 
-    private void setListeners() {
+    private void setEntityListeners() {
         troupes.forEach(troupe -> {
             troupe.setGoalListener(this);
             troupe.setKilledListener(this);
         });
         towers.forEach(tower -> tower.setShootListener(this));
+    }
+
+    public void setWinListener(WinListener winListener) {
+        this.winListener = winListener;
     }
 
     private void placeTowersInZones() {
@@ -261,6 +281,16 @@ public class Level implements Troupe.KilledListener,
     @Override
     public void onGoal(Troupe troupe) {
         troupesToRemove.add(troupe);
+        troupesInGoal++;
+        if (hasWon()) {
+            if (winListener != null) {
+                winListener.onWin();
+            }
+        }
+    }
+
+    public boolean hasWon() {
+        return troupesInGoal >= troupesToWin;
     }
 
     @Override
