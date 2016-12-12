@@ -15,6 +15,7 @@ public class Player {
 
     public Troupe createTroupe(String troupeType) throws NotEnoughFounds {
         Payment payment = wallet.getPayment(TroupeFactory.getCost(troupeType));
+
         return TroupeFactory.buyTroupe(payment, troupeType);
     }
 
