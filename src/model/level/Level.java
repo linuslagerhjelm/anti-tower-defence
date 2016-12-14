@@ -6,10 +6,7 @@ import controller.eventhandler.events.SpawnEvent;
 import controller.eventhandler.events.SystemEvent;
 import exceptions.NoSuchPadException;
 import exceptions.NotEnoughFoundsException;
-import model.entities.Pad;
-import model.entities.PadFactory;
-import model.entities.Path;
-import model.entities.TeleportPad;
+import model.entities.*;
 import model.entities.tower.Tower;
 import model.entities.tower.TowerZone;
 import model.entities.troupe.Troupe;
@@ -322,6 +319,28 @@ public class Level implements Troupe.KilledListener,
 
     public String getMoney() {
         return player.getCurrency();
+    }
+
+    public void onClick(Position positionClicked) {
+        double clickRange = 10;
+
+        for (Tower tower : towers) {
+            if (positionClicked.inRange(tower.getPosition(), clickRange)) {
+                tower.interact();
+            }
+        }
+
+        for (Troupe troupe : troupes) {
+            if (positionClicked.inRange(troupe.getPosition(), clickRange)) {
+                troupe.interact();
+            }
+        }
+
+        for (Switch switcher : path.getSwitches()) {
+            if (positionClicked.inRange(switcher.getPosition(), clickRange)) {
+                switcher.interact();
+            }
+        }
     }
 
     @Override

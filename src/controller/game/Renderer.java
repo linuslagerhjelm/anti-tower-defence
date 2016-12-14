@@ -33,7 +33,7 @@ public class Renderer {
                     entity.getPosition().getY());
         }
     }
-
+//sad
     public void renderLasers(Collection<Line> shots) {
         for (Line shot : shots) {
             board.drawLaser(shot.getPos1().getX(), shot.getPos1().getY(),

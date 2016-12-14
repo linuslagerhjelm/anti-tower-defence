@@ -17,6 +17,7 @@ public class Path {
     private List<Node> goal = new ArrayList<>();
 
     private HashMap<Integer, Node> nodes;
+    private List<Switch> switches = new ArrayList<>();
 
     /**
      * Validates the path to make sure that it complies with the definition of
@@ -76,6 +77,11 @@ public class Path {
         }
         Node current = walkNodes.get(0);
         visited.add(current);
+
+        if (current.getSuccessors().size() > 1) {
+            switches.add(new Switch(current));
+        }
+
         walk(walkNodes.subList(1, walkNodes.size()), visited);
     }
 
@@ -97,11 +103,6 @@ public class Path {
         return getNext(current);
     }
 
-    public void switchOnNode(Position position) {
-        nodes.forEach((id, node) -> {
-        });
-    }
-
     /**
      * Adds the nodes to the path as a HashMap with node id:s as key
      * @param nodes the nodes on the path
@@ -118,6 +119,10 @@ public class Path {
      */
     public Node getStartNode() {
         return start;
+    }
+
+    public Collection<Switch> getSwitches() {
+        return switches;
     }
 
     /**
