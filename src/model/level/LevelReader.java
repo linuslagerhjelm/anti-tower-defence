@@ -1,18 +1,20 @@
 package model.level;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
 import javax.xml.XMLConstants;
-import javax.xml.validation.Validator;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Author: Linus Lagerhjelm
@@ -26,6 +28,8 @@ public class LevelReader implements Runnable {
     private File file;
     private ParseResult callback;
     private LevelXMLHandler handler;
+    private InputStream validateStream;
+    private InputStream parseStream;
 
     /**
      * Creates a new LevelReader for a model.level file
@@ -36,6 +40,8 @@ public class LevelReader implements Runnable {
     public LevelReader(String fileName, String schema, ParseResult callback) {
         String fullPath = getClass().getResource("/" + fileName).getFile();
         file = new File(fullPath);
+        validateStream = getClass().getResourceAsStream("/"+fileName);
+        parseStream = getClass().getResourceAsStream("/"+fileName);
         this.callback = callback;
         if (validate(schema)) {
             handler = new LevelXMLHandler(this.callback);
@@ -52,11 +58,11 @@ public class LevelReader implements Runnable {
         SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         try {
-            Schema schema = schemaFactory.newSchema(new File(
-                    getClass().getResource("/" + schemaName).getFile()));
+            URL url = getClass().getResource("/"+schemaName);
+            Schema schema = schemaFactory.newSchema(url);
 
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(file));
+            validator.validate(new StreamSource(validateStream));
 
         } catch (SAXException | IOException e) {
             callback.onError(e);
@@ -73,7 +79,7 @@ public class LevelReader implements Runnable {
             SAXParser saxParser = saxParserFactory.newSAXParser();
 
             // Parse
-            saxParser.parse(file, handler);
+            saxParser.parse(new InputSource(parseStream), handler);
 
         } catch (IOException | ParserConfigurationException | SAXException e) {
             callback.onError(e);

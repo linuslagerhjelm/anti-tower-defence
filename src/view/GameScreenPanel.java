@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -111,7 +111,7 @@ public class GameScreenPanel {
      */
     private void createTroop(String troopName) {
 	try {
-	    troopImage = ImageIO.read(new File(this.getClass().getResource("/images/troops/" + troopName + ".png").getFile()));
+        troopImage = loadImage("/images/troops/" + troopName + ".png");
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    System.out.print("Troop creation Exception\n");
@@ -124,7 +124,7 @@ public class GameScreenPanel {
      */
     private void createLevel(String levelName) {
 	try {
-	    levelImage = ImageIO.read(new File(this.getClass().getResource("/images/levels/"+levelName+".jpg").getFile()));
+        levelImage = loadImage("/images/levels/"+levelName+".jpg");
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    System.out.print("Level creation Exception\n");
@@ -136,11 +136,15 @@ public class GameScreenPanel {
      */
     private void createTeleportPad() {
 	try {
-	    teleportPadImage = ImageIO.read(this.getClass().getResource("/images/levels/Portal.png"));
+	    teleportPadImage = loadImage("/images/levels/Portal.png");
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    System.out.print("Pad creation Exception\n");
 	}
+    }
+
+    private BufferedImage loadImage(String path) throws IOException {
+        return ImageIO.read(this.getClass().getResource(path));
     }
 
     /**

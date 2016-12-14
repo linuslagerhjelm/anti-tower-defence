@@ -54,7 +54,8 @@ public class Game implements Level.WinListener, ParseResult {
         observer = new GUIObserver(publisher);
 
         try {
-            highScores.initialize(new DatabaseConfig(".db_config"));
+            String path = getClass().getResource("/.db_config").getFile();
+            highScores.initialize(new DatabaseConfig(path));
 
         } catch (InvalidConnectionDataException e) {
             /* Continue running without database */
@@ -89,7 +90,6 @@ public class Game implements Level.WinListener, ParseResult {
     public void onSuccess(List<Level> read) {
         levels = read;
         for (Level level : levels) {
-            level.build();
             level.setWinListener(this);
         }
         run();
@@ -138,12 +138,16 @@ public class Game implements Level.WinListener, ParseResult {
         }
     }
 
+
     @Override // from Level.WinListener
     public void onWin(Score score) {
         highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
         nextLevel();
     }
 
+    /**
+     * Start next level
+     */
     private void nextLevel() {
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);

@@ -40,6 +40,17 @@ public class TroopMakerPanel {
                 troopMakerPanel = new JPanel();
 
                 //Load DefaultImage
+                ImageIcon soldierImage = loadImage("images/troops/soldier.jpg");
+                ImageIcon knightImage = loadImage("images/troops/knight.jpeg");
+                ImageIcon soldier3 = loadImage("images/troops/3dSoldier.jpg");
+                ImageIcon soldier4 = loadImage("images/troops/spearSoldier.jpg");
+
+
+                //Add the default image to the icon list and sets the current image to the default image.
+                addTroopImage(0, soldierImage);
+                addTroopImage(1, knightImage);
+                addTroopImage(2, soldier3);
+                addTroopImage(3, soldier4);
                 troopIcons.add(new ImageIcon("./res/images/troops/soldier.jpg"));
                 troopIcons.add(new ImageIcon("./res/images/troops/knight.jpeg"));
                 troopIcons.add(new ImageIcon("./res/images/troops/3dSoldier.jpg"));
@@ -47,6 +58,10 @@ public class TroopMakerPanel {
 
                 setTroopImage(0);
                 panelSetup();
+        }
+
+        private ImageIcon loadImage(String path) {
+                return new ImageIcon(getClass().getResource("/"+path));
         }
 
         public void refresh() {

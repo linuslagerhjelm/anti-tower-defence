@@ -1,6 +1,7 @@
 package model.highscore;
 
 import exceptions.InvalidConnectionDataException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,6 +30,10 @@ public final class DatabaseConfig {
      * @throws InvalidConnectionDataException if config was malformed
      */
     public DatabaseConfig(String conf) throws InvalidConnectionDataException {
+        if (conf == null) {
+            throw new InvalidConnectionDataException();
+        }
+
         HashMap<String, String> map = new HashMap<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(conf))) {

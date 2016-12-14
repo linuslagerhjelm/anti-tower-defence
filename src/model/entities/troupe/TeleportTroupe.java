@@ -84,7 +84,7 @@ class TeleportTroupe implements Troupe {
 
     @Override
     public void setPosition(Position position) {
-        this.position = position;
+        this.position = position.clone();
     }
 
     @Override

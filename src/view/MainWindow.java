@@ -138,7 +138,9 @@ public class MainWindow {
     public void fatalError(String message) {
         try {
             SwingUtilities.invokeAndWait(() -> {
-                JOptionPane.showMessageDialog(frame, message, "Error",
+                // add html to make word wraps
+                JOptionPane.showMessageDialog(frame,
+                        "<html><body><p style='width: 300px;'>"+message+"</p></body></html>", "Error",
                         JOptionPane.ERROR_MESSAGE);
             });
         } catch (InterruptedException e) {
