@@ -1,7 +1,5 @@
 package view;
 
-import model.level.Position;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -136,7 +134,7 @@ public class GameScreenPanel {
 		rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHints(rh);
 
-		g2d.drawImage(levelImage,0,0,1000,1000,null);
+		g2d.drawImage(levelImage,0,0,513,484,null);
     }
 
     /**

@@ -44,7 +44,7 @@ public class Game implements Level.WinListener, ParseResult {
     private int troupeIndex = 0;
 
     public Game() {
-        setup("level.xml");
+        setup("level1.xml");
     }
 
     public Game(String levelFile) {
@@ -103,11 +103,11 @@ public class Game implements Level.WinListener, ParseResult {
 
     @Override // from ParseResult
     public void onError(Exception e) {
-        // remove unhelpful xml error info
-        int colonIndex = e.getMessage().indexOf(':') + 1;
-        String message = e.getMessage().substring(colonIndex);
-
-        mainWindow.fatalError(message); // blocking 'til user accepts
+        if (e.getMessage() != null) {
+            mainWindow.fatalError(e.getMessage()); // blocking 'til user accepts
+        } else {
+            mainWindow.fatalError(e.toString()); // blocking
+        }
     }
 
 

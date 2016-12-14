@@ -19,8 +19,8 @@ public class TroupeFactory {
     private final static Map<String, Currency> costs = new HashMap<>();
 
     static {
-        costs.put("TeleportTroupe", teleportTroupeCost);
-        costs.put("DefaultTroupe", defaultTroupeCost);
+        costs.put(TeleportTroupe.STATS.getTitle(), teleportTroupeCost);
+        costs.put(DefaultTroupe.STATS.getTitle(), defaultTroupeCost);
     }
 
     public static Currency getCost(String name) {

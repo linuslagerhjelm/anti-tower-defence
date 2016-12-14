@@ -77,7 +77,7 @@ public class MainWindow {
             frame.setLocationRelativeTo(null);
             frame.pack();
 
-            centerPanel.setSize(new Dimension(1000,1000));
+            centerPanel.setSize(new Dimension(513, 484));
 
             frame.setVisible(true);
         });
