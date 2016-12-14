@@ -87,6 +87,7 @@
         <xsd:attribute name="width" type="xsd:int" use="required" />
         <xsd:attribute name="height" type="xsd:int" use="required" />
         <xsd:attribute name="troupesToWin" type="xsd:positiveInteger" use="required" />
+        <xsd:attribute name="texture" type="xsd:string" use="required" />
     </xsd:complexType>
 
     <!-- Defines a list of levels -->

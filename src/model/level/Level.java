@@ -31,7 +31,6 @@ public class Level implements Troupe.KilledListener,
 
     private WinListener winListener;
 
-
     public interface WinListener {
         void onWin(Score score);
     }
@@ -41,6 +40,7 @@ public class Level implements Troupe.KilledListener,
     private final int height;
     private final int width;
     private final int troupesToWin;
+    private final String texture;
     private int troupesInGoal = 0;
     private Level initialState;
 
@@ -58,12 +58,13 @@ public class Level implements Troupe.KilledListener,
 
     private boolean build = false;
 
-    public Level(String name, int height, int width, int troupesToWin) {
+    public Level(String name, int height, int width, int troupesToWin, String texture) {
 
         this.name = name;
         this.height = height;
         this.width = width;
         this.troupesToWin = troupesToWin;
+        this.texture = texture;
     }
 
     public void update(double dt) {
@@ -201,6 +202,10 @@ public class Level implements Troupe.KilledListener,
         return shots;
     }
 
+    public String getTexture() {
+        return texture;
+    }
+
     public void resetShots() {
         shots.clear();
     }
@@ -212,7 +217,7 @@ public class Level implements Troupe.KilledListener,
     }
 
     public Level clone() {
-        Level level = new Level(name, height, width, troupesToWin);
+        Level level = new Level(name, height, width, troupesToWin, texture);
         List<TowerZone> lTowerZones = new ArrayList<>();
         Set<Tower> ltowers = new HashSet<>();
         List<Pad> lpads = new ArrayList<>();

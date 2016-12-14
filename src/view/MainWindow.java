@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class MainWindow {
 
+    private final String DEFAULT_IMAGE = "/images/levels/defaultLevel.jpg";
     private JFrame frame;
     private MenuPanel menuPanel;
     private TroopMakerPanel troopMakerPanel;
@@ -53,7 +54,7 @@ public class MainWindow {
             troopMakerPanel = new TroopMakerPanel();
             menuPanel = new MenuPanel(50,50);
             infoPanel = new InfoPanel();
-            gameScreenPanel = new GameScreenPanel();
+            gameScreenPanel = new GameScreenPanel(DEFAULT_IMAGE);
 
             setupGameMenu();
             setupInfoMenu();

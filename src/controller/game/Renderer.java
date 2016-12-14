@@ -44,4 +44,8 @@ public class Renderer {
     public void renderMoney(String money) {
         info.setMoney(money);
     }
+
+    public void setLevelTexture(String path) {
+        board.setLevelImage(path);
+    }
 }

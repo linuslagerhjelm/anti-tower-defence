@@ -24,7 +24,6 @@ public class GameScreenPanel {
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
     private HashMap<String, BufferedImage> entityImages = new HashMap<>();
-    private BufferedImage teleportPadImage = null;
 
     private List<Sprite> sprites = new CopyOnWriteArrayList<>();
     private List<Sprite> newSprites = new CopyOnWriteArrayList<>();
@@ -41,21 +40,18 @@ public class GameScreenPanel {
     /**
      * Constructor of game screen panel that creates an instance of a game screen.
      */
-    public GameScreenPanel() {
+    public GameScreenPanel(String defaultImage) {
 
 		//Creates Default things..
-		//createTroop("troop_v3");
-		createLevel("defaultLevel");
-		createTeleportPad();
+		levelImage = loadImage(defaultImage);
 
 		gameScreen = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			drawLevel(g);
-			drawSprites(g);
-			drawLasers(g);
-			drawTeleportPad(g,new Position(100,100));
+				super.paintComponent(g);
+				drawLevel(g);
+				drawSprites(g);
+				drawLasers(g);
 			}
 		};
 
@@ -97,6 +93,10 @@ public class GameScreenPanel {
 		newSprites.add(new Sprite(entityImages.get(type), x, y));
     }
 
+    public void setLevelImage(String path) {
+    	levelImage = loadImage(path);
+	}
+
     /**
      * Draws a laser by adding it to the list of lasers to be drawn at every frame.
      * @param x1:int, starting x position.
@@ -106,31 +106,6 @@ public class GameScreenPanel {
      */
     public void drawLaser(double x1, double y1, double x2, double y2) {
 		newLasers.add(new Line2D.Double(x1, y1, x2, y2));
-    }
-
-    /**
-     * Creates a level of type given by the string argument.
-     * @param levelName:String, name of the level to be created.
-     */
-    private void createLevel(String levelName) {
-		try {
-			levelImage = loadImage("/images/levels/"+levelName+".jpg");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.print("Level creation Exception\n");
-		}
-    }
-
-    /**
-     * Creates a teleport pad.
-     */
-    private void createTeleportPad() {
-		try {
-			teleportPadImage = loadImage("/images/levels/Portal.png");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.print("Pad creation Exception\n");
-		}
     }
 
 	/**
@@ -205,24 +180,5 @@ public class GameScreenPanel {
 			g2d.drawLine((int) laser.getX1(), (int) laser.getY1(),
 				(int) laser.getX2(), (int) laser.getY2());
 		}
-    }
-
-    /**
-     * Draws a teleporter pad at given position.
-     * @param g:Graphics.
-     * @param padPosition:Position, position of the teleporter pad.
-     */
-    private void drawTeleportPad(Graphics g, Position padPosition) {
-		Graphics2D g2d = (Graphics2D) g;
-
-		//Makes rendering smooth
-		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-		g2d.setRenderingHints(rh);
-
-		pad_origo_x = teleportPadImage.getWidth()/2;
-		pad_origo_y = teleportPadImage.getHeight()/2;
-
-		g2d.drawImage(teleportPadImage, (int)padPosition.getX()-pad_origo_x, (int)padPosition.getX()-pad_origo_x,null);
     }
 }

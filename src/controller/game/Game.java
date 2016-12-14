@@ -97,6 +97,7 @@ public class Game implements Level.WinListener, ParseResult {
         for (Level level : levels) {
             level.setWinListener(this);
         }
+        renderer.setLevelTexture(levels.get(currentLevel).getTexture());
         run();
     }
 
@@ -155,6 +156,7 @@ public class Game implements Level.WinListener, ParseResult {
     private void nextLevel() {
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);
+        renderer.setLevelTexture(levels.get(currentLevel).getTexture());
     }
 
     /**
