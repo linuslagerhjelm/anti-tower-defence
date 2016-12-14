@@ -32,4 +32,10 @@ public interface Entity {
      * @return Position
      */
     Position getPosition();
+
+    /**
+     * Gets the path of the file to draw
+     * @return path to file
+     */
+    String getFilePath();
 }

@@ -146,6 +146,11 @@ public class DefaultTroupe implements Troupe {
     }
 
     @Override
+    public String getFilePath() {
+        return STATS.getImgPath();
+    }
+
+    @Override
     public void receiveDamage(int damage) {
         health -= damage;
         if (health <= 0 && killedListener != null) {

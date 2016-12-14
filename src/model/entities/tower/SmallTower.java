@@ -10,10 +10,16 @@ import model.entities.troupe.Troupe;
 public class SmallTower extends Tower {
 
     public static final TowerStats STATS = new TowerStats(4, 0, 500);
+    private String imagePath = "/images/troops/troop_v3.png";
 
     @Override
     public void update(double dt) {
 
+    }
+
+    @Override
+    public String getFilePath() {
+        return imagePath;
     }
 
     @Override

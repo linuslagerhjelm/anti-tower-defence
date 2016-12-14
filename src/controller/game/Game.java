@@ -173,6 +173,12 @@ public class Game implements Level.WinListener, ParseResult {
                 .filter(e -> e instanceof LevelEvent)
                 .collect(Collectors.toList());
 
+        levelEvents.forEach(event -> {
+            if (event instanceof SpawnEvent) {
+                ((SpawnEvent)event).setType(stats.get(troupeIndex).getTitle());
+            }
+        });
+
         handleGameEvents(gameEvents);
 
         return levelEvents;

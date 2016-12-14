@@ -9,6 +9,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -23,6 +24,7 @@ public class GameScreenPanel {
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
     private BufferedImage troopImage = null;
+    private HashMap<String, BufferedImage> troopImages = new HashMap<>();
     private BufferedImage teleportPadImage = null;
 
     private List<Sprite> sprites = new CopyOnWriteArrayList<>();
@@ -42,39 +44,40 @@ public class GameScreenPanel {
      */
     public GameScreenPanel() {
 
-	//Creates Default things..
-	createTroop("troop_v3");
-	createLevel("defaultLevel");
-	createTeleportPad();
+		//Creates Default things..
+		createTroop("troop_v3");
+		createLevel("defaultLevel");
+		createTeleportPad();
 
-	gameScreen = new JPanel() {
-	    @Override
-	    protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		drawLevel(g);
-		drawSprites(g);
-		drawLasers(g);
-		drawTeleportPad(g,new Position(100,100));
-	    }
-	};
+		gameScreen = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			drawLevel(g);
+			drawSprites(g);
+			drawLasers(g);
+			drawTeleportPad(g,new Position(100,100));
+			}
+		};
 
-	gameScreen.setBackground(Color.BLACK);
+		gameScreen.setBackground(Color.BLACK);
     }
 
-    /**
-     * TODO: Idk why this is used.
-     */
-    public void refresh() {
-	sprites.clear();
-	lasers.clear();
-	sprites.addAll(newSprites);
-	lasers.addAll(newLasers);
-	newSprites.clear();
-	newLasers.clear();
+	/**
+	 * Due to the fact that the main thread and the event dispatch thread
+	 * are two different threads, there might occur some light flickering
+	 * of the GUI. Calling this method handles the synchronization between
+	 * them to ensure that the game runs smoothly.
+	 */
+	public void refresh() {
+		sprites.clear();
+		lasers.clear();
+		sprites.addAll(newSprites);
+		lasers.addAll(newLasers);
+		newSprites.clear();
+		newLasers.clear();
 
-	SwingUtilities.invokeLater(() -> {
-	    gameScreen.repaint();
-	});
+		SwingUtilities.invokeLater(() -> gameScreen.repaint());
     }
 
     /**
@@ -90,8 +93,9 @@ public class GameScreenPanel {
      * @param x:int, position at x coordinate.
      * @param y:int, position at y coordinate.
      */
-    public void drawTroop(double x, double y) {
-	newSprites.add(new Sprite(troopImage, x, y));
+    public void drawTroop(String type, double x, double y) {
+		troopImages.computeIfAbsent(type, k -> loadImage(type));
+		newSprites.add(new Sprite(troopImages.get(type), x, y));
     }
 
     /**
@@ -102,7 +106,7 @@ public class GameScreenPanel {
      * @param y2:int, target y position.
      */
     public void drawLaser(double x1, double y1, double x2, double y2) {
-	newLasers.add(new Line2D.Double(x1, y1, x2, y2));
+		newLasers.add(new Line2D.Double(x1, y1, x2, y2));
     }
 
     /**
@@ -110,12 +114,12 @@ public class GameScreenPanel {
      * @param troopName:String, name of the troop type to be added.
      */
     private void createTroop(String troopName) {
-	try {
-        troopImage = loadImage("/images/troops/" + troopName + ".png");
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    System.out.print("Troop creation Exception\n");
-	}
+		try {
+			troopImage = loadImage("/images/troops/" + troopName + ".png");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.print("Troop creation Exception\n");
+		}
     }
 
     /**
@@ -123,28 +127,35 @@ public class GameScreenPanel {
      * @param levelName:String, name of the level to be created.
      */
     private void createLevel(String levelName) {
-	try {
-        levelImage = loadImage("/images/levels/"+levelName+".jpg");
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    System.out.print("Level creation Exception\n");
-	}
+		try {
+			levelImage = loadImage("/images/levels/"+levelName+".jpg");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.print("Level creation Exception\n");
+		}
     }
 
     /**
      * Creates a teleport pad.
      */
     private void createTeleportPad() {
-	try {
-	    teleportPadImage = loadImage("/images/levels/Portal.png");
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    System.out.print("Pad creation Exception\n");
-	}
+		try {
+			teleportPadImage = loadImage("/images/levels/Portal.png");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.print("Pad creation Exception\n");
+		}
     }
 
-    private BufferedImage loadImage(String path) throws IOException {
-        return ImageIO.read(this.getClass().getResource(path));
+    private BufferedImage loadImage(String path) {
+    	BufferedImage img;
+    	try {
+    		img = ImageIO.read(this.getClass().getResource(path));
+		} catch (IOException e) {
+    		img = null;
+		}
+
+        return img;
     }
 
     /**

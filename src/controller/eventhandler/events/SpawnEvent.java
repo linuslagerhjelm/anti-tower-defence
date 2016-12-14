@@ -18,4 +18,8 @@ public class SpawnEvent extends LevelEvent {
     public String getTroupeType() {
         return type;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
