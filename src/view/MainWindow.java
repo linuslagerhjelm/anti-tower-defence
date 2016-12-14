@@ -87,16 +87,6 @@ public class MainWindow {
         return guiListeners;
     }
 
-    private void loadImages() {
-        String[] troopIcons = {
-                "soldier.jpg",
-                "knight.jpeg",
-                "3dSoldier.jpg",
-                "spearSoldier.jpg"
-        };
-        troopMakerPanel.loadImages(troopIcons);
-    }
-
 
     public GameScreenPanel getGameScreen() {
         try {

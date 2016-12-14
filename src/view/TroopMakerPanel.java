@@ -40,44 +40,17 @@ public class TroopMakerPanel {
                 troopMakerPanel = new JPanel();
 
                 //Load DefaultImage
-                ImageIcon soldierImage = new ImageIcon("./res/images/troops/soldier.jpg");
-                ImageIcon knightImage = new ImageIcon("./res/images/troops/knight.jpeg");
-                ImageIcon soldier3 = new ImageIcon("./res/images/troops/3dSoldier.jpg");
-                ImageIcon soldier4 = new ImageIcon("./res/images/troops/spearSoldier.jpg");
-
-
-                //Add the default image to the icon list and sets the current image to the default image.
-                addTroopImage(0, soldierImage);
-                addTroopImage(1, knightImage);
-                addTroopImage(2, soldier3);
-                addTroopImage(3, soldier4);
+                troopIcons.add(new ImageIcon("./res/images/troops/soldier.jpg"));
+                troopIcons.add(new ImageIcon("./res/images/troops/knight.jpeg"));
+                troopIcons.add(new ImageIcon("./res/images/troops/3dSoldier.jpg"));
+                troopIcons.add(new ImageIcon("./res/images/troops/spearSoldier.jpg"));
 
                 setTroopImage(0);
-
-
-
-                //Setups the panel.
                 panelSetup();
-
-                //Adds the image frame.
-                //troopMakerPanel.add(label, BorderLayout.NORTH);
         }
 
         public void refresh() {
                 troopIconPanel.repaint();
-        }
-
-        public void loadImages(String[] imagesPath){
-                for(int i = 0; i < imagesPath.length; i ++) {
-                        try{
-                                addTroopImage(i,new ImageIcon(imagesPath[1]));
-                        }catch (NullPointerException e){
-                                e.printStackTrace();
-                                System.out.print("Error, no thing");
-                        }
-
-                }
-
         }
 
         /**
@@ -137,7 +110,7 @@ public class TroopMakerPanel {
                 unitInfoText.setBorder(BorderFactory.createTitledBorder("Info"));
                 unitInfoText.setFont(new Font("Serif", Font.BOLD, 16));
                 unitInfoText.setForeground(Color.CYAN);
-                changeUnitInfo("Speed: 20\nCost: 100\nHealth: 45");
+                //changeUnitInfo("Speed: 20\nCost: 100\nHealth: 45");
         }
 
         private void buttonPanelSetup() {
@@ -148,7 +121,6 @@ public class TroopMakerPanel {
                 buttonPanel.add(prevTroop, BorderLayout.WEST);
                 buttonPanel.add(spawnTroop, BorderLayout.CENTER);
                 buttonPanel.add(nextTroop, BorderLayout.EAST);
-
         }
 
         private void troopIconPanelSetup() {
@@ -165,31 +137,14 @@ public class TroopMakerPanel {
                 return troopMakerPanel;
         }
 
-
         /**
          * Sets the current viewing troop image to the image from the
          * image list at the given index.
          * @param index:int, index at the location of the wanted image.
          */
         public void setTroopImage(int index){
-                try {
+                if (troopIcons.size() != 0) {
                         label.setIcon(troopIcons.get(index));
-                } catch (NullPointerException e){
-                        System.out.print("Error, index out of bounds"); // FIXME proper exception handling
-                }
-        }
-
-
-        /**
-         * Adds the given image to the Troop Image icon list at the given index.
-         * @param index:int, index to store the given image.
-         * @param image:ImageIcon, the image to be stored at the given index.
-         */
-        public void addTroopImage(int index, ImageIcon image){
-                try {
-                        troopIcons.add(index,image);
-                } catch (NullPointerException e){
-                        System.out.print("Error, index out of bounds"); // FIXME proper exception handling
                 }
         }
 
