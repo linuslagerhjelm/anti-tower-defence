@@ -27,8 +27,25 @@ public class DefaultTroupe implements Troupe {
 
     @Override
     public void setStartNode(Node start) {
-        currentNode = start;
+
+        if (start.hasSuccessor()) {
+            currentNode = start.getNext();
+
+        } else if (start.isGoal()) {
+            if (goalListener != null) {
+                goalListener.onGoal(this);
+            }
+
+        } else {
+            if (killedListener != null) {
+                killedListener.onKilled(this);
+            }
+        }
         position = start.getPosition().clone();
+    }
+    @Override
+    public void setNextNode(Node next) {
+        currentNode = next;
     }
 
     @Override
@@ -41,8 +58,37 @@ public class DefaultTroupe implements Troupe {
         this.goalListener = listener;
     }
 
+
     @Override
     public void update(double dt) {
+        double angle = position.angle(currentNode.getPosition());
+        double nextX = nextX(angle, dt);
+        double nextY = nextY(angle, dt);
+        walkedLength += position.lengthTo(new Position(nextX, nextY));
+        position.setX(nextX);
+        position.setY(nextY);
+
+
+        double newAngle = position.angle(currentNode.getPosition());
+        if (angle - newAngle > 0.001) { // walked past node
+            if (currentNode.isGoal()) {
+                if (goalListener != null) {
+                    goalListener.onGoal(this);
+                }
+
+            } else if (currentNode.hasSuccessor()) {
+                currentNode = currentNode.getNext();
+
+            } else {
+                if (killedListener != null) {
+                    killedListener.onKilled(this);
+                }
+            }
+        }
+    }
+
+    //@Override
+    public void updateOld(double dt) {
         Node next;
         try {
             next = currentNode.getNext();
@@ -63,21 +109,25 @@ public class DefaultTroupe implements Troupe {
         position.setX(nextX);
         position.setY(nextY);
 
-        setNextNode(angle);
+        Node nextAfterNext = getNextNode(angle);
+        if (nextAfterNext != null) {
+            setNextNode(nextAfterNext);
+        }
     }
 
-    private void setNextNode(double lastAngle) {
+    private Node getNextNode(double lastAngle) {
         Node next = currentNode.getNext();
         double newAngle = position.angle(next.getPosition());
 
         if ((lastAngle - newAngle) > 0.001) {
-            currentNode = next;
             if (currentNode.isGoal()) {
                 if (goalListener != null) {
                     goalListener.onGoal(this);
                 }
             }
+            return next;
         }
+        return null;
     }
 
     @Override

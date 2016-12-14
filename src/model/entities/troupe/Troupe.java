@@ -19,6 +19,7 @@ public interface Troupe extends Entity {
     }
 
     void setStartNode(Node start);
+    void setNextNode(Node next);
     void setKilledListener(KilledListener listener);
     void setGoalListener(GoalListener listener);
     void receiveDamage(int damage);

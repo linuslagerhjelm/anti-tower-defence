@@ -216,6 +216,7 @@ public class Level implements Troupe.KilledListener,
         List<TowerZone> lTowerZones = new ArrayList<>();
         Set<Tower> ltowers = new HashSet<>();
         List<Pad> lpads = new ArrayList<>();
+        level.addPath(this.path);
 
         towerZones.forEach(lTowerZones::add);
         towers.forEach(ltowers::add);
@@ -225,7 +226,6 @@ public class Level implements Troupe.KilledListener,
         level.addTowerZones(lTowerZones);
         level.addTowers(ltowers);
         level.addPads(lpads);
-        level.addPath(this.path);
 
         level.setInitialState(initialState);
 
@@ -309,6 +309,7 @@ public class Level implements Troupe.KilledListener,
             teleportPads.get(teleportPads.size() - 1).setTarget(pad);
         }
         teleportPads.add(pad);
+        pad.setNextNode(path.getNextNodeFrom(pad.getPosition()));
     }
 
     public String getMoney() {
