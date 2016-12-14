@@ -64,6 +64,4 @@ public class Menu {
 
                 return buttons;
         }
-
-
 }
