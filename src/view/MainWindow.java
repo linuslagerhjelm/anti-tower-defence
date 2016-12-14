@@ -1,4 +1,5 @@
 package view;
+
 /**
  * Created by c15aen on 2016-11-03. teset seteste
  */
@@ -10,31 +11,71 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * view.MainWindow creates a simple GUI consisting of three panels.
- * Largely based on the class ThreePanels by Johan Eliasson.
+ * Created by c15aen on 2016-11-03.
+ * Creates the frame and adds all needed components to it.
  */
+
 public class MainWindow {
 
     private final String DEFAULT_IMAGE = "/images/levels/defaultLevel.jpg";
     private JFrame frame;
+    private JPanel upperPanel;
+    private JPanel rightPanel;
+    private JPanel lowerPanel;
+    private JPanel centerPanel;
+    private JPanel winLosePanel;
     private MenuPanel menuPanel;
     private TroopMakerPanel troopMakerPanel;
     private GameScreenPanel gameScreenPanel;
     private InfoPanel infoPanel;
+    private WinLoseScreen winScreen;
+    private WinLoseScreen loseScreen;
     private List<ActionListener> guiListeners = new ArrayList<>();
+    private MouseListener mouseListener = new MouseListener() {
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            System.out.println("X = "+me.getX() +", Y = "+ me.getY());
+                new ActionEvent(me.getSource(), me.getID(), me.paramString());
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    };
 
     private static MainWindow mainWindowInstance = null;
 
     private MainWindow() {
         // Exists only to defeat instantiation.
     }
-
+    /**
+     * Creates an instance of the main window if no main windows has been made earlier.
+     * @return The instance.
+     */
     public static MainWindow getInstance() {
         if(mainWindowInstance == null) {
             mainWindowInstance = new MainWindow("Fiskare", 800, 600);
@@ -42,6 +83,12 @@ public class MainWindow {
         return mainWindowInstance;
     }
 
+        /**
+         * Creates the frame which holds all the games components.
+         * @param title - The title of the frame.
+         * @param width - The frames width.
+         * @param height - The frames height.
+         */
     private MainWindow(String title, int width, int height) {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame(title);
@@ -54,16 +101,21 @@ public class MainWindow {
             troopMakerPanel = new TroopMakerPanel();
             menuPanel = new MenuPanel(50,50);
             infoPanel = new InfoPanel();
-            gameScreenPanel = new GameScreenPanel(DEFAULT_IMAGE);
+
+            gameScreenPanel = new GameScreenPanel(mouseListener, DEFAULT_IMAGE);
+                guiListeners.add(gameScreenPanel.getListener());
+            winScreen = new WinLoseScreen("win");
+            loseScreen = new WinLoseScreen("lose");
 
             setupGameMenu();
             setupInfoMenu();
 
             //Build panels
-            JPanel upperPanel = menuPanel.returnPanel();
-            JPanel rightPanel = troopMakerPanel.getJPanel();
-            JPanel lowerPanel = infoPanel.getPanel();
-            JPanel centerPanel = gameScreenPanel.getJPanel();
+            upperPanel = menuPanel.returnPanel();
+            rightPanel = troopMakerPanel.getJPanel();
+            lowerPanel = infoPanel.getPanel();
+            centerPanel = gameScreenPanel.getJPanel();
+            //winLosePanel = winScreen.getPanel();
 
             guiListeners.addAll(troopMakerPanel.getActionListeners());
 
@@ -72,7 +124,12 @@ public class MainWindow {
             frame.add(rightPanel, BorderLayout.EAST);
             frame.add(lowerPanel, BorderLayout.SOUTH);
             frame.add(centerPanel, BorderLayout.CENTER);
+
             frame.setResizable(false);
+            //showWin();
+            //showLose();
+
+            //centerPanel.setVisible(false);
 
             frame.setLocationRelativeTo(null);
             frame.pack();
@@ -83,8 +140,44 @@ public class MainWindow {
         });
     }
 
+        /**
+         * Returns all listeners associated with the GUI.
+         * @return - A list of all listeners.
+         */
     public List<ActionListener> getGuiListeners() {
+
         return guiListeners;
+    }
+
+    public MouseListener getMouseListener() {
+
+        return mouseListener;
+    }
+
+    private void loadImages() {
+        String[] troopIcons = {
+                "soldier.jpg",
+                "knight.jpeg",
+                "3dSoldier.jpg",
+                "spearSoldier.jpg"
+        };
+        //troopMakerPanel.loadImages(troopIcons);
+    }
+
+    public void showWin() {
+        frame.remove(rightPanel);
+        frame.remove(lowerPanel);
+        frame.remove(centerPanel);
+        winLosePanel = winScreen.getPanel();
+        frame.add(winLosePanel, BorderLayout.CENTER);
+    }
+
+    public void showLose() {
+        frame.remove(rightPanel);
+        frame.remove(lowerPanel);
+        frame.remove(centerPanel);
+        winLosePanel = loseScreen.getPanel();
+        frame.add(winLosePanel, BorderLayout.CENTER);
     }
 
 
