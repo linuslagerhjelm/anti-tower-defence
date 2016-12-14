@@ -284,13 +284,12 @@ public class Level implements Troupe.KilledListener,
 
                 } catch (NotEnoughFoundsException e) {
                     /* TODO: give feedback to user */
-                    System.out.println(1);
                 }
             } else if (event instanceof NewPadEvent) {
                 NewPadEvent e = ((NewPadEvent)event);
                 createPadFromEvent(e);
             } else if (event instanceof MouseClickEvent) {
-                System.out.println("");
+                onClick(((MouseClickEvent) event).getPosition());
             }
         });
     }
@@ -322,7 +321,7 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void onClick(Position positionClicked) {
-        double clickRange = 10;
+        double clickRange = 20;
 
         for (Tower tower : towers) {
             if (positionClicked.inRange(tower.getPosition(), clickRange)) {

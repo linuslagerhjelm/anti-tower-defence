@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Author: Andreas, Arvid
  * File: TroopMakerListener
@@ -20,7 +19,8 @@ public class TroopMakerListener implements ActionListener, Observable {
 
     private static List<Observer> observers = new ArrayList<>();
 
-    public TroopMakerListener() {}
+    public TroopMakerListener() {
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

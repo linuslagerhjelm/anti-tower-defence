@@ -42,7 +42,7 @@ public class Game implements Level.WinListener, ParseResult {
     private boolean isPaused = false;
     private List<TroupeStats> stats = TroupeFactory.getTroupeStats();
     private int troupeIndex = 0;
-
+    private static final boolean IS_WINDOWS = System.getProperty("os.name").startsWith("Windows");
     public Game() {
         setup("level1.xml");
     }
@@ -60,10 +60,17 @@ public class Game implements Level.WinListener, ParseResult {
         observer = new GUIObserver(publisher);
 
         try {
-            String path = getClass().getResource("/.db_config").getFile();
+            String path;
+
+            if (IS_WINDOWS){
+                path = getClass().getResource(".db_config").getFile();
+            } else{
+                path = getClass().getResource("/.db_config").getFile();
+            }
+
             highScores.initialize(new DatabaseConfig(path));
+
         } catch (InvalidConnectionDataException | NullPointerException e) {
-            System.out.println("");
             /* Continue running without database */
         }
 
@@ -150,6 +157,7 @@ public class Game implements Level.WinListener, ParseResult {
     @Override // from Level.WinListener
     public void onWin(Score score) {
         highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
+        highScores.forceUpdate();
         mainWindow.showWin();
     }
 

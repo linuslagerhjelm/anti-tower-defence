@@ -66,7 +66,7 @@ public class Node {
 
     public void switchSuccessor() {
         int currentNextIndex = successors.indexOf(nextNode);
-        int switchNextIndex = currentNextIndex+1 % successors.size();
+        int switchNextIndex = (currentNextIndex+1) % successors.size();
         nextNode = successors.get(switchNextIndex);
     }
 
