@@ -128,11 +128,15 @@ public class Game implements Level.WinListener, ParseResult {
         }
     }
 
+
     @Override // from Level.WinListener
     public void onWin() {
         nextLevel();
     }
 
+    /**
+     * Start next level
+     */
     private void nextLevel() {
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);
