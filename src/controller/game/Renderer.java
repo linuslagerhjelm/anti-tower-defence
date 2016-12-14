@@ -29,7 +29,7 @@ public class Renderer {
 
     public void render(Collection<? extends Entity> entities) {
         for (Entity entity : entities) {
-            board.drawTroop(entity.getFilePath(), entity.getPosition().getX(),
+            board.drawEntity(entity.getFilePath(), entity.getPosition().getX(),
                     entity.getPosition().getY());
         }
     }
