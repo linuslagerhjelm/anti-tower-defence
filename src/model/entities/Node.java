@@ -77,13 +77,19 @@ public class Node {
 
         Node node = (Node) o;
 
-        return id.equals(node.id) && successors.equals(node.successors);
+        if (start != node.start) return false;
+        if (goal != node.goal) return false;
+        if (!id.equals(node.id)) return false;
+        return position != null ? position.equals(node.position) : node.position == null;
+
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + successors.hashCode();
+        result = 31 * result + (position != null ? position.hashCode() : 0);
+        result = 31 * result + (start ? 1 : 0);
+        result = 31 * result + (goal ? 1 : 0);
         return result;
     }
 

@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 public class DefaultTroupe implements Troupe {
 
     public static final TroupeStats STATS = new TroupeStats(100, 12,
-            "Just a regular troupe", "DefaultTroupe", "/images/troops/knight.jpeg");
+            "Just a regular troupe", "Golem", "/images/troops/golem.png");
 
 
     private KilledListener killedListener;

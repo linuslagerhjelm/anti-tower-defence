@@ -9,8 +9,8 @@ import model.entities.troupe.Troupe;
 
 public class LargeTower extends Tower {
 
-    public static final TowerStats STATS = new TowerStats(7, 0, 1100);
-    private String filePath = "/images/troops/troop_v3.png";
+    public static final TowerStats STATS = new TowerStats(7, 50, 1100);
+    private String filePath = "/images/towers/darlek_red.png";
 
     @Override
     public void update(double dt) {
