@@ -159,6 +159,7 @@ public class Game implements Level.WinListener, ParseResult {
         highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
         highScores.forceUpdate();
         mainWindow.showWin();
+        //
     }
 
     /**
