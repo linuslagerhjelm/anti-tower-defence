@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by c15awl on 2016-11-28.
+ * Listens to the infomenu buttons and produces popup-menus with the desired information.
  */
 public class InfoMenuListener implements ActionListener, Observable {
 

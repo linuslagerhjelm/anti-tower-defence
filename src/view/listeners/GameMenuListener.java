@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Created by c15awl on 2016-11-28.
- *
+ * Listens to the game menu buttons, notifies observers and changes buttontext when needed.
  */
 public class GameMenuListener implements ActionListener, Observable {
     private String[] buttonNames;

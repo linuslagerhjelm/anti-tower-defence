@@ -1,13 +1,20 @@
 package view;
 
+import controller.eventhandler.Observable;
+import controller.eventhandler.Observer;
 import model.level.Position;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +26,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 * Created: 2016-12-6
 * Description: Game screen where the level, unit and etc will be displayed for the user.
 */
-public class GameScreenPanel {
+public class GameScreenPanel implements Observable {
 
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
@@ -29,6 +36,9 @@ public class GameScreenPanel {
     private List<Sprite> newSprites = new CopyOnWriteArrayList<>();
     private List<Line2D.Double> lasers = new CopyOnWriteArrayList<>();
     private List<Line2D.Double> newLasers = new CopyOnWriteArrayList<>();
+
+	private List<Observer> observers =  new ArrayList<>();
+	private MouseListener ml;
 
     private int level_origo_X = 0;
     private int level_origo_Y = 0;
@@ -40,7 +50,7 @@ public class GameScreenPanel {
     /**
      * Constructor of game screen panel that creates an instance of a game screen.
      */
-    public GameScreenPanel(String defaultImage) {
+    public GameScreenPanel(MouseListener ml, String defaultImage) {
 
 		//Creates Default things..
 		levelImage = loadImage(defaultImage);
@@ -54,7 +64,33 @@ public class GameScreenPanel {
 				drawLasers(g);
 			}
 		};
+		ml = new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				notifyObservers(e);
+			}
 
+			@Override
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+
+			}
+		};
+	    gameScreen.addMouseListener(ml);
 		gameScreen.setBackground(Color.BLACK);
     }
 
@@ -136,7 +172,7 @@ public class GameScreenPanel {
 		rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHints(rh);
 
-		g2d.drawImage(levelImage,0,0,1000,1000,null);
+	g2d.drawImage(levelImage,0,0,null);
     }
 
     /**
@@ -181,4 +217,25 @@ public class GameScreenPanel {
 				(int) laser.getX2(), (int) laser.getY2());
 		}
     }
+
+
+	@Override
+	public void registerObserver(Observer observer) {
+		observers.add(observer);
+	}
+
+	@Override
+	public void unregisterObserver(Observer observer) {
+		observers.remove(observer);
+	}
+
+	private void notifyObservers(MouseEvent e) {
+		observers.forEach(observer -> {
+			observer.update(this, new ActionEvent(e.getSource(), e.getID(), e.paramString()));
+		});
+	}
+
+	public ActionListener getListener() {
+		return (ActionListener) ml;
+	}
 }
