@@ -6,6 +6,7 @@ package view;
 
 import view.listeners.GameMenuListener;
 import view.listeners.InfoMenuListener;
+import view.listeners.MouseEventListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,33 +40,7 @@ public class MainWindow {
     private WinLoseScreen winScreen;
     private WinLoseScreen loseScreen;
     private List<ActionListener> guiListeners = new ArrayList<>();
-    private MouseListener mouseListener = new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent me) {
-            System.out.println("X = "+me.getX() +", Y = "+ me.getY());
-                new ActionEvent(me.getSource(), me.getID(), me.paramString());
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    };
+    private MouseListener mouseListener = new MouseEventListener();
 
     private static MainWindow mainWindowInstance = null;
 
@@ -103,7 +78,6 @@ public class MainWindow {
             infoPanel = new InfoPanel();
 
             gameScreenPanel = new GameScreenPanel(mouseListener, DEFAULT_IMAGE);
-                guiListeners.add(gameScreenPanel.getListener());
             winScreen = new WinLoseScreen("win");
             loseScreen = new WinLoseScreen("lose");
 
@@ -150,18 +124,7 @@ public class MainWindow {
     }
 
     public MouseListener getMouseListener() {
-
         return mouseListener;
-    }
-
-    private void loadImages() {
-        String[] troopIcons = {
-                "soldier.jpg",
-                "knight.jpeg",
-                "3dSoldier.jpg",
-                "spearSoldier.jpg"
-        };
-        //troopMakerPanel.loadImages(troopIcons);
     }
 
     public void showWin() {
