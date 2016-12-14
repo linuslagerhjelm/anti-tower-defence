@@ -58,7 +58,7 @@ public class LevelReader implements Runnable {
         SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         try {
-            URL url = getClass().getResource("/level_schema.xsd");
+            URL url = getClass().getResource("/"+schemaName);
             Schema schema = schemaFactory.newSchema(url);
 
             Validator validator = schema.newValidator();

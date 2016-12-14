@@ -54,7 +54,8 @@ public class Game implements Level.WinListener, ParseResult {
         observer = new GUIObserver(publisher);
 
         try {
-            highScores.initialize(new DatabaseConfig(".db_config"));
+            String path = getClass().getResource("/.db_config").getFile();
+            highScores.initialize(new DatabaseConfig(path));
 
         } catch (InvalidConnectionDataException e) {
             /* Continue running without database */
