@@ -119,7 +119,7 @@ public class GameScreenPanel implements Observable {
 		return gameScreen;
     }
 
-    /**
+    /** asd
      * Draws a new entity by adding it to the list of sprites to be drawn.
      * @param x:int, position at x coordinate.
      * @param y:int, position at y coordinate.
@@ -211,6 +211,9 @@ public class GameScreenPanel implements Observable {
 		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHints(rh);
+
+		g2d.setStroke(new BasicStroke(4));
+		g2d.setColor(Color.BLUE);
 
 		for (Line2D laser : lasers) {
 			g2d.drawLine((int) laser.getX1(), (int) laser.getY1(),
