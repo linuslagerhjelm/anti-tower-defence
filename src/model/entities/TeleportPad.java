@@ -13,6 +13,7 @@ import model.level.Position;
 public class TeleportPad implements Pad {
     private TeleportPad target;
     private Position position;
+    private Node nextNode;
     private int height;
     private int width;
 
@@ -37,7 +38,7 @@ public class TeleportPad implements Pad {
     @Override
     public void landOn(Troupe troupe) {
         if (target != null) {
-            troupe.setPosition(target.getPosition());
+            target.teleportTroupe(troupe);
         }
     }
 
@@ -48,6 +49,17 @@ public class TeleportPad implements Pad {
      */
     public void setTarget(TeleportPad target) {
         this.target = target;
+    }
+
+    public void setNextNode(Node next) {
+        nextNode = next;
+    }
+
+    public void teleportTroupe(Troupe troupe) {
+        troupe.setPosition(getPosition());
+        if (nextNode != null) {
+            troupe.setNextNode(nextNode);
+        }
     }
 
     /**

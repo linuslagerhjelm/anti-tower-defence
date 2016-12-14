@@ -157,4 +157,25 @@ public class Path {
     public void resetSwitches() {
 
     }
+
+    public Node getNextNodeFrom(Position position) {
+        Node closest = start;
+        double shortestLength = position.lengthTo(start.getPosition());
+        Stack<Node> nodeStack = new Stack<>();
+        nodeStack.add(start);
+
+        // Depth first
+        while (!nodeStack.isEmpty()) {
+            Node node = nodeStack.pop();
+            nodeStack.addAll(node.getSuccessors());
+
+            double length = position.lengthTo(node.getPosition());
+            if (length < shortestLength) {
+                shortestLength = length;
+                closest = node;
+            }
+        }
+
+        return closest;
+    }
 }
