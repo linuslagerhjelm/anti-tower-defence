@@ -1,5 +1,6 @@
 package model.level;
 
+import controller.eventhandler.events.MouseClickEvent;
 import controller.eventhandler.events.NewPadEvent;
 import controller.eventhandler.events.SpawnEvent;
 import controller.eventhandler.events.SystemEvent;
@@ -288,6 +289,8 @@ public class Level implements Troupe.KilledListener,
             } else if (event instanceof NewPadEvent) {
                 NewPadEvent e = ((NewPadEvent)event);
                 createPadFromEvent(e);
+            } else if (event instanceof MouseClickEvent) {
+                System.out.println("");
             }
         });
     }
