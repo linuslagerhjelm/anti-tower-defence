@@ -91,7 +91,6 @@ public class TroopMakerPanel {
                 prevTroop = new JButton("prev");
 
                 TroopMakerListener spawnListener = new TroopMakerListener(this);
-
                 actionListeners.add(spawnListener);
 
                 prevTroop.setPreferredSize(buttonDimension);
@@ -105,6 +104,7 @@ public class TroopMakerPanel {
                 nextTroop.addActionListener(spawnListener);
                 spawnTroop.addActionListener(spawnListener);
 
+                disableButtons();
         }
 
         /**
@@ -205,5 +205,16 @@ public class TroopMakerPanel {
                 return actionListeners;
         }
 
+        public void disableButtons() {
+                spawnTroop.setEnabled(false);
+                nextTroop.setEnabled(false);
+                prevTroop.setEnabled(false);
+        }
+
+        public void enableButtons() {
+                spawnTroop.setEnabled(true);
+                nextTroop.setEnabled(true);
+                prevTroop.setEnabled(true);
+        }
 }
 

@@ -50,7 +50,7 @@ public class Wallet implements Comparable<Currency> {
         return new Payment(amount);
     }
 
-    public String getContent() {
+    public String getFormattedContent() {
         return value.getValue()+"$";
     }
 

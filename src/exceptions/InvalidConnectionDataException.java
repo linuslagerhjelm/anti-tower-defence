@@ -7,7 +7,7 @@ package exceptions;
  * Description: Thrown when there were a problem with the data representing
  * a database connection
  */
-public class InvalidConnectionDataException extends RuntimeException {
+public class InvalidConnectionDataException extends Exception {
     public InvalidConnectionDataException() {}
     public InvalidConnectionDataException(String msg) {
         super(msg);

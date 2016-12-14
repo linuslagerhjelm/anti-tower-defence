@@ -9,7 +9,9 @@ import exceptions.NotEnoughFoundsException;
 import model.player.Currency;
 import model.player.Payment;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TroupeFactory {
@@ -26,6 +28,21 @@ public class TroupeFactory {
 
     public static Currency getCost(String name) {
         return costs.get(name);
+    }
+
+    /**
+     * Returns the cost for the cheapest troupe this factory can produce
+     * @return cost of the cheapest troupe
+     */
+    public static Currency getCheapestCost() {
+        Currency cheapest = new Currency(0);
+        Collection<Currency> lcosts = costs.values();
+        for (Currency c : lcosts) {
+            if (c.getValue() < cheapest.getValue()) {
+                cheapest = c;
+            }
+        }
+        return cheapest;
     }
 
 

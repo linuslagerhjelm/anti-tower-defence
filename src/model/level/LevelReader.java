@@ -49,7 +49,7 @@ public class LevelReader implements Runnable {
     }
 
     /**
-     * Validate the XML-file against the provideSd Schema.
+     * Validate the XML-file against the provided Schema.
      * @param schemaName name of the schema file
      * @return if XML-fil is valid
      */

@@ -10,8 +10,11 @@ import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
 import controller.eventhandler.Pubsub;
 import controller.eventhandler.events.*;
+import exceptions.InvalidConnectionDataException;
 import model.highscore.DatabaseConfig;
+import model.highscore.HighScore;
 import model.highscore.HighScoreServer;
+import model.highscore.Score;
 import model.level.Level;
 import model.level.LevelReader;
 import model.level.ParseResult;
@@ -49,7 +52,13 @@ public class Game implements Level.WinListener, ParseResult {
     private void setup(String levelFile) {
         publisher = new Pubsub();
         observer = new GUIObserver(publisher);
-        highScores.initialize(new DatabaseConfig(".db_config"));
+
+        try {
+            highScores.initialize(new DatabaseConfig(".db_config"));
+
+        } catch (InvalidConnectionDataException e) {
+            /* Continue running without database */
+        }
 
 
         mainWindow = MainWindow.getInstance();
@@ -102,7 +111,8 @@ public class Game implements Level.WinListener, ParseResult {
     public void run() {
 
         long time = new Date().getTime();
-        while (running) {
+        levels.get(currentLevel).start();
+        while (running && !levels.get(currentLevel).hasLost()) {
             double dt = (new Date().getTime() - time)/1000.0; // sec
             time = new Date().getTime();
 
@@ -130,7 +140,8 @@ public class Game implements Level.WinListener, ParseResult {
 
 
     @Override // from Level.WinListener
-    public void onWin() {
+    public void onWin(Score score) {
+        highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
         nextLevel();
     }
 

@@ -50,10 +50,12 @@ public class GUIObserver implements Observer {
                 publisher.registerEvent(new QuitEvent());
 
             } else if (event.getActionCommand().equals("Highscores")) {
-                HighScoreServer.getInstance().getHighScores(result -> {
-                    PopUpMenu menu = ((InfoMenuListener)subject).getHighScoreMenu();
-                    result.forEach(highScore -> menu.appendMessage(highScore.getHighScoreString()+"\n"));
-                });
+                if (HighScoreServer.getInstance().getInitialized()) {
+                    HighScoreServer.getInstance().getHighScores(result -> {
+                        PopUpMenu menu = ((InfoMenuListener)subject).getHighScoreMenu();
+                        result.forEach(highScore -> menu.appendMessage(highScore.getHighScoreString()+"\n"));
+                    });
+                }
             }
 
         } catch (UnableToRegisterEventException e) {

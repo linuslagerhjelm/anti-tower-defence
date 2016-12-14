@@ -8,6 +8,7 @@ import view.listeners.InfoMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
@@ -127,6 +128,12 @@ public class MainWindow {
     private void setupGameMenu() {
         String[] menuButtonNames = {"New Game","Pause","Quit"};
         GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
+        gameMenuListener.registerObserver((subject, action) -> {
+            ActionEvent e = (ActionEvent)action;
+            if (e.getActionCommand().equals(menuButtonNames[0])) {
+                troopMakerPanel.enableButtons();
+            }
+        });
         guiListeners.add(gameMenuListener);
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
     }
