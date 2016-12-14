@@ -14,7 +14,7 @@ class TeleportTroupe implements Troupe {
 
     public static final TroupeStats STATS = new TroupeStats(100, 12,
             "Troupe that places pads that teleports troupes",
-            "TeleportTroupe", "/images/troops/soldier.jpg");
+            "Wizard", "/images/troops/wizard.png");
 
 
     private KilledListener killedListener;

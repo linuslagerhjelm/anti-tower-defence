@@ -1,8 +1,12 @@
 package model.level;
 
+import exceptions.InvalidPathException;
 import exceptions.NoSuchPadException;
 import exceptions.NoSuchTowerException;
-import model.entities.*;
+import model.entities.Node;
+import model.entities.Pad;
+import model.entities.PadFactory;
+import model.entities.Path;
 import model.entities.tower.Tower;
 import model.entities.tower.TowerFactory;
 import model.entities.tower.TowerZone;
@@ -34,6 +38,7 @@ public class LevelXMLHandler extends DefaultHandler {
     private List<TowerZone> towerZones;
     private List<Tower> towers;
     private List<Pad> pads;
+    private boolean failed = false;
 
     public LevelXMLHandler(ParseResult callback) {
         this.callback = callback;
@@ -42,6 +47,8 @@ public class LevelXMLHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName,
                              Attributes attributes) throws SAXException {
+
+        if (failed) return;
 
         if (qName.equalsIgnoreCase("levels")) {
             levels = new ArrayList<>();
@@ -125,6 +132,8 @@ public class LevelXMLHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
 
+        if (failed) return;
+
         if (qName.equalsIgnoreCase("level")) {
             tmpLevel.setInitialState(tmpLevel);
             levels.add(tmpLevel.clone());
@@ -133,6 +142,10 @@ public class LevelXMLHandler extends DefaultHandler {
             createPath();
             if (path.isValid()) {
                 tmpLevel.addPath(path);
+            } else {
+                callback.onError(new InvalidPathException());
+                failed = true;
+                return;
             }
 
         } else if (qName.equalsIgnoreCase("node")) {
