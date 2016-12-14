@@ -60,7 +60,7 @@ public class Game implements Level.WinListener, ParseResult {
         observer = new GUIObserver(publisher);
 
         try {
-            String path = getClass().getResource("/.db_config").getFile();
+            String path = getClass().getResource(".db_config").getFile();
             highScores.initialize(new DatabaseConfig(path));
 
         } catch (InvalidConnectionDataException | NullPointerException e) {
