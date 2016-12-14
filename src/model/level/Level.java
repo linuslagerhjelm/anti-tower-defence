@@ -67,13 +67,6 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void update(double dt) {
-        for (Pad pad : pads) {
-            for (Troupe troupe : troupes) {
-                if (onPad(pad, troupe)) {
-                    pad.landOn(troupe);
-                }
-            }
-        }
 
         for (Troupe troupe : troupes) {
             troupe.update(dt);
@@ -86,10 +79,32 @@ public class Level implements Troupe.KilledListener,
                     tower.inRange(troupe);
                 }
             }
+
+            for (Pad pad : pads) {
+                if (onPad2(pad, troupe)) {
+                    pad.landOn(troupe);
+                }
+            }
         }
 
         for (Troupe toRemove : troupesToRemove) {
             troupes.remove(toRemove);
+        }
+    }
+
+    public boolean onPad2(Pad pad, Troupe troupe) {
+        double x = troupe.getPosition().getX();
+        double y = troupe.getPosition().getY();
+
+        if (    x >= pad.getPosition().getX() &&
+                x <= pad.getPosition().getX() + pad.getWidth() &&
+                y >= pad.getPosition().getY() &&
+                y <= pad.getPosition().getY() + pad.getHeight()
+                ) {
+
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -191,10 +206,6 @@ public class Level implements Troupe.KilledListener,
     }
 
     public void build() {
-        buildWithoutInitialState();
-    }
-
-    private void buildWithoutInitialState() {
         placeTowersInZones();
         setEntityListeners();
         build = true;
@@ -218,7 +229,7 @@ public class Level implements Troupe.KilledListener,
 
         level.setInitialState(initialState);
 
-        buildWithoutInitialState();
+        level.build();
 
         return level;
     }

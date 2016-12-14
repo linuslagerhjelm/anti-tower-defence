@@ -27,10 +27,10 @@
         </towers>
         <pads>
             <pad className="TeleportPad">
-                <rectangle x="200" y="200" width="3" height="45" />
+                <rectangle x="200" y="200" width="5" height="5" />
             </pad>
             <pad className="TeleportPad">
-                <rectangle x="100" y="30" width="3" height="45" />
+                <rectangle x="100" y="30" width="5" height="5" />
             </pad>
         </pads>
     </level>

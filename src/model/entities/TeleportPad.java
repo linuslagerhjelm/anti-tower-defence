@@ -37,7 +37,7 @@ public class TeleportPad implements Pad {
     @Override
     public void landOn(Troupe troupe) {
         if (target != null) {
-            troupe.setPosition(position);
+            troupe.setPosition(target.getPosition());
         }
     }
 

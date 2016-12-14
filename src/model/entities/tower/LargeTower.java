@@ -9,7 +9,7 @@ import model.entities.troupe.Troupe;
 
 public class LargeTower extends Tower {
 
-    public static final TowerStats STATS = new TowerStats(7, 350, 1100);
+    public static final TowerStats STATS = new TowerStats(7, 0, 1100);
 
     @Override
     public void update(double dt) {

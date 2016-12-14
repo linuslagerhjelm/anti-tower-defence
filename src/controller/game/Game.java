@@ -90,7 +90,6 @@ public class Game implements Level.WinListener, ParseResult {
     public void onSuccess(List<Level> read) {
         levels = read;
         for (Level level : levels) {
-            level.build();
             level.setWinListener(this);
         }
         run();
