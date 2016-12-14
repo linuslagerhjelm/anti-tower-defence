@@ -1,6 +1,5 @@
 package model.level;
 
-
 import model.entities.Node;
 import model.entities.Path;
 import org.junit.Test;

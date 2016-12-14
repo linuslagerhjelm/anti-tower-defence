@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by c15awl on 2016-11-28.
- *
+ * Author: Andreas, Arvid
+ * File: GameMenuListener
+ * Description: Action listener for the game menu with
+ * the subscribe observer design.
  */
 public class GameMenuListener implements ActionListener, Observable {
     private String[] buttonNames;
@@ -23,7 +25,6 @@ public class GameMenuListener implements ActionListener, Observable {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         // New Game pressed.
         if (e.getActionCommand().equals(buttonNames[0])){
             if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("new game")) {

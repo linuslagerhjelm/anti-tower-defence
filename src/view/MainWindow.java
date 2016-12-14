@@ -31,7 +31,7 @@ public class MainWindow {
 
     private static MainWindow mainWindowInstance = null;
 
-    private MainWindow() {
+    private MainWindow(){
         // Exists only to defeat instantiation.
     }
 
@@ -96,7 +96,7 @@ public class MainWindow {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            // no code is run = no exception possible
+            e.printStackTrace();
         }
         return gameScreenPanel;
     }
@@ -109,11 +109,10 @@ public class MainWindow {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            // no code is run = no exception possible
+            e.printStackTrace();
         }
         return infoPanel;
     }
-
 
     private void setupGameMenu() {
         String[] menuButtonNames = {"New Game","Pause","Quit"};

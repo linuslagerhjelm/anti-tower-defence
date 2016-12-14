@@ -37,13 +37,10 @@ public final class DatabaseConfig {
         HashMap<String, String> map = new HashMap<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(conf))) {
-
             stream.forEach(line -> addToMap(line, map));
-
         } catch (IOException e) {
             throw new InvalidConnectionDataException();
         }
-
         assignFields(map);
         validateFields();
     }

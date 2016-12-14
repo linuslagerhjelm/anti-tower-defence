@@ -31,7 +31,6 @@ public class InfoPanel {
         private String money = "0$";
         private int highScore = 0;
 
-
         public InfoPanel() {
 
                 infoPanel = new JPanel();

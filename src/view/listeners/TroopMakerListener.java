@@ -11,7 +11,10 @@ import java.util.List;
 
 
 /**
- * Created by c15aen on 2016-11-30.
+ * Author: Andreas, Arvid
+ * File: TroopMakerListener
+ * Description: Action listener with
+ * the subscribe observer design. For the TroopMaker panel.
  */
 public class TroopMakerListener implements ActionListener, Observable {
 
