@@ -15,43 +15,12 @@ import java.util.List;
  */
 public class TroopMakerListener implements ActionListener, Observable {
 
-    private final TroopMakerPanel panel;
-    private int currentIconIndex = 0;
     private static List<Observer> observers = new ArrayList<>();
 
-    public TroopMakerListener(TroopMakerPanel panel) {
-        this.panel = panel;
-    }
+    public TroopMakerListener() {}
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("next")) {
-            panel.refresh();
-
-            if (currentIconIndex == panel.getIconListSize()-1){
-
-                //panel.setTroopImage(0);
-                currentIconIndex = 0;
-
-            } else {
-                currentIconIndex++;
-                //panel.setTroopImage(currentIconIndex);
-            }
-
-
-        } else if (e.getActionCommand().equals("prev")){
-            panel.refresh();
-
-            if (currentIconIndex == 0) {
-                //panel.setTroopImage(panel.getIconListSize()-1);
-                currentIconIndex = panel.getIconListSize()-1;
-
-            } else  {
-                currentIconIndex--;
-                //panel.setTroopImage(currentIconIndex);
-            }
-        }
-
         notifyObservers(e);
     }
 

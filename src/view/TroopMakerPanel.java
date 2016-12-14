@@ -39,26 +39,6 @@ public class TroopMakerPanel {
         public TroopMakerPanel() {
                 label = new JLabel();
                 troopMakerPanel = new JPanel();
-
-                //Load DefaultImage
-                /*troopIcons.add(new ImageIcon("./res/images/troops/soldier.jpg"));
-                ImageIcon soldierImage = loadImage("images/troops/soldier.jpg");
-                ImageIcon knightImage = loadImage("images/troops/knight.jpeg");
-                ImageIcon soldier3 = loadImage("images/troops/3dSoldier.jpg");
-                ImageIcon soldier4 = loadImage("images/troops/spearSoldier.jpg");
-
-
-                //Add the default image to the icon list and sets the current image to the default image.
-                addTroopImage(0, soldierImage);
-                addTroopImage(1, knightImage);
-                addTroopImage(2, soldier3);
-                addTroopImage(3, soldier4);
-                troopIcons.add(new ImageIcon("./res/images/troops/soldier.jpg"));
-                troopIcons.add(new ImageIcon("./res/images/troops/knight.jpeg"));
-                troopIcons.add(new ImageIcon("./res/images/troops/3dSoldier.jpg"));
-                troopIcons.add(new ImageIcon("./res/images/troops/spearSoldier.jpg"));*/
-
-                //setTroopImage(0);
                 panelSetup();
         }
 
@@ -76,7 +56,7 @@ public class TroopMakerPanel {
                 nextTroop = new JButton("next");
                 prevTroop = new JButton("prev");
 
-                TroopMakerListener spawnListener = new TroopMakerListener(this);
+                TroopMakerListener spawnListener = new TroopMakerListener();
                 actionListeners.add(spawnListener);
 
                 prevTroop.setPreferredSize(buttonDimension);
