@@ -12,7 +12,9 @@ import java.util.NoSuchElementException;
 
 class TeleportTroupe implements Troupe {
 
-    public static final TroupeStats STATS = new TroupeStats(100, 12);
+    public static final TroupeStats STATS = new TroupeStats(100, 12,
+            "Troupe that places pads that teleports troupes",
+            "TeleportTroupe", "/images/troops/soldier.jpg");
 
 
     private KilledListener killedListener;

@@ -12,9 +12,10 @@ import java.util.NoSuchElementException;
  * Description: The Troupe that will be instantiated if no other
  * Troupe type were specified.
  */
-class DefaultTroupe implements Troupe {
+public class DefaultTroupe implements Troupe {
 
-    public static final TroupeStats STATS = new TroupeStats(100, 12);
+    public static final TroupeStats STATS = new TroupeStats(100, 12,
+            "Just a regular troupe", "DefaultTroupe", "/images/troops/knight.jpeg");
 
 
     private KilledListener killedListener;

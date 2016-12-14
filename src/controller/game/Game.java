@@ -11,6 +11,8 @@ import controller.eventhandler.Observer;
 import controller.eventhandler.Pubsub;
 import controller.eventhandler.events.*;
 import exceptions.InvalidConnectionDataException;
+import model.entities.troupe.TroupeFactory;
+import model.entities.troupe.TroupeStats;
 import model.highscore.DatabaseConfig;
 import model.highscore.HighScore;
 import model.highscore.HighScoreServer;
@@ -20,22 +22,26 @@ import model.level.LevelReader;
 import model.level.ParseResult;
 import view.MainWindow;
 
+import javax.swing.*;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Game implements Level.WinListener, ParseResult {
 
-    private LevelReader levelReader;
-    private List<Level> levels;
     private Pubsub publisher;
     private Observer observer;
     private MainWindow mainWindow;
     private Renderer renderer;
     private HighScoreServer highScores = HighScoreServer.getInstance();
+
+    private LevelReader levelReader;
+    private List<Level> levels;
     private boolean running = true;
     private int currentLevel = 0;
     private boolean isPaused = false;
+    private List<TroupeStats> stats = TroupeFactory.getTroupeStats();
+    private int troupeIndex = 0;
 
     public Game() {
         setup("level.xml");
@@ -57,10 +63,9 @@ public class Game implements Level.WinListener, ParseResult {
             String path = getClass().getResource("/.db_config").getFile();
             highScores.initialize(new DatabaseConfig(path));
 
-        } catch (InvalidConnectionDataException e) {
+        } catch (InvalidConnectionDataException | NullPointerException e) {
             /* Continue running without database */
         }
-
 
         mainWindow = MainWindow.getInstance();
 
@@ -126,7 +131,6 @@ public class Game implements Level.WinListener, ParseResult {
                 levels.get(currentLevel).getShots().clear();
                 renderer.renderMoney(levels.get(currentLevel).getMoney());
 
-
                 try {
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
@@ -186,9 +190,21 @@ public class Game implements Level.WinListener, ParseResult {
                 running = false;
             } else if (e instanceof RestartEvent) {
                 levels.set(currentLevel, levels.get(currentLevel).reset());
+            } else if (e instanceof NextTroupeEvent) {
+                troupeIndex = (++troupeIndex) % stats.size();
+                updateTroupeInfo();
+            } else if (e instanceof PrevTroupeEvent) {
+                troupeIndex = (--troupeIndex < 0) ? stats.size() - 1 : troupeIndex;
+                updateTroupeInfo();
             }
         });
     }
 
-
+    private void updateTroupeInfo() {
+        TroupeStats info = stats.get(troupeIndex);
+        SwingUtilities.invokeLater(() -> {
+            mainWindow.setTroupeInfo(info.getTitle(), info.getHealth(),
+                info.getSpeed(), info.getDescription(), info.getImgPath());
+        });
+    }
 }

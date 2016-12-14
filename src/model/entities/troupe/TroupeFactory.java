@@ -9,10 +9,7 @@ import exceptions.NotEnoughFoundsException;
 import model.player.Currency;
 import model.player.Payment;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TroupeFactory {
 
@@ -57,8 +54,8 @@ public class TroupeFactory {
     public static Troupe buyTroupe(Payment payment, String troupeType)
             throws NotEnoughFoundsException {
 
-        if (troupeType.equalsIgnoreCase("TeleportTroupe")) {
-            return buyDefaultTroupe(payment);
+        if (troupeType.equalsIgnoreCase(TeleportTroupe.STATS.getTitle())) {
+            return buyTeleportTroupe(payment);
 
         } else {
             return buyDefaultTroupe(payment);
@@ -97,5 +94,18 @@ public class TroupeFactory {
             throw new NotEnoughFoundsException("Payment not enough, should be: " +
                     defaultTroupeCost.getValue());
         }
+    }
+
+    /**
+     * Returns a list of stats of all the available troupes.
+     * @return list of troupe stats
+     */
+    public static List<TroupeStats> getTroupeStats() {
+        List<TroupeStats> troupes = new ArrayList<>();
+
+        troupes.add(DefaultTroupe.STATS);
+        troupes.add(TeleportTroupe.STATS);
+
+        return troupes;
     }
 }

@@ -9,6 +9,8 @@ package controller.eventhandler.events;
 public class SpawnEvent extends LevelEvent {
     private String type;
 
+    public SpawnEvent() {}
+
     public SpawnEvent(String type) {
         this.type = type;
     }

@@ -11,10 +11,17 @@ public class TroupeStats implements Stats {
 
     private int speed;
     private int health;
+    private String description;
+    private String title;
+    private String imgPath;
 
-    public TroupeStats(int speed, int health) {
+    public TroupeStats(int speed, int health, String desc, String title, String path) {
         this.speed = speed;
         this.health = health;
+        this.description = desc;
+        this.title = title;
+        this.imgPath = path;
+
     }
 
     public int getSpeed() {
@@ -31,5 +38,29 @@ public class TroupeStats implements Stats {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }

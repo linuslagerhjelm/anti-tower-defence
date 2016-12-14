@@ -83,7 +83,6 @@ public class MainWindow {
     }
 
     public List<ActionListener> getGuiListeners() {
-
         return guiListeners;
     }
 
@@ -148,5 +147,13 @@ public class MainWindow {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setTroupeInfo(String title, int health, int speed, String description, String icon) {
+        troopMakerPanel.setTroopImage(icon);
+        troopMakerPanel.changeUnitInfo("Type: " + title + "\n" +
+                "Health: " + health + "\n" +
+                "Speed: " + speed + "\n" +
+                "Description: " + description + "\n");
     }
 }

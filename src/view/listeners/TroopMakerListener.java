@@ -30,12 +30,12 @@ public class TroopMakerListener implements ActionListener, Observable {
 
             if (currentIconIndex == panel.getIconListSize()-1){
 
-                panel.setTroopImage(0);
+                //panel.setTroopImage(0);
                 currentIconIndex = 0;
 
             } else {
                 currentIconIndex++;
-                panel.setTroopImage(currentIconIndex);
+                //panel.setTroopImage(currentIconIndex);
             }
 
 
@@ -43,12 +43,12 @@ public class TroopMakerListener implements ActionListener, Observable {
             panel.refresh();
 
             if (currentIconIndex == 0) {
-                panel.setTroopImage(panel.getIconListSize()-1);
+                //panel.setTroopImage(panel.getIconListSize()-1);
                 currentIconIndex = panel.getIconListSize()-1;
 
             } else  {
                 currentIconIndex--;
-                panel.setTroopImage(currentIconIndex);
+                //panel.setTroopImage(currentIconIndex);
             }
         }
 

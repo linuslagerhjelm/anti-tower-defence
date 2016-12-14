@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Author: Andreas, Arvid
@@ -24,8 +25,8 @@ public class TroopMakerPanel {
         private final int DEFAULT_IMAGE_INDEX = 0;
         private int currentImage = 0;
 
-        //List of troopImages.
-        private ArrayList<ImageIcon> troopIcons = new ArrayList<>();
+        // Cache image icon load
+        private HashMap<String, ImageIcon> troopIcons = new HashMap<>();
         private ArrayList<ActionListener> actionListeners = new ArrayList<>();
 
         private JLabel label;
@@ -40,6 +41,7 @@ public class TroopMakerPanel {
                 troopMakerPanel = new JPanel();
 
                 //Load DefaultImage
+                /*troopIcons.add(new ImageIcon("./res/images/troops/soldier.jpg"));
                 ImageIcon soldierImage = loadImage("images/troops/soldier.jpg");
                 ImageIcon knightImage = loadImage("images/troops/knight.jpeg");
                 ImageIcon soldier3 = loadImage("images/troops/3dSoldier.jpg");
@@ -54,14 +56,10 @@ public class TroopMakerPanel {
                 troopIcons.add(new ImageIcon("./res/images/troops/soldier.jpg"));
                 troopIcons.add(new ImageIcon("./res/images/troops/knight.jpeg"));
                 troopIcons.add(new ImageIcon("./res/images/troops/3dSoldier.jpg"));
-                troopIcons.add(new ImageIcon("./res/images/troops/spearSoldier.jpg"));
+                troopIcons.add(new ImageIcon("./res/images/troops/spearSoldier.jpg"));*/
 
-                setTroopImage(0);
+                //setTroopImage(0);
                 panelSetup();
-        }
-
-        private ImageIcon loadImage(String path) {
-                return new ImageIcon(getClass().getResource("/"+path));
         }
 
         public void refresh() {
@@ -155,12 +153,24 @@ public class TroopMakerPanel {
         /**
          * Sets the current viewing troop image to the image from the
          * image list at the given index.
-         * @param index:int, index at the location of the wanted image.
+         * @param path:int, index at the location of the wanted image.
          */
-        public void setTroopImage(int index){
-                if (troopIcons.size() != 0) {
-                        label.setIcon(troopIcons.get(index));
+        public void setTroopImage(String path){
+                if (troopIcons.get(path) != null) {
+                        label.setIcon(troopIcons.get(path));
+                } else {
+                        try {
+                            troopIcons.put(path, loadImage(path));
+                            label.setIcon(troopIcons.get(path));
+                        } catch (NullPointerException e) {
+                            troopIcons.put(path, null);
+                            e.printStackTrace();
+                        }
                 }
+        }
+
+        private ImageIcon loadImage(String path) {
+            return new ImageIcon(getClass().getResource(path));
         }
 
         public void changeUnitInfo(String unitInfo) {
