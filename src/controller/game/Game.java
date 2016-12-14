@@ -133,6 +133,7 @@ public class Game implements Level.WinListener, ParseResult {
                 renderer.renderLasers(levels.get(currentLevel).getShots());
                 levels.get(currentLevel).getShots().clear();
                 renderer.renderMoney(levels.get(currentLevel).getMoney());
+                renderer.render(levels.get(currentLevel).getPath().getSwitches());
 
                 try {
                     Thread.sleep(16);
