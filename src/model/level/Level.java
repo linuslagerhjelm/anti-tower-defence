@@ -327,7 +327,8 @@ public class Level implements Troupe.KilledListener,
     }
 
     public Score getScore() {
-        return new Score(MAX_SCORE - (int)(new Date().getTime() - startTime)/1000);
+        int elapsedSeconds = (int)(new Date().getTime() - startTime)/1000;
+        return new Score(Math.max(MAX_SCORE - elapsedSeconds, 0));
     }
 
     public boolean hasLost() {
