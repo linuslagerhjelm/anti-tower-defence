@@ -40,6 +40,9 @@ public class GUIObserver implements Observer {
             } else if (event.getActionCommand().equals("Resume")) {
                 publisher.registerEvent(new GameEvent(false));
 
+            } else if (event.getActionCommand().equals("Next Level")) {
+                publisher.registerEvent(new NextLevelEvent());
+
             } else if (event.getActionCommand().equals("Restart")) {
                 publisher.registerEvent(new RestartEvent());
 

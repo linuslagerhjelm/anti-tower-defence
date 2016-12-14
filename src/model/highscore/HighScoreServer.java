@@ -268,7 +268,7 @@ public final class HighScoreServer implements Runnable {
             DriverManager.setLoginTimeout(timeout);
             connection = DriverManager.getConnection(address, usr, pass);
 
-        } catch (ClassNotFoundException|SQLException e) {
+        } catch (ClassNotFoundException|SQLException|NullPointerException e) {
             connection = null;
         }
         return connection;

@@ -60,9 +60,10 @@ public class Game implements Level.WinListener, ParseResult {
         observer = new GUIObserver(publisher);
 
         try {
-            String path = getClass().getResource(".db_config").getFile();
+            String path = getClass().getResource("/.db_config").getFile();
             highScores.initialize(new DatabaseConfig(path));
         } catch (InvalidConnectionDataException | NullPointerException e) {
+            System.out.println("");
             /* Continue running without database */
         }
 
@@ -149,13 +150,16 @@ public class Game implements Level.WinListener, ParseResult {
     @Override // from Level.WinListener
     public void onWin(Score score) {
         highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
-        nextLevel();
+        mainWindow.showWin();
     }
 
     /**
      * Start next level
      */
     private void nextLevel() {
+        if (currentLevel == levels.size() - 1) {
+            System.out.println("No more levels");
+        }
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);
         renderer.setLevelTexture(levels.get(currentLevel).getTexture());
@@ -198,8 +202,12 @@ public class Game implements Level.WinListener, ParseResult {
             currentLevel = ((GameEvent)e).getCurrentLevel();
             if (e instanceof QuitEvent) {
                 running = false;
+            } else if (e instanceof NextLevelEvent) {
+                nextLevel();
             } else if (e instanceof RestartEvent) {
+                mainWindow.showGame();
                 levels.set(currentLevel, levels.get(currentLevel).reset());
+                levels.get(currentLevel).setWinListener(this);
             } else if (e instanceof NextTroupeEvent) {
                 troupeIndex = (++troupeIndex) % stats.size();
                 updateTroupeInfo();

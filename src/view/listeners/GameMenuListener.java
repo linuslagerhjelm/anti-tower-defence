@@ -28,14 +28,27 @@ public class GameMenuListener implements ActionListener, Observable {
     public void actionPerformed(ActionEvent e) {
         // New Game pressed.
         if (e.getActionCommand().equals(buttonNames[0])){
-            if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("new game")) {
-                notifyObservers(e);
-
-                ((JMenuItem)e.getSource()).setText("Restart");
+            if (e.getSource() instanceof JButton) {
+                notifyObservers(new ActionEvent(new Object(), 0, "Restart"));
 
             } else {
-                notifyObservers(new ActionEvent(new Object(), 0, "Restart"));
+                if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("new game")) {
+                    notifyObservers(e);
+
+                    ((JMenuItem)e.getSource()).setText("Restart");
+
+                } else {
+                    notifyObservers(new ActionEvent(new Object(), 0, "Restart"));
+                }
             }
+        }
+
+        else if (e.getActionCommand().equals("Restart Level")) {
+            notifyObservers(new ActionEvent(new Object(), 0, "Restart"));
+        }
+
+        else if (e.getActionCommand().equals("Next Level")) {
+            notifyObservers(new ActionEvent(new Object(), 0, "Next Level"));
         }
 
         // Pause/Resumed pressed.

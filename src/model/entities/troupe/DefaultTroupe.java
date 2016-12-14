@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
  */
 public class DefaultTroupe implements Troupe {
 
-    public static final TroupeStats STATS = new TroupeStats(100, 12,
+    public static final TroupeStats STATS = new TroupeStats(1000, 1002,
             "Just a regular troupe", "Golem", "/images/troops/golem.png");
 
 

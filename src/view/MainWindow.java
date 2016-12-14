@@ -136,6 +136,8 @@ public class MainWindow {
         frame.remove(centerPanel);
         winLosePanel = winScreen.getPanel();
         frame.add(winLosePanel, BorderLayout.CENTER);
+        frame.repaint();
+        frame.revalidate();
     }
 
     public void showLose() {
@@ -144,16 +146,17 @@ public class MainWindow {
         frame.remove(centerPanel);
         winLosePanel = loseScreen.getPanel();
         frame.add(winLosePanel, BorderLayout.CENTER);
+        frame.repaint();
     }
 
-        public void showGame() {
-                frame.remove(winLosePanel);
-                frame.add(upperPanel, BorderLayout.NORTH);
-                frame.add(rightPanel, BorderLayout.EAST);
-                frame.add(lowerPanel, BorderLayout.SOUTH);
-                frame.add(centerPanel, BorderLayout.CENTER);
-
-        }
+    public void showGame() {
+        frame.remove(winLosePanel);
+        frame.add(upperPanel, BorderLayout.NORTH);
+        frame.add(rightPanel, BorderLayout.EAST);
+        frame.add(lowerPanel, BorderLayout.SOUTH);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.repaint();
+    }
 
 
         public GameScreenPanel getGameScreen() {
