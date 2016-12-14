@@ -28,6 +28,7 @@ public class MainWindow {
 
     private final String DEFAULT_IMAGE = "/images/levels/defaultLevel.jpg";
     private JFrame frame;
+    private GameMenuListener gameMenuListener;
     private JPanel upperPanel;
     private JPanel rightPanel;
     private JPanel lowerPanel;
@@ -78,11 +79,11 @@ public class MainWindow {
             infoPanel = new InfoPanel();
 
             gameScreenPanel = new GameScreenPanel(mouseListener, DEFAULT_IMAGE);
-            winScreen = new WinLoseScreen("win");
-            loseScreen = new WinLoseScreen("lose");
 
             setupGameMenu();
             setupInfoMenu();
+            winScreen = new WinLoseScreen("win", gameMenuListener);
+            loseScreen = new WinLoseScreen("lose", gameMenuListener);
 
             //Build panels
             upperPanel = menuPanel.returnPanel();
@@ -100,8 +101,9 @@ public class MainWindow {
             frame.add(centerPanel, BorderLayout.CENTER);
 
             frame.setResizable(false);
-            //showWin();
-            //showLose();
+            showWin();
+            showLose();
+                showGame();
 
             //centerPanel.setVisible(false);
 
@@ -124,6 +126,7 @@ public class MainWindow {
     }
 
     public MouseListener getMouseListener() {
+
         return mouseListener;
     }
 
@@ -143,8 +146,17 @@ public class MainWindow {
         frame.add(winLosePanel, BorderLayout.CENTER);
     }
 
+        public void showGame() {
+                frame.remove(winLosePanel);
+                frame.add(upperPanel, BorderLayout.NORTH);
+                frame.add(rightPanel, BorderLayout.EAST);
+                frame.add(lowerPanel, BorderLayout.SOUTH);
+                frame.add(centerPanel, BorderLayout.CENTER);
 
-    public GameScreenPanel getGameScreen() {
+        }
+
+
+        public GameScreenPanel getGameScreen() {
         try {
             SwingUtilities.invokeAndWait(() -> {
                 // Just wait for swing thread to finish
@@ -173,7 +185,7 @@ public class MainWindow {
 
     private void setupGameMenu() {
         String[] menuButtonNames = {"New Game","Pause","Quit"};
-        GameMenuListener gameMenuListener = new GameMenuListener(menuButtonNames);
+        gameMenuListener = new GameMenuListener(menuButtonNames);
         gameMenuListener.registerObserver((subject, action) -> {
             ActionEvent e = (ActionEvent)action;
             if (e.getActionCommand().equals(menuButtonNames[0])) {

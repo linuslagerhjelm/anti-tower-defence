@@ -2,6 +2,7 @@ package view.listeners;
 
 import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
+import view.MainWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class GameMenuListener implements ActionListener, Observable {
         if (e.getActionCommand().equals(buttonNames[0])){
             if (((JMenuItem)e.getSource()).getText().equalsIgnoreCase("new game")) {
                 notifyObservers(e);
+
                 ((JMenuItem)e.getSource()).setText("Restart");
 
             } else {
