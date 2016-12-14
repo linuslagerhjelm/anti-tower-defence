@@ -78,6 +78,8 @@ public class Game implements Level.WinListener, ParseResult {
             }
         });
 
+        ((Observable)mainWindow.getMouseListener()).registerObserver(observer);
+
         setupLevels(levelFile);
     }
 

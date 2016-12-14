@@ -60,10 +60,17 @@ public class GUIObserver implements Observer {
             } else if (event.getActionCommand().equalsIgnoreCase("prev")) {
                 publisher.registerEvent(new PrevTroupeEvent());
 
+            } else if (event.getActionCommand().startsWith("MOUSE_CLICKED")) {
+                handleMouseEvent(event);
             }
 
         } catch (UnableToRegisterEventException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleMouseEvent(ActionEvent event) throws UnableToRegisterEventException {
+        String[] parts = event.getActionCommand().replaceAll("[()]", "").split(",");
+        publisher.registerEvent(new MouseClickEvent(Integer.parseInt(parts[1]),Integer.parseInt(parts[2])));
     }
 }

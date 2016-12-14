@@ -24,7 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 * Created: 2016-12-6
 * Description: Game screen where the level, unit and etc will be displayed for the user.
 */
-public class GameScreenPanel implements Observable {
+public class GameScreenPanel {
 
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
@@ -36,14 +36,11 @@ public class GameScreenPanel implements Observable {
     private List<Line2D.Double> newLasers = new CopyOnWriteArrayList<>();
 
 	private List<Observer> observers =  new ArrayList<>();
-	private MouseListener ml;
 
     private int level_origo_X = 0;
     private int level_origo_Y = 0;
     private int sprite_origo_x = 0;
     private int sprite_origo_y = 0 ;
-    private int pad_origo_x = 0;
-    private int pad_origo_y = 0 ;
 
     /**
      * Constructor of game screen panel that creates an instance of a game screen.
@@ -62,32 +59,7 @@ public class GameScreenPanel implements Observable {
 				drawLasers(g);
 			}
 		};
-		ml = new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				notifyObservers(e);
-			}
 
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-		};
 	    gameScreen.addMouseListener(ml);
 		gameScreen.setBackground(Color.BLACK);
     }
@@ -117,7 +89,7 @@ public class GameScreenPanel implements Observable {
 		return gameScreen;
     }
 
-    /** asd
+    /**
      * Draws a new entity by adding it to the list of sprites to be drawn.
      * @param x:int, position at x coordinate.
      * @param y:int, position at y coordinate.
@@ -218,25 +190,4 @@ public class GameScreenPanel implements Observable {
 				(int) laser.getX2(), (int) laser.getY2());
 		}
     }
-
-
-	@Override
-	public void registerObserver(Observer observer) {
-		observers.add(observer);
-	}
-
-	@Override
-	public void unregisterObserver(Observer observer) {
-		observers.remove(observer);
-	}
-
-	private void notifyObservers(MouseEvent e) {
-		observers.forEach(observer -> {
-			observer.update(this, new ActionEvent(e.getSource(), e.getID(), e.paramString()));
-		});
-	}
-
-	public ActionListener getListener() {
-		return (ActionListener) ml;
-	}
 }
