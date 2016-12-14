@@ -101,9 +101,9 @@ public class MainWindow {
             frame.add(centerPanel, BorderLayout.CENTER);
 
             frame.setResizable(false);
-            showWin();
-            showLose();
-                showGame();
+            //showWin();
+            //showLose();
+            showGame();
 
             //centerPanel.setVisible(false);
 

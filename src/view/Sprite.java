@@ -14,7 +14,7 @@ public class Sprite {
     private double x;
     private double y;
 
-    public Sprite(BufferedImage bI, double x, double y){
+    public Sprite(BufferedImage bI, double x, double y) {
         spriteImage = bI;
         this.x = x;
         this.y = y;
@@ -22,6 +22,7 @@ public class Sprite {
 
     /**
      * Gets the x position of the sprite.
+     *
      * @return x:int, x position of the sprite.
      */
     public double getX() {
@@ -30,6 +31,7 @@ public class Sprite {
 
     /**
      * Gets the y position of the sprite.
+     *
      * @return y:int, y position of the sprite.
      */
     public double getY() {
@@ -38,9 +40,10 @@ public class Sprite {
 
     /**
      * Gets the Image being used of the sprite.
+     *
      * @return spriteImage:BufferedImage, image of the sprite.
      */
-    public BufferedImage getImage(){
+    public BufferedImage getImage() {
         return spriteImage;
     }
 }

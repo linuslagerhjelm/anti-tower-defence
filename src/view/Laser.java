@@ -8,9 +8,9 @@ import model.level.Position;
  */
 public class Laser {
 
-        public Laser(Position startPos, Position endPos) {
-                Position startPos1 = startPos;
-                Position endPos1 = endPos;
+    public Laser(Position startPos, Position endPos) {
+        Position startPos1 = startPos;
+        Position endPos1 = endPos;
 
-        }
+    }
 }

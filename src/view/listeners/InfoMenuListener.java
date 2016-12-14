@@ -21,7 +21,7 @@ public class InfoMenuListener implements ActionListener, Observable {
     private String[] buttonNames;
     private List<Observer> observers = new ArrayList<>();
 
-    public InfoMenuListener(String[] inButtonNames){
+    public InfoMenuListener(String[] inButtonNames) {
 
         buttonNames = inButtonNames;
     }
@@ -43,19 +43,20 @@ public class InfoMenuListener implements ActionListener, Observable {
                             "in 2016-12-15\n\n" +
                             "It was programmed by students of computer science and \n" +
                             "Interaction design using java swing api.\n"
-                    , 400, 200);
+                    , 450, 250);
 
-        //Help Button pressed.
+            //Help Button pressed.
         } else if (e.getActionCommand().equals(buttonNames[1])) {
 
             new PopUpMenu("Help",
-            "To start a new game press the \"Main Menu\" then \"new game\". \n " +
-            "Then you should choose troops to send from the troop maker panel to the right." +
-            "By pressing the spawn button the chosen troop will be spawned." +
-            "You can see the cost and other information about the chosen troop in the information panel below the troop icon.", 400, 200);
+                    "To start a new game press the \"Main Menu\" then \"new game\". \n\n " +
+                            "Then you should choose troops to send from the troop maker \n " +
+                            "panel to the right. \n\nBy pressing the spawn button the chosen \n" +
+                            "troop will be spawned. \n\n You can see the cost and other information\n" +
+                            "about the chosen troop in the information panel below the troop icon.\n\n\n", 450, 250);
 
         } else if (e.getActionCommand().equals(buttonNames[2])) {
-            highscores = new PopUpMenu("Highscores","Level\t Time\t Score\n" , 300, 300);
+            highscores = new PopUpMenu("Highscores", "Level\t Time\t Score\n", 300, 300);
             notifyObservers(e);
         } else {
             System.out.print("Did not find that button\n");
