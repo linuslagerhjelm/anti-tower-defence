@@ -149,6 +149,7 @@ public class Game implements Level.WinListener, ParseResult {
     @Override // from Level.WinListener
     public void onWin(Score score) {
         highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
+        highScores.forceUpdate();
         nextLevel();
     }
 

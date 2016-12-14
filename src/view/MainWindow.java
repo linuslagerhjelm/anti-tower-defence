@@ -12,10 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +24,7 @@ import java.util.List;
 
 public class MainWindow {
 
-    private final String DEFAULT_IMAGE = "/images/levels/defaultLevel.jpg";
+    private final String DEFAULT_IMAGE = "/images/levels/default_level.png";
     private JFrame frame;
     private GameMenuListener gameMenuListener;
     private JPanel upperPanel;

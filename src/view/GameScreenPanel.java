@@ -1,13 +1,10 @@
 package view;
 
-import controller.eventhandler.Observable;
 import controller.eventhandler.Observer;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
@@ -142,7 +139,9 @@ public class GameScreenPanel {
 		rh.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHints(rh);
 
-	    g2d.drawImage(levelImage,0,0,null);
+        if (levelImage != null) {
+            g2d.drawImage(levelImage, 0, 0, null);
+        }
     }
 
     /**
