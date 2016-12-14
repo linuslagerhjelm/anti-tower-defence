@@ -218,7 +218,7 @@ public class Level implements Troupe.KilledListener,
 
         level.setInitialState(initialState);
 
-        buildWithoutInitialState();
+        level.buildWithoutInitialState();
 
         return level;
     }
