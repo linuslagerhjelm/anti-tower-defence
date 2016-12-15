@@ -18,7 +18,19 @@ public class TeleportPad implements Pad {
     private int width;
     private static final String filePath = "/images/pads/portal.png";
 
-    public TeleportPad(){}
+    /**
+     * Empty constructor. {@link #setProperties} must be used before pad
+     * is used in any other way.
+     */
+    public TeleportPad() { }
+
+    /**
+     * Creates a TeleportPad based on properties
+     * @param x X position
+     * @param y Y position
+     * @param width Width of pad
+     * @param height Height of pad
+     */
     public TeleportPad(int x, int y, int width, int height) {
         setProperties(x, y, width, height);
     }
@@ -52,10 +64,18 @@ public class TeleportPad implements Pad {
         this.target = target;
     }
 
+    /**
+     * Set closest node to the pads position.
+     * @param next Closest node
+     */
     public void setNextNode(Node next) {
         nextNode = next;
     }
 
+    /**
+     * Will teleport a troupe to target pad
+     * @param troupe Troupe to teleport
+     */
     public void teleportTroupe(Troupe troupe) {
         troupe.setPosition(getPosition());
         if (nextNode != null) {
@@ -63,12 +83,21 @@ public class TeleportPad implements Pad {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(double dt) {}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void interact() {}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPosition(Position position) {
         this.position = position.clone();
@@ -82,6 +111,9 @@ public class TeleportPad implements Pad {
         return position;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFilePath() {
         return filePath;

@@ -50,14 +50,24 @@ public class Wallet implements Comparable<Currency> {
         return new Payment(amount);
     }
 
+    /**
+     * Get value in wallet. Should not be used to extract value with int type
+     */
     public String getFormattedContent() {
         return value.getValue()+"$";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
         return super.toString()+"{"+value.getValue()+"$}";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareTo(Currency o) {
         return value.getValue() - o.getValue();

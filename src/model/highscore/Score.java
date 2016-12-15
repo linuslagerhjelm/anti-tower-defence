@@ -9,6 +9,11 @@ package model.highscore;
 public class Score {
     private final int score;
 
+    /**
+     * Sets the score. Must be positive.
+     * @param score Score to set
+     * @throws IllegalArgumentException If score is negative
+     */
     public Score(int score) {
         if (score < 0) {
             throw new IllegalArgumentException("Scores can not be negative");
