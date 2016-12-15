@@ -19,6 +19,10 @@ public interface Entity {
     void update(double dt);
 
 
+    /**
+     * Should be triggered each time a user interacts (ex clicks) on
+     * the entity
+     */
     void interact();
 
     /**

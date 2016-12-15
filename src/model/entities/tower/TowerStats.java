@@ -7,12 +7,21 @@ package model.entities.tower;
 
 import model.entities.Stats;
 
+/**
+ * Includes the stats of a tower: damage, range and cooldown.
+ */
 public class TowerStats implements Stats {
 
     private double range;
     private int damage;
     private long cooldown;
 
+    /**
+     * Sets the stats
+     * @param damage How much damage a tower makes on a troupe on one shot
+     * @param range How long a towers shots reaches
+     * @param cooldown How much time must a tower wait until it can shoot again
+     */
     public TowerStats(int damage, double range, long cooldown) {
         this.range = range;
         this.damage = damage;

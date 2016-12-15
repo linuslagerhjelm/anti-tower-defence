@@ -135,12 +135,16 @@ public class Game implements Level.WinListener, ParseResult {
                 renderer.clear();
                 levels.get(currentLevel).receiveEvents(handleEventQueue());
                 levels.get(currentLevel).update(dt);
+
                 renderer.render(levels.get(currentLevel).getTroupes());
                 renderer.render(levels.get(currentLevel).getTowers());
+                renderer.render(levels.get(currentLevel).getPath().getSwitches());
+                renderer.render(levels.get(currentLevel).getPads());
+
                 renderer.renderLasers(levels.get(currentLevel).getShots());
                 levels.get(currentLevel).getShots().clear();
+
                 renderer.renderMoney(levels.get(currentLevel).getMoney());
-                renderer.render(levels.get(currentLevel).getPath().getSwitches());
 
                 try {
                     Thread.sleep(16);

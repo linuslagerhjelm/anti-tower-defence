@@ -16,6 +16,7 @@ public class TeleportPad implements Pad {
     private Node nextNode;
     private int height;
     private int width;
+    private static final String filePath = "/images/pads/portal.png";
 
     public TeleportPad(){}
     public TeleportPad(int x, int y, int width, int height) {
@@ -62,12 +63,28 @@ public class TeleportPad implements Pad {
         }
     }
 
+    @Override
+    public void update(double dt) {}
+
+    @Override
+    public void interact() {}
+
+    @Override
+    public void setPosition(Position position) {
+        this.position = position.clone();
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public String getFilePath() {
+        return filePath;
     }
 
     /**

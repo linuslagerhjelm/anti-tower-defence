@@ -11,7 +11,7 @@ import model.level.Position;
  * implements this interface can be loaded via reflection in order to specify
  * special actions to take when troupes walks over it.
  */
-public interface Pad {
+public interface Pad extends Entity {
 
     /**
      * Defines the position and dimension of the pad

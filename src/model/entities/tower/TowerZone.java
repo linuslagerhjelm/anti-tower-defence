@@ -4,7 +4,8 @@ package model.entities.tower;
  * Author: Linus Lagerhjelm
  * File: TowerZone
  * Created: 16-11-28
- * Description:
+ * Description: A rectangular zone in which a tower can be placed. Only
+ *              includes geometric information
  */
 public class TowerZone {
 
@@ -13,6 +14,13 @@ public class TowerZone {
     private final int width;
     private final int height;
 
+    /**
+     * Sets all the geometrical information
+     * @param x X position of zone
+     * @param y Y position of zone
+     * @param width Width of zone
+     * @param height Height of zone
+     */
     public TowerZone(double x, double y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -36,6 +44,10 @@ public class TowerZone {
         return x;
     }
 
+    /**
+     * Size in form of width * height
+     * @return Size of area
+     */
     public int size() {
         return width*height;
     }

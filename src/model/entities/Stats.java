@@ -5,5 +5,8 @@
  */
 package model.entities;
 
+/**
+ * Includes stats of some kind
+ */
 public interface Stats {
 }

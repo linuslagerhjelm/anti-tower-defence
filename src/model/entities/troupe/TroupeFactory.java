@@ -11,6 +11,9 @@ import model.player.Payment;
 
 import java.util.*;
 
+/**
+ * A factory to create troupes based on troupe title and cost
+ */
 public class TroupeFactory {
 
     public final static Currency defaultTroupeCost = new Currency(100);
@@ -23,6 +26,12 @@ public class TroupeFactory {
         costs.put(DefaultTroupe.STATS.getTitle(), defaultTroupeCost);
     }
 
+    /**
+     * Get costs for a troupe based on name
+     * @param name Title of a troupe
+     * @return Cost for troupe in form of currency. Null if name doesn't
+     *         corresponds to a troupe
+     */
     public static Currency getCost(String name) {
         return costs.get(name);
     }

@@ -6,10 +6,13 @@
 package model.entities.troupe;
 
 import model.entities.Node;
+import model.entities.TeleportPad;
 import model.level.Position;
 
-import java.util.NoSuchElementException;
-
+/**
+ * A TeleportTroupe have the ability to lay out TeleportPads. But cost more
+ * and have less health.
+ */
 class TeleportTroupe implements Troupe {
 
     public static final TroupeStats STATS = new TroupeStats(100, 12,
@@ -24,6 +27,9 @@ class TeleportTroupe implements Troupe {
     private Node currentNode;
     private double walkedLength;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setStartNode(Node start) {
 
@@ -43,21 +49,33 @@ class TeleportTroupe implements Troupe {
         position = start.getPosition().clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setNextNode(Node next) {
         currentNode = next;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setKilledListener(KilledListener listener) {
         this.killedListener = listener;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGoalListener(GoalListener listener) {
         this.goalListener = listener;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(double dt) {
         double angle = position.angle(currentNode.getPosition());
@@ -86,67 +104,41 @@ class TeleportTroupe implements Troupe {
         }
     }
 
-    //@Override
-    public void updateOld(double dt) {
-        Node next;
-        try {
-            next = currentNode.getNext();
-        } catch (NoSuchElementException e) {
-            if (currentNode.isGoal()) {
-                if (goalListener != null) {
-                    goalListener.onGoal(this);
-                }
-            }
-            return;
-        }
-        double angle = position.angle(next.getPosition());
-        double nextX = nextX(angle, dt);
-        double nextY = nextY(angle, dt);
-        walkedLength += position.lengthTo(new Position(nextX, nextY));
-        position.setX(nextX);
-        position.setY(nextY);
-
-        Node nextAfterNext = getNextNode(angle);
-        if (nextAfterNext != null) {
-            setNextNode(nextAfterNext);
-        }
-    }
-
-    private Node getNextNode(double lastAngle) {
-        Node next = currentNode.getNext();
-        double newAngle = position.angle(next.getPosition());
-
-        if ((lastAngle - newAngle) > 0.001) {
-            if (currentNode.isGoal()) {
-                if (goalListener != null) {
-                    goalListener.onGoal(this);
-                }
-            }
-            return next;
-        }
-        return null;
-    }
-
+    /**
+     * On interaction this troupe will lay out TeleportPad {@link TeleportPad}
+     */
     @Override
-    public void interact() {
+    public void interact() { }
 
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPosition(Position position) {
         this.position = position.clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Position getPosition() {
         return position;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFilePath() {
         return STATS.getImgPath();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Will remove health directly from damage
+     */
     @Override
     public void receiveDamage(int damage) {
         health -= damage;
@@ -155,20 +147,38 @@ class TeleportTroupe implements Troupe {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TroupeStats getStats() {
         return STATS;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getLengthWalked() {
         return walkedLength;
     }
 
+    /**
+     * Get x position based on current x, speed, angle and delta time
+     * @param angle Current angle in radians
+     * @param dt Time from previous update
+     * @return New x position
+     */
     private double nextX(double angle, double dt) {
         return position.getX() + Math.cos(angle)*STATS.getSpeed()*dt;
     }
 
+    /**
+     * Get y position based on current y, speed, angle and delta time
+     * @param angle Current angle in radians
+     * @param dt Time from previous update
+     * @return New y position
+     */
     private double nextY(double angle, double dt) {
         return position.getY() + Math.sin(angle)*STATS.getSpeed()*dt;
     }

@@ -7,6 +7,9 @@ package model.entities.troupe;
 
 import model.entities.Stats;
 
+/**
+ * Contains information about a troupe
+ */
 public class TroupeStats implements Stats {
 
     private int speed;
@@ -15,13 +18,22 @@ public class TroupeStats implements Stats {
     private String title;
     private String imgPath;
 
-    public TroupeStats(int speed, int health, String desc, String title, String path) {
+    /**
+     * Sets stats for troupe
+     * @param speed How fast a troupe travels
+     * @param health How much health a troupe have
+     * @param description A description of the troupe
+     * @param title A troupes title
+     * @param path Path to image which corresponds to the troupe
+     */
+    public TroupeStats(int speed, int health, String description,
+                       String title, String path) {
+
         this.speed = speed;
         this.health = health;
-        this.description = desc;
+        this.description = description;
         this.title = title;
         this.imgPath = path;
-
     }
 
     public int getSpeed() {
