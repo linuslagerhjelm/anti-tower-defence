@@ -5,6 +5,9 @@
  */
 package exceptions;
 
+/**
+ * Thrown when no tower is found corresponding to given information
+ */
 public class NoSuchTowerException extends Exception {
     public NoSuchTowerException() {
         super();

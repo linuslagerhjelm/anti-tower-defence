@@ -5,6 +5,11 @@
  */
 package exceptions;
 
+import model.entities.Path;
+
+/**
+ * Thrown when a {@link Path} is not valid
+ */
 public class InvalidPathException extends Exception {
     public InvalidPathException() {
         super();

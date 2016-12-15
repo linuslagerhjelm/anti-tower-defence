@@ -68,7 +68,7 @@ public class GUIObserver implements Observer {
             }
 
         } catch (UnableToRegisterEventException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // TODO No printstacks
         }
     }
 
