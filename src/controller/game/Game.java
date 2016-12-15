@@ -159,7 +159,6 @@ public class Game implements Level.WinListener, ParseResult {
         highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
         highScores.forceUpdate();
         mainWindow.showWin();
-        //
     }
 
     /**
@@ -167,11 +166,12 @@ public class Game implements Level.WinListener, ParseResult {
      */
     private void nextLevel() {
         if (currentLevel == levels.size() - 1) {
-            System.out.println("No more levels");
+            System.out.println("No more levels"); // What's up with all the prints
         }
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);
         renderer.setLevelTexture(levels.get(currentLevel).getTexture());
+        mainWindow.showGame();
     }
 
     /**

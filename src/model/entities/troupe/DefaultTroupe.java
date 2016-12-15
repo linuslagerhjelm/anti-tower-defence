@@ -1,3 +1,8 @@
+/*
+ * File: DefaultTroupe.java
+ * Author: Fredrik Johansson
+ * Date: 2016-12-17
+ */
 package model.entities.troupe;
 
 import model.entities.Node;
@@ -5,16 +10,10 @@ import model.level.Position;
 
 import java.util.NoSuchElementException;
 
-/**
- * Author: Linus Lagerhjelm
- * File: DefaultTroupe
- * Created: 2016-12-07
- * Description: The Troupe that will be instantiated if no other
- * Troupe type were specified.
- */
-public class DefaultTroupe implements Troupe {
 
-    public static final TroupeStats STATS = new TroupeStats(1000, 1002,
+class DefaultTroupe implements Troupe {
+
+    public static final TroupeStats STATS = new TroupeStats(100, 30,
             "Just a regular troupe", "Golem", "/images/troops/golem.png");
 
 

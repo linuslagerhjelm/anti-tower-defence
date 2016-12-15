@@ -57,12 +57,12 @@ public class MainWindow {
         return mainWindowInstance;
     }
 
-        /**
-         * Creates the frame which holds all the games components.
-         * @param title - The title of the frame.
-         * @param width - The frames width.
-         * @param height - The frames height.
-         */
+    /**
+     * Creates the frame which holds all the games components.
+     * @param title - The title of the frame.
+     * @param width - The frames width.
+     * @param height - The frames height.
+     */
     private MainWindow(String title, int width, int height) {
         SwingUtilities.invokeLater(() -> {
             frame = new JFrame(title);
@@ -114,10 +114,10 @@ public class MainWindow {
         });
     }
 
-        /**
-         * Returns all listeners associated with the GUI.
-         * @return - A list of all listeners.
-         */
+    /**
+     * Returns all listeners associated with the GUI.
+     * @return - A list of all listeners.
+     */
     public List<ActionListener> getGuiListeners() {
 
         return guiListeners;
@@ -129,35 +129,43 @@ public class MainWindow {
     }
 
     public void showWin() {
-        frame.remove(rightPanel);
-        frame.remove(lowerPanel);
-        frame.remove(centerPanel);
-        winLosePanel = winScreen.getPanel();
-        frame.add(winLosePanel, BorderLayout.CENTER);
-        frame.repaint();
-        frame.revalidate();
+        SwingUtilities.invokeLater(() -> {
+            frame.remove(rightPanel);
+            frame.remove(lowerPanel);
+            frame.remove(centerPanel);
+            winLosePanel = winScreen.getPanel();
+            frame.add(winLosePanel, BorderLayout.CENTER);
+            frame.repaint();
+            frame.revalidate();
+        });
     }
 
     public void showLose() {
-        frame.remove(rightPanel);
-        frame.remove(lowerPanel);
-        frame.remove(centerPanel);
-        winLosePanel = loseScreen.getPanel();
-        frame.add(winLosePanel, BorderLayout.CENTER);
-        frame.repaint();
+        SwingUtilities.invokeLater(() -> {
+            frame.remove(rightPanel);
+            frame.remove(lowerPanel);
+            frame.remove(centerPanel);
+            winLosePanel = loseScreen.getPanel();
+            frame.add(winLosePanel, BorderLayout.CENTER);
+            frame.repaint();
+        });
     }
 
     public void showGame() {
-        frame.remove(winLosePanel);
-        frame.add(upperPanel, BorderLayout.NORTH);
-        frame.add(rightPanel, BorderLayout.EAST);
-        frame.add(lowerPanel, BorderLayout.SOUTH);
-        frame.add(centerPanel, BorderLayout.CENTER);
-        frame.repaint();
+        SwingUtilities.invokeLater(() -> {
+            if (winLosePanel != null) {
+                frame.remove(winLosePanel);
+            }
+            frame.add(upperPanel, BorderLayout.NORTH);
+            frame.add(rightPanel, BorderLayout.EAST);
+            frame.add(lowerPanel, BorderLayout.SOUTH);
+            frame.add(centerPanel, BorderLayout.CENTER);
+            frame.repaint();
+        });
     }
 
 
-        public GameScreenPanel getGameScreen() {
+    public GameScreenPanel getGameScreen() {
         try {
             SwingUtilities.invokeAndWait(() -> {
                 // Just wait for swing thread to finish

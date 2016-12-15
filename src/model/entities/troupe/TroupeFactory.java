@@ -13,8 +13,8 @@ import java.util.*;
 
 public class TroupeFactory {
 
-    public final static Currency defaultTroupeCost = new Currency(5);
-    public final static Currency teleportTroupeCost = new Currency(20);
+    public final static Currency defaultTroupeCost = new Currency(100);
+    public final static Currency teleportTroupeCost = new Currency(300);
 
     private final static Map<String, Currency> costs = new HashMap<>();
 
