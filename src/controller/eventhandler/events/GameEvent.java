@@ -8,25 +8,11 @@ package controller.eventhandler.events;
  */
 public class GameEvent extends SystemEvent {
     private boolean pause = false;
-    private int currentLevel = 0;
 
     public GameEvent() {}
 
     public GameEvent(boolean pause) {
         this.pause = pause;
-    }
-
-    public GameEvent(int level) {
-        currentLevel = level;
-    }
-
-    public GameEvent(boolean pause, int level) {
-        this.pause = pause;
-        currentLevel = level;
-    }
-
-    public int getCurrentLevel() {
-        return currentLevel;
     }
 
     public void setPause(boolean value) {

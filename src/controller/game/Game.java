@@ -208,7 +208,6 @@ public class Game implements Level.WinListener, ParseResult {
     private void handleGameEvents(List<SystemEvent> gameEvents) {
         gameEvents.forEach(e -> {
             isPaused = ((GameEvent)e).pauseGame();
-            currentLevel = ((GameEvent)e).getCurrentLevel();
             if (e instanceof QuitEvent) {
                 running = false;
             } else if (e instanceof NextLevelEvent) {
