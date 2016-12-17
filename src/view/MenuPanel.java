@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by c15aen on 2016-11-23. inte längre default
+ * Created by c15aen on 2016-11-23.
  */
 public class MenuPanel {
 
@@ -33,19 +33,6 @@ public class MenuPanel {
     private void configButtonCommand(String[] inString, Menu inMenu) {
         for (int i = 0; i < inString.length; i++)
             inMenu.setActionCommand(i, inString[i]);
-    }
-
-    public void changeButtonName(String menuName, int id, String nameTo) {
-        for (int i = 0; i < menus.size(); i++) {
-            if (menus.get(i).getJMenu().getText().equals(menuName)) {
-                menus.get(i).changeButtonName(id, nameTo);
-            }
-        }
-    }
-
-    public void setVisibility(boolean visible) {
-
-        menuBar.setVisible(visible);
     }
 
 

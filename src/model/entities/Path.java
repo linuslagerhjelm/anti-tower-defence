@@ -5,10 +5,12 @@ import model.level.Position;
 import java.util.*;
 
 /**
- * Author: Linus Lagerhjelm
+ * Author: Linus Lagerhjelm & Fredrik Johansson
  * File: Path
  * Created: 16-11-28
  * Description: Represents all available paths on the board as a series of Nodes
+ *              Will make a tree in which each branching node have only one
+ *              immediate linked node, but can however be switched
  */
 public class Path {
     private boolean isValid = true;
@@ -168,9 +170,6 @@ public class Path {
         return result;
     }
 
-    public void resetSwitches() {
-        // FIXME remove or implement
-    }
 
     /**
      * Get node which is closest to given position. Time complexity O(n).

@@ -21,7 +21,7 @@ public class HighScoreServerTest {
 
     @Test
     public void testCreateServer() throws Exception {
-        DatabaseConfig dbConf = new DatabaseConfig(".db_config");
+        DatabaseConfig dbConf = new DatabaseConfig(getClass().getResource("/.db_config").getFile());
         hsServer.initialize(dbConf);
     }
 

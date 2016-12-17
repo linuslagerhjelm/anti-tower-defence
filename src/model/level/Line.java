@@ -5,6 +5,9 @@
  */
 package model.level;
 
+/**
+ * Simple holder for two Positions {@link Position}. Immutable
+ */
 public class Line {
     private Position pos1;
     private Position pos2;

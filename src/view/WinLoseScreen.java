@@ -2,14 +2,8 @@ package view;
 
 import view.listeners.GameMenuListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.*;
-import java.util.List;
 
 /**
  * Created by c15aen on 2016-12-14.
@@ -35,12 +29,9 @@ public class WinLoseScreen {
         restartLevel.addActionListener(gml);
         quit.addActionListener(gml);
         nextLevel.addActionListener(gml);
-        try {
-            winIcon = new ImageIcon(this.getClass().getResource("/images/text/levelcomplete.png"));
-            loseIcon = new ImageIcon(this.getClass().getResource("/images/text/gameover.png"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        winIcon = new ImageIcon(this.getClass().getResource("/images/text/levelcomplete.png"));
+        loseIcon = new ImageIcon(this.getClass().getResource("/images/text/gameover.png"));
 
         Dimension d = new Dimension(325, 325);
 
@@ -80,15 +71,12 @@ public class WinLoseScreen {
 
         }
 
-
         textPanel.setBackground(Color.BLUE);
         emptyPanel1.setBackground(Color.BLUE);
         emptyPanel2.setBackground(Color.BLUE);
         emptyPanel3.setBackground(Color.BLUE);
         buttonPanel.setBackground(Color.BLUE);
         winLoseScreen.setBackground(Color.BLUE);
-
-
     }
 
     public JPanel getPanel() {

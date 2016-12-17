@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class HighScoreTest {
     private final Score score = new Score(10);
     private final Date date = new Date();
-    private final int ID = 1337;
+    private final int ID = 3142;
 
     @Test
     public void testNewHighScore() {

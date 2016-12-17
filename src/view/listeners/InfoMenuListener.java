@@ -58,8 +58,6 @@ public class InfoMenuListener implements ActionListener, Observable {
         } else if (e.getActionCommand().equals(buttonNames[2])) {
             highscores = new PopUpMenu("Highscores", "Level\t Time\t Score\n", 300, 300);
             notifyObservers(e);
-        } else {
-            System.out.print("Did not find that button\n");
         }
     }
 

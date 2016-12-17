@@ -41,8 +41,8 @@ public class TroupeFactory {
      * @return cost of the cheapest troupe
      */
     public static Currency getCheapestCost() {
-        Currency cheapest = new Currency(0);
         Collection<Currency> lcosts = costs.values();
+        Currency cheapest = lcosts.iterator().next(); // first cost
         for (Currency c : lcosts) {
             if (c.getValue() < cheapest.getValue()) {
                 cheapest = c;

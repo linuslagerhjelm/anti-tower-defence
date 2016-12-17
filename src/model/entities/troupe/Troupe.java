@@ -7,6 +7,7 @@ package model.entities.troupe;
 
 import model.entities.Entity;
 import model.entities.Node;
+import model.entities.Pad;
 
 public interface Troupe extends Entity {
 
@@ -23,6 +24,13 @@ public interface Troupe extends Entity {
      */
     interface GoalListener {
         void onGoal(Troupe troupe);
+    }
+
+    /**
+     * A listener for when a Troupe spawns a pad
+     */
+    interface PadSpawnListener {
+        void onPadSpawned(Pad pad);
     }
 
     /**
@@ -51,6 +59,13 @@ public interface Troupe extends Entity {
      * @param listener Listener for when a troupe reaches a goal
      */
     void setGoalListener(GoalListener listener);
+
+    /**
+     * Sets PadSpawnListener for the troupe. Triggers when a Troupe spawnes
+     * a pad. Only one PadSpawnListener can be set.
+     * @param listener Listener for when a troupe spawns a pad
+     */
+    void setPadSpawnedListener(PadSpawnListener listener);
 
     /**
      * Damage which the troupe will receive. Implementation decides what

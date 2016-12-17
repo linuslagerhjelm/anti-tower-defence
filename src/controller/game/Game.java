@@ -1,6 +1,6 @@
 /*
  * File: Game.java
- * Author: Fredrik Johansson
+ * Author: Fredrik Johansson & Linus Lagerhjelm
  * Date: 2016-12-01
  */
 package controller.game;
@@ -43,8 +43,9 @@ public class Game implements Level.WinListener, ParseResult {
     private List<TroupeStats> stats = TroupeFactory.getTroupeStats();
     private int troupeIndex = 0;
     private static final boolean IS_WINDOWS = System.getProperty("os.name").startsWith("Windows");
+
     public Game() {
-        setup("level1.xml");
+        setup("level.xml");
     }
 
     public Game(String levelFile) {
@@ -85,7 +86,7 @@ public class Game implements Level.WinListener, ParseResult {
             }
         });
 
-        ((Observable)mainWindow.getMouseListener()).registerObserver(observer);
+        ((Observable) mainWindow.getMouseListener()).registerObserver(observer);
 
         setupLevels(levelFile);
     }
@@ -126,52 +127,79 @@ public class Game implements Level.WinListener, ParseResult {
     public void run() {
 
         long time = new Date().getTime();
+
         levels.get(currentLevel).start();
-        while (running && !levels.get(currentLevel).hasLost()) {
+        highScores.getHighScores(1, result -> {
+            if (result.size() > 0) {
+                renderer.renderHighscore(result.get(0).getScore().getScore());
+            }
+        });
+
+
+        while (running) {
             double dt = (new Date().getTime() - time)/1000.0; // sec
             time = new Date().getTime();
 
             if (!isPaused) {
-                renderer.clear();
                 levels.get(currentLevel).receiveEvents(handleEventQueue());
                 levels.get(currentLevel).update(dt);
 
-                renderer.render(levels.get(currentLevel).getTroupes());
-                renderer.render(levels.get(currentLevel).getTowers());
-                renderer.render(levels.get(currentLevel).getPath().getSwitches());
-                renderer.render(levels.get(currentLevel).getPads());
+                renderer.clear();
+                renderLevel();
+                renderInfo();
 
-                renderer.renderLasers(levels.get(currentLevel).getShots());
-                levels.get(currentLevel).getShots().clear();
 
-                renderer.renderMoney(levels.get(currentLevel).getMoney());
+                if (levels.get(currentLevel).hasLost()) {
+                    mainWindow.showLose();
+                    postScore(levels.get(currentLevel).getScore());
+                }
 
                 try {
-                    Thread.sleep(16);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    Thread.sleep(16); // cap at 60fps
+                } catch (InterruptedException e) { }
             } else {
                 handleEventQueue();
             }
         }
     }
 
+    private void renderLevel() {
+        Level current = levels.get(currentLevel);
+        renderer.render(current.getTroupes());
+        renderer.render(current.getTowers());
+        renderer.render(current.getPath().getSwitches());
+        renderer.render(current.getPads());
+
+        renderer.renderLasers(current.getShots());
+        current.getShots().clear();
+    }
+
+    private void renderInfo() {
+        Level current = levels.get(currentLevel);
+        renderer.renderMoney(current.getMoney());
+        renderer.renderPassed(current.getNumberInGoal(),
+                              current.goalRequirement());
+        renderer.renderScore(current.getScore().getScore());
+    }
+
+    private void postScore(Score score) {
+        highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
+        highScores.forceUpdate();
+        isPaused = true;
+    }
+
 
     @Override // from Level.WinListener
     public void onWin(Score score) {
-        highScores.addHighScore(new HighScore(score, new Date(), currentLevel));
-        highScores.forceUpdate();
+        postScore(score);
         mainWindow.showWin();
+        isPaused = true;
     }
 
     /**
      * Start next level
      */
     private void nextLevel() {
-        if (currentLevel == levels.size() - 1) {
-            System.out.println("No more levels"); // What's up with all the prints
-        }
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);
         renderer.setLevelTexture(levels.get(currentLevel).getTexture());
@@ -218,8 +246,10 @@ public class Game implements Level.WinListener, ParseResult {
                 nextLevel();
             } else if (e instanceof RestartEvent) {
                 mainWindow.showGame();
+                postScore(levels.get(currentLevel).getScore());
                 levels.set(currentLevel, levels.get(currentLevel).reset());
                 levels.get(currentLevel).setWinListener(this);
+                isPaused = false;
             } else if (e instanceof NextTroupeEvent) {
                 troupeIndex = (++troupeIndex) % stats.size();
                 updateTroupeInfo();

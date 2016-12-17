@@ -20,7 +20,7 @@ public interface Pad extends Entity {
      * @param width determines the width  of the pad
      * @param height determines the height of the pad
      */
-    void setProperties(int x, int y, int width, int height);
+    void setProperties(double x, double y, int width, int height);
 
     /**
      * Returns the position of the upper left corner of this pad. In order to

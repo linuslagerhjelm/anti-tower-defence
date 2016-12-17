@@ -31,7 +31,7 @@ public class TeleportPad implements Pad {
      * @param width Width of pad
      * @param height Height of pad
      */
-    public TeleportPad(int x, int y, int width, int height) {
+    public TeleportPad(double x, double y, int width, int height) {
         setProperties(x, y, width, height);
     }
 
@@ -39,8 +39,8 @@ public class TeleportPad implements Pad {
      * {@inheritDoc}
      */
     @Override
-    public void setProperties(int x, int y, int width, int height) {
-        position = new Position((double)x, (double)y);
+    public void setProperties(double x, double y, int width, int height) {
+        position = new Position(x, y);
         this.height = height;
         this.width = width;
     }

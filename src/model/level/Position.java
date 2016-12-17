@@ -55,25 +55,46 @@ public class Position implements Cloneable {
         this.x = x;
     }
 
+    /**
+     * Get angle between this and another position, in radians
+     * @param position2 Position to compare to
+     * @return Angle in radians
+     */
     public double angle(Position position2) {
         return Math.atan2(position2.getY()-y, position2.getX()-x);
     }
 
+    /**
+     * Tests if second position is withing range of given radius
+     * @param position2 Position to compare with
+     * @param range Radius to compare with
+     * @return Whether second position is in range
+     */
     public boolean inRange(Position position2, double range) {
-        return Math.sqrt(Math.pow(x-position2.getX(), 2) +
-                         Math.pow(y-position2.getY(), 2)) < range;
+        return lengthTo(position2) < range;
     }
 
+    /**
+     * Give euclidean length between two positions
+     * @param position2 Position to compare to
+     * @return Distance between the two position, always positive
+     */
     public double lengthTo(Position position2) {
         return Math.sqrt(Math.pow(x-position2.getX(), 2) +
                          Math.pow(y-position2.getY(), 2));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Position clone() {
         return new Position(x, y);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,6 +106,9 @@ public class Position implements Cloneable {
         return Math.abs(position.y-y) < 0.000001;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int result;
@@ -95,6 +119,7 @@ public class Position implements Cloneable {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
+
 
     @Override
     public String toString() {

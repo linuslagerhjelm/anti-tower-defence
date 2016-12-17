@@ -18,17 +18,22 @@ import model.player.Player;
 import java.util.*;
 
 /**
- * Author: Linus Lagerhjelm
+ * Author: Linus Lagerhjelm & Fredrik Johansson
  * File: Level
  * Created: 16-11-27
  * Description:
  */
 public class Level implements Troupe.KilledListener,
                               Troupe.GoalListener,
-                              Tower.ShootListener, Cloneable {
+                              Troupe.PadSpawnListener,
+                              Tower.ShootListener,
+                              Cloneable {
 
     private WinListener winListener;
 
+    /**
+     * Listener for when a level is completed
+     */
     public interface WinListener {
         void onWin(Score score);
     }
@@ -53,7 +58,6 @@ public class Level implements Troupe.KilledListener,
     private Player player = new Player();
     private long startTime;
 
-
     private boolean build = false;
 
     public Level(String name, int height, int width, int troupesToWin, String texture) {
@@ -63,6 +67,72 @@ public class Level implements Troupe.KilledListener,
         this.width = width;
         this.troupesToWin = troupesToWin;
         this.texture = texture;
+    }
+
+    /* Builder part */
+    public void addPath(Path p) {
+        this.path = p;
+    }
+
+    public void addTowerZones(List<TowerZone> towerZones) {
+        this.towerZones = towerZones;
+    }
+
+    public void addTowers(Collection<Tower> towers) {
+        this.towers.addAll(towers);
+    }
+
+    public void addTroupe(Troupe troupe) {
+        troupe.setStartNode(path.getStartNode());
+        troupes.add(troupe);
+        troupe.setKilledListener(this);
+        troupe.setGoalListener(this);
+        troupe.setPadSpawnedListener(this);
+    }
+
+    public void addPads(List<Pad> pads) {
+        pads.forEach(pad -> {
+            if (pad instanceof TeleportPad) {
+                addTeleportPad((TeleportPad) pad);
+            }
+        });
+        this.pads = pads;
+    }
+
+    public void build() {
+        placeTowersInZones();
+        setEntityListeners();
+        build = true;
+    }
+
+
+
+    @Override
+    public Level clone() {
+        Level level = new Level(name, height, width, troupesToWin, texture);
+        List<TowerZone> lTowerZones = new ArrayList<>();
+        Set<Tower> ltowers = new HashSet<>();
+        List<Pad> lpads = new ArrayList<>();
+        level.addPath(this.path);
+
+        towerZones.forEach(lTowerZones::add);
+        towers.forEach(ltowers::add);
+        pads.forEach(lpads::add);
+
+        troupes.forEach(level::addTroupe);
+        level.addTowerZones(lTowerZones);
+        level.addTowers(ltowers);
+        level.addPads(lpads);
+
+        level.setInitialState(initialState);
+
+        level.build();
+
+        return level;
+    }
+
+    public Level reset() {
+        return initialState.clone();
     }
 
     public void update(double dt) {
@@ -107,145 +177,11 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
-
-    public boolean onPad(Pad pad, Troupe troupe) {
-        Position M = troupe.getPosition();
-
-        // Upper left corner
-        Position A = pad.getPosition();
-
-        // Upper right corner
-        Position B = new Position(A.getX() + pad.getWidth(), A.getY());
-
-        // Lower right corner
-        Position D = new Position(A.getX(), A.getX() + pad.getHeight());
-
-        /*
-        *  Using th formula: (0<AM⋅AB<AB⋅AB)∧(0<AM⋅AD<AD⋅AD)
-        *  to determine weather the troupe position is inside
-        *  the rectangular area of the pad as suggested by:
-        *  http://math.stackexchange.com/a/190373
-        */
-        double[] AM = createVector(A, M);
-        double[] AB = createVector(A, B);
-        double[] AD = createVector(A, D);
-
-        return ((0 < scalarProduct(AM, AB)) &&
-                (scalarProduct(AM, AB) < scalarProduct(AB, AB))) &&
-                ((0 < scalarProduct(AM, AD)) &&
-                        (scalarProduct(AM, AD) < scalarProduct(AD, AD)));
-    }
-
-    public static double[] createVector(Position p1, Position p2) {
-        double[] vector = new double[2];
-        vector[0] = p2.getX() - p1.getX();
-        vector[1] = p2.getY() - p1.getY();
-        return vector;
-    }
-
-    public static double scalarProduct(double[] v1, double[] v2) {
-        return ((v1[0] * v2[0]) + (v1[1] * v2[1]));
-    }
-
-    public void addPath(Path p) {
-        this.path = p;
-    }
-
-    public void addTowerZones(List<TowerZone> towerZones) {
-        this.towerZones = towerZones;
-    }
-
-    public void addTowers(Collection<Tower> towers) {
-        this.towers.addAll(towers);
-    }
-
-    public void addTroupe(Troupe troupe) {
-        troupe.setStartNode(path.getStartNode());
-        troupes.add(troupe);
-        troupe.setKilledListener(this);
-        troupe.setGoalListener(this);
-    }
-
-    public void addPads(List<Pad> pads) {
-        pads.forEach(pad -> {
-            if (pad instanceof TeleportPad) {
-                addTeleportPad((TeleportPad) pad);
-            }
-        });
-        this.pads = pads;
-    }
-
-    public Set<Troupe> getTroupes() {
-        return troupes;
-    }
-
-    public List<Pad> getPads() {
-        return pads;
-    }
-
-    public Collection<Tower> getTowers() {
-        return towers;
-    }
-
-
-    public List<TowerZone> getTowerZones() {
-        return towerZones;
-    }
-
-    public Path getPath() {
-        return path;
-    }
-
-    public List<Line> getShots() {
-        return shots;
-    }
-
-    public String getTexture() {
-        return texture;
-    }
-
-    public void resetShots() {
-        shots.clear();
-    }
-
-    public void build() {
-        placeTowersInZones();
-        setEntityListeners();
-        build = true;
-    }
-
-    public Level clone() {
-        Level level = new Level(name, height, width, troupesToWin, texture);
-        List<TowerZone> lTowerZones = new ArrayList<>();
-        Set<Tower> ltowers = new HashSet<>();
-        List<Pad> lpads = new ArrayList<>();
-        level.addPath(this.path);
-
-        towerZones.forEach(lTowerZones::add);
-        towers.forEach(ltowers::add);
-        pads.forEach(lpads::add);
-
-        troupes.forEach(level::addTroupe);
-        level.addTowerZones(lTowerZones);
-        level.addTowers(ltowers);
-        level.addPads(lpads);
-
-        level.setInitialState(initialState);
-
-        level.build();
-
-        return level;
-    }
-
-    public Level reset() {
-        initialState.getPath().resetSwitches();
-        return initialState.clone();
-    }
-
     private void setEntityListeners() {
         troupes.forEach(troupe -> {
             troupe.setGoalListener(this);
             troupe.setKilledListener(this);
+            troupe.setPadSpawnedListener(this);
         });
         towers.forEach(tower -> tower.setShootListener(this));
     }
@@ -344,9 +280,11 @@ public class Level implements Troupe.KilledListener,
 
     @Override
     public void onKilled(Troupe troupe) {
+        final double earnModifier = 1;
+
         troupesToRemove.add(troupe);
         player.addCurrency(
-                new Currency((int) Math.round(troupe.getLengthWalked())));
+                new Currency((int) Math.round(troupe.getLengthWalked()*earnModifier)));
     }
 
     @Override
@@ -357,6 +295,15 @@ public class Level implements Troupe.KilledListener,
             if (winListener != null) {
                 winListener.onWin(getScore());
             }
+        }
+    }
+
+    @Override
+    public void onPadSpawned(Pad pad) {
+        pads.add(pad);
+
+        if (pad instanceof TeleportPad) {
+            addTeleportPad((TeleportPad) pad);
         }
     }
 
@@ -402,5 +349,44 @@ public class Level implements Troupe.KilledListener,
 
     public void setInitialState(Level initialState) {
         this.initialState = initialState;
+    }
+
+
+    /* Getters */
+
+    public Set<Troupe> getTroupes() {
+        return troupes;
+    }
+
+    public List<Pad> getPads() {
+        return pads;
+    }
+
+    public Collection<Tower> getTowers() {
+        return towers;
+    }
+
+    public List<TowerZone> getTowerZones() {
+        return towerZones;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
+    public List<Line> getShots() {
+        return shots;
+    }
+
+    public String getTexture() {
+        return texture;
+    }
+
+    public int getNumberInGoal() {
+        return troupesInGoal;
+    }
+
+    public int goalRequirement() {
+        return troupesToWin;
     }
 }

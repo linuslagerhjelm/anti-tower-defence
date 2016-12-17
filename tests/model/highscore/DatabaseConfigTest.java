@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
  * Description: Contains test cases for the DatabaseConfig class
  */
 public class DatabaseConfigTest {
-    private final String PATH = System.getProperty("user.dir") + "/.db_config_home";
+    private final String PATH = getClass().getResource("/.db_config_home").getFile();
     private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String ADDRESS = "jdbc:mysql://127.0.0.1:8889";
+    private final String ADDRESS = "jdbc:mysql://127.0.0.1:3306";
     private final String USERNAME = "root";
     private final String PASSWORD = "root";
     private final String DB_NAME = "apjava";

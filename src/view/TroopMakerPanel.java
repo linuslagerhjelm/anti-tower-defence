@@ -146,7 +146,6 @@ public class TroopMakerPanel {
                 label.setIcon(troopIcons.get(path));
             } catch (NullPointerException e) {
                 troopIcons.put(path, null);
-                e.printStackTrace();
             }
         }
     }

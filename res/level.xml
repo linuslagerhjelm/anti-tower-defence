@@ -1,36 +1,356 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="level_schema.xsd">
-    <level name="Level1" width="800" height="600" troupesToWin="10" texture="/images/levels/Portal.png">
+    <level name="Level1" width="513" height="484" troupesToWin="15" texture="/images/levels/level1.png">
         <path>
-            <node id="1" x="0" y="0" start="start">
-                <successor refid="2" />
-                <successor refid="4" />
+
+            <node id="1" x="65" y="5" start="start"><successor refid="2" /></node>
+            <node id="2" x="65" y="5"><successor refid="3" /></node>
+            <node id="3" x="62" y="13"><successor refid="4" /></node>
+            <node id="4" x="58" y="25"><successor refid="5" /></node>
+            <node id="5" x="58" y="37"><successor refid="6" /></node>
+            <node id="6" x="58" y="51"><successor refid="7" /></node>
+            <node id="7" x="64" y="61"><successor refid="8" /></node>
+            <node id="8" x="70" y="70"><successor refid="9" /></node>
+            <node id="9" x="80" y="77"><successor refid="10" /></node>
+            <node id="10" x="92" y="83"><successor refid="11" /></node>
+            <node id="11" x="100" y="89"><successor refid="12" /></node>
+            <node id="12" x="100" y="89"><successor refid="13" /></node>
+            <node id="13" x="125" y="92"><successor refid="14" /></node>
+            <node id="14" x="137" y="99"><successor refid="15" /></node>
+            <node id="15" x="147" y="103"><successor refid="16" /></node>
+            <node id="16" x="159" y="108"><successor refid="17" /></node>
+            <node id="17" x="172" y="113"><successor refid="18" /></node>
+            <node id="18" x="181" y="118"><successor refid="19" /></node>
+            <node id="19" x="192" y="125"><successor refid="20" /></node>
+            <node id="20" x="200" y="134">
+                <successor refid="21" />
+                <successor refid="87" />
             </node>
-            <node id="2" x="200" y="200">
-                <successor refid="3" />
+            <node id="21" x="205" y="143"><successor refid="22" /></node>
+            <node id="22" x="206" y="151"><successor refid="23" /></node>
+            <node id="23" x="206" y="160"><successor refid="24" /></node>
+            <node id="24" x="203" y="173"><successor refid="25" /></node>
+            <node id="25" x="196" y="186"><successor refid="26" /></node>
+            <node id="26" x="195" y="188"><successor refid="27" /></node>
+            <node id="27" x="195" y="188"><successor refid="28" /></node>
+            <node id="28" x="181" y="202"><successor refid="29" /></node>
+            <node id="29" x="171" y="216"><successor refid="30" /></node>
+            <node id="30" x="164" y="225"><successor refid="31" /></node>
+            <node id="31" x="156" y="236">
+                <successor refid="32" />
+                <successor refid="57" />
             </node>
-            <node id="3" x="100" y="30" goal="goal">
-            </node>
-            <node id="4" x="30" y="100" goal="goal">
-            </node>
+            <node id="32" x="147" y="245"><successor refid="33" /></node>
+            <node id="33" x="134" y="255"><successor refid="34" /></node>
+            <node id="34" x="126" y="267"><successor refid="35" /></node>
+            <node id="35" x="126" y="267"><successor refid="36" /></node>
+            <node id="36" x="118" y="274"><successor refid="37" /></node>
+            <node id="37" x="100" y="292"><successor refid="38" /></node>
+            <node id="38" x="90" y="307"><successor refid="39" /></node>
+            <node id="39" x="83" y="318"><successor refid="40" /></node>
+            <node id="40" x="78" y="331"><successor refid="41" /></node>
+            <node id="41" x="78" y="345"><successor refid="42" /></node>
+            <node id="42" x="81" y="355"><successor refid="43" /></node>
+            <node id="43" x="81" y="355"><successor refid="44" /></node>
+            <node id="44" x="82" y="369"><successor refid="45" /></node>
+            <node id="45" x="85" y="380"><successor refid="46" /></node>
+            <node id="46" x="89" y="390"><successor refid="47" /></node>
+            <node id="47" x="94" y="404"><successor refid="48" /></node>
+            <node id="48" x="99" y="417"><successor refid="49" /></node>
+            <node id="49" x="103" y="434"><successor refid="50" /></node>
+            <node id="50" x="103" y="453"><successor refid="51" /></node>
+            <node id="51" x="103" y="465"><successor refid="52" /></node>
+            <node id="52" x="103" y="470"><successor refid="53" /></node>
+            <node id="53" x="103" y="477"><successor refid="54" /></node>
+            <node id="54" x="103" y="482"><successor refid="55" /></node>
+            <node id="55" x="103" y="485"><successor refid="56" /></node>
+            <node id="56" x="103" y="485" goal="goal" />
+
+            <node id="57" x="156" y="240"><successor refid="58" /></node>
+            <node id="58" x="156" y="243"><successor refid="59" /></node>
+            <node id="59" x="156" y="252"><successor refid="60" /></node>
+            <node id="60" x="158" y="258"><successor refid="61" /></node>
+            <node id="61" x="162" y="264"><successor refid="62" /></node>
+            <node id="62" x="168" y="271"><successor refid="63" /></node>
+            <node id="63" x="175" y="278"><successor refid="64" /></node>
+            <node id="64" x="187" y="282"><successor refid="65" /></node>
+            <node id="65" x="192" y="282"><successor refid="66" /></node>
+            <node id="66" x="192" y="282"><successor refid="67" /></node>
+            <node id="67" x="206" y="283"><successor refid="68" /></node>
+            <node id="68" x="221" y="284"><successor refid="69" /></node>
+            <node id="69" x="232" y="288"><successor refid="70" /></node>
+            <node id="70" x="232" y="288"><successor refid="71" /></node>
+            <node id="71" x="240" y="289"><successor refid="72" /></node>
+            <node id="72" x="262" y="296"><successor refid="73" /></node>
+            <node id="73" x="278" y="305"><successor refid="74" /></node>
+            <node id="74" x="289" y="315"><successor refid="75" /></node>
+            <node id="75" x="303" y="325"><successor refid="76" /></node>
+            <node id="76" x="305" y="327"><successor refid="77" /></node>
+            <node id="77" x="308" y="333"><successor refid="78" /></node>
+            <node id="78" x="317" y="346"><successor refid="79" /></node>
+            <node id="79" x="324" y="366"><successor refid="80" /></node>
+            <node id="80" x="327" y="386"><successor refid="81" /></node>
+            <node id="81" x="328" y="403"><successor refid="82" /></node>
+            <node id="82" x="328" y="420"><successor refid="83" /></node>
+            <node id="83" x="328" y="448"><successor refid="84" /></node>
+            <node id="84" x="327" y="467"><successor refid="85" /></node>
+            <node id="85" x="322" y="477"><successor refid="86" /></node>
+            <node id="86" x="320" y="483" goal="goal" />
+
+            <node id="87" x="204" y="133"><successor refid="88" /></node>
+            <node id="88" x="204" y="133"><successor refid="89" /></node>
+            <node id="89" x="213" y="139"><successor refid="90" /></node>
+            <node id="90" x="223" y="145"><successor refid="91" /></node>
+            <node id="91" x="228" y="149"><successor refid="92" /></node>
+            <node id="92" x="230" y="149"><successor refid="93" /></node>
+            <node id="93" x="248" y="158"><successor refid="94" /></node>
+            <node id="94" x="262" y="163"><successor refid="95" /></node>
+            <node id="95" x="269" y="168"><successor refid="96" /></node>
+            <node id="96" x="279" y="172"><successor refid="97" /></node>
+            <node id="97" x="298" y="180"><successor refid="98" /></node>
+            <node id="98" x="313" y="183"><successor refid="99" /></node>
+            <node id="99" x="330" y="186"><successor refid="100" /></node>
+            <node id="100" x="334" y="190"><successor refid="101" /></node>
+            <node id="101" x="335" y="190"><successor refid="102" /></node>
+            <node id="102" x="357" y="192"><successor refid="103" /></node>
+            <node id="103" x="374" y="196"><successor refid="104" /></node>
+            <node id="104" x="394" y="203"><successor refid="105" /></node>
+            <node id="105" x="400" y="207"><successor refid="106" /></node>
+            <node id="106" x="403" y="207"><successor refid="107" /></node>
+            <node id="107" x="424" y="223"><successor refid="108" /></node>
+            <node id="108" x="437" y="233"><successor refid="109" /></node>
+            <node id="109" x="445" y="244"><successor refid="110" /></node>
+            <node id="110" x="450" y="258"><successor refid="111" /></node>
+            <node id="111" x="452" y="274"><successor refid="112" /></node>
+            <node id="112" x="452" y="293"><successor refid="113" /></node>
+            <node id="113" x="450" y="311"><successor refid="114" /></node>
+            <node id="114" x="450" y="312"><successor refid="115" /></node>
+            <node id="115" x="447" y="325"><successor refid="116" /></node>
+            <node id="116" x="437" y="344"><successor refid="117" /></node>
+            <node id="117" x="429" y="374"><successor refid="118" /></node>
+            <node id="118" x="426" y="387"><successor refid="119" /></node>
+            <node id="119" x="426" y="389"><successor refid="120" /></node>
+            <node id="120" x="426" y="420"><successor refid="121" /></node>
+            <node id="121" x="427" y="442"><successor refid="122" /></node>
+            <node id="122" x="436" y="469"><successor refid="123" /></node>
+            <node id="123" x="441" y="477"><successor refid="124" /></node>
+            <node id="124" x="444" y="482"><successor refid="125" /></node>
+            <node id="125" x="444" y="482" goal="goal" />
         </path>
         <towerzones>
-            <rectangle x="0" y="0" width="50" height="50" />
-            <rectangle x="200" y="200" width="50" height="50" />
-            <rectangle x="0" y="200" width="50" height="50" />
-            <rectangle x="200" y="0" width="50" height="50" />
+            <rectangle x="63" y="125" width="98" height="62" />
+            <rectangle x="247" y="103" width="182" height="32" />
+            <rectangle x="216" y="219" width="154" height="32" />
+            <rectangle x="247" y="103" width="182" height="44" />
+
+            <rectangle x="124" y="322" width="126" height="27" />
+            <rectangle x="152" y="391" width="33" height="84" />
+            <rectangle x="259" y="371" width="31" height="104" />
+            <rectangle x="360" y="315" width="30" height="161" />
         </towerzones>
         <towers>
-            <tower className="SmallTower" count="4" />
-            <tower className="LargeTower" count="4" />
+            <tower className="SmallTower" count="10" />
+            <tower className="LargeTower" count="10" />
+        </towers>
+        <pads>
+        </pads>
+    </level>
+
+
+    <level name="Level2" width="513" height="484" troupesToWin="30" texture="/images/levels/level2.png">
+        <path>
+
+
+            <node id="1" x="1" y="307" start="start"><successor refid="2" /></node>
+            <node id="2" x="1" y="307"><successor refid="3" /></node>
+            <node id="3" x="19" y="307"><successor refid="4" /></node>
+            <node id="4" x="28" y="304"><successor refid="5" /></node>
+            <node id="5" x="37" y="299"><successor refid="6" /></node>
+            <node id="6" x="45" y="294"><successor refid="7" /></node>
+            <node id="7" x="53" y="287"><successor refid="8" /></node>
+            <node id="8" x="61" y="281"><successor refid="9" /></node>
+            <node id="9" x="70" y="267"><successor refid="10" /></node>
+            <node id="10" x="81" y="251"><successor refid="11" /></node>
+            <node id="11" x="92" y="240"><successor refid="12" /></node>
+            <node id="12" x="111" y="222"><successor refid="13" /></node>
+            <node id="13" x="126" y="210"><successor refid="14" /></node>
+            <node id="14" x="149" y="200">
+                <successor refid="15" />
+                <successor refid="69" />
+            </node>
+            <node id="15" x="153" y="199"><successor refid="16" /></node>
+            <node id="16" x="153" y="199"><successor refid="17" /></node>
+            <node id="17" x="162" y="199"><successor refid="18" /></node>
+            <node id="18" x="171" y="203"><successor refid="19" /></node>
+            <node id="19" x="178" y="211"><successor refid="20" /></node>
+            <node id="20" x="183" y="224"><successor refid="21" /></node>
+            <node id="21" x="186" y="244"><successor refid="22" /></node>
+            <node id="22" x="186" y="246"><successor refid="23" /></node>
+            <node id="23" x="187" y="257"><successor refid="24" /></node>
+            <node id="24" x="189" y="271"><successor refid="25" /></node>
+            <node id="25" x="193" y="288"><successor refid="26" /></node>
+            <node id="26" x="200" y="300"><successor refid="27" /></node>
+            <node id="27" x="206" y="310"><successor refid="28" /></node>
+            <node id="28" x="217" y="328"><successor refid="29" /></node>
+            <node id="29" x="220" y="331"><successor refid="30" /></node>
+            <node id="30" x="224" y="331"><successor refid="31" /></node>
+            <node id="31" x="256" y="347"><successor refid="32" /></node>
+            <node id="32" x="272" y="354"><successor refid="33" /></node>
+            <node id="33" x="286" y="355"><successor refid="34" /></node>
+            <node id="34" x="300" y="356"><successor refid="35" /></node>
+            <node id="35" x="301" y="357"><successor refid="36" /></node>
+            <node id="36" x="335" y="354"><successor refid="37" /></node>
+            <node id="37" x="356" y="347">
+                <successor refid="38" />
+                <successor refid="108" />
+            </node>
+            <node id="38" x="370" y="338"><successor refid="39" /></node>
+            <node id="39" x="377" y="331"><successor refid="40" /></node>
+            <node id="40" x="377" y="330"><successor refid="41" /></node>
+            <node id="41" x="394" y="306"><successor refid="42" /></node>
+            <node id="42" x="398" y="295">
+                <successor refid="43" />
+                <successor refid="85" />
+            </node>
+            <node id="43" x="399" y="277"><successor refid="44" /></node>
+            <node id="44" x="401" y="262"><successor refid="45" /></node>
+            <node id="45" x="401" y="262"><successor refid="46" /></node>
+            <node id="46" x="401" y="246"><successor refid="47" /></node>
+            <node id="47" x="397" y="235"><successor refid="48" /></node>
+            <node id="48" x="388" y="217"><successor refid="49" /></node>
+            <node id="49" x="377" y="203"><successor refid="50" /></node>
+            <node id="50" x="357" y="192"><successor refid="51" /></node>
+            <node id="51" x="341" y="191"><successor refid="52" /></node>
+            <node id="52" x="320" y="193"><successor refid="53" /></node>
+            <node id="53" x="302" y="202"><successor refid="54" /></node>
+            <node id="54" x="286" y="226"><successor refid="55" /></node>
+            <node id="55" x="280" y="240"><successor refid="56" /></node>
+            <node id="56" x="280" y="242"><successor refid="57" /></node>
+            <node id="57" x="278" y="253"><successor refid="58" /></node>
+            <node id="58" x="268" y="283"><successor refid="59" /></node>
+            <node id="59" x="263" y="310"><successor refid="60" /></node>
+            <node id="60" x="263" y="341"><successor refid="61" /></node>
+            <node id="61" x="270" y="376"><successor refid="62" /></node>
+            <node id="62" x="270" y="376"><successor refid="63" /></node>
+            <node id="63" x="270" y="391"><successor refid="64" /></node>
+            <node id="64" x="269" y="429"><successor refid="65" /></node>
+            <node id="65" x="268" y="456"><successor refid="66" /></node>
+            <node id="66" x="268" y="472"><successor refid="67" /></node>
+            <node id="67" x="268" y="479"><successor refid="68" /></node>
+            <node id="68" x="269" y="483" goal="goal" />
+
+
+            <node id="69" x="144" y="206"><successor refid="70" /></node>
+            <node id="70" x="165" y="199"><successor refid="71" /></node>
+            <node id="71" x="178" y="191"><successor refid="72" /></node>
+            <node id="72" x="195" y="176"><successor refid="73" /></node>
+            <node id="73" x="196" y="176"><successor refid="74" /></node>
+            <node id="74" x="205" y="151"><successor refid="75" /></node>
+            <node id="75" x="207" y="141"><successor refid="76" /></node>
+            <node id="76" x="203" y="118"><successor refid="77" /></node>
+            <node id="77" x="192" y="106"><successor refid="78" /></node>
+            <node id="78" x="180" y="94"><successor refid="79" /></node>
+            <node id="79" x="161" y="86"><successor refid="80" /></node>
+            <node id="80" x="141" y="84"><successor refid="81" /></node>
+            <node id="81" x="125" y="84"><successor refid="82" /></node>
+            <node id="82" x="101" y="84"><successor refid="83" /></node>
+            <node id="83" x="79" y="93"><successor refid="84" /></node>
+            <node id="84" x="78" y="95" goal="goal" />
+
+
+            <node id="85" x="389" y="321"><successor refid="86" /></node>
+            <node id="86" x="389" y="321"><successor refid="87" /></node>
+            <node id="87" x="406" y="311"><successor refid="88" /></node>
+            <node id="88" x="417" y="299"><successor refid="89" /></node>
+            <node id="89" x="425" y="292"><successor refid="90" /></node>
+            <node id="90" x="425" y="290"><successor refid="91" /></node>
+            <node id="91" x="445" y="261"><successor refid="92" /></node>
+            <node id="92" x="449" y="242"><successor refid="93" /></node>
+            <node id="93" x="451" y="224"><successor refid="94" /></node>
+            <node id="94" x="451" y="222"><successor refid="95" /></node>
+            <node id="95" x="449" y="204"><successor refid="96" /></node>
+            <node id="96" x="443" y="188"><successor refid="97" /></node>
+            <node id="97" x="437" y="173"><successor refid="98" /></node>
+            <node id="98" x="430" y="161"><successor refid="99" /></node>
+            <node id="99" x="430" y="161"><successor refid="100" /></node>
+            <node id="100" x="419" y="140"><successor refid="101" /></node>
+            <node id="101" x="412" y="127"><successor refid="102" /></node>
+            <node id="102" x="405" y="105"><successor refid="103" /></node>
+            <node id="103" x="401" y="82"><successor refid="104" /></node>
+            <node id="104" x="400" y="49"><successor refid="105" /></node>
+            <node id="105" x="407" y="24"><successor refid="106" /></node>
+            <node id="106" x="421" y="5"><successor refid="107" /></node>
+            <node id="107" x="428" y="0" goal="goal" />
+
+
+            <node id="108" x="351" y="350"><successor refid="109" /></node>
+            <node id="109" x="351" y="350"><successor refid="110" /></node>
+            <node id="110" x="362" y="350"><successor refid="111" /></node>
+            <node id="111" x="373" y="354"><successor refid="112" /></node>
+            <node id="112" x="382" y="360"><successor refid="113" /></node>
+            <node id="113" x="382" y="360"><successor refid="114" /></node>
+            <node id="114" x="399" y="366"><successor refid="115" /></node>
+            <node id="115" x="412" y="371"><successor refid="116" /></node>
+            <node id="116" x="430" y="384"><successor refid="117" /></node>
+            <node id="117" x="441" y="392"><successor refid="118" /></node>
+            <node id="118" x="453" y="403"><successor refid="119" /></node>
+            <node id="119" x="461" y="406"><successor refid="120" /></node>
+            <node id="120" x="465" y="408"><successor refid="121" /></node>
+            <node id="121" x="468" y="408"><successor refid="122" /></node>
+            <node id="122" x="463" y="399"><successor refid="123" /></node>
+            <node id="123" x="457" y="383"><successor refid="124" /></node>
+            <node id="124" x="451" y="368"><successor refid="125" /></node>
+            <node id="125" x="451" y="368"><successor refid="126" /></node>
+            <node id="126" x="447" y="343"><successor refid="127" /></node>
+            <node id="127" x="442" y="314"><successor refid="128" /></node>
+            <node id="128" x="441" y="305"><successor refid="129" /></node>
+            <node id="129" x="441" y="282"><successor refid="130" /></node>
+            <node id="130" x="446" y="253"><successor refid="131" /></node>
+            <node id="131" x="448" y="234"><successor refid="132" /></node>
+            <node id="132" x="448" y="234"><successor refid="133" /></node>
+            <node id="133" x="448" y="210"><successor refid="134" /></node>
+            <node id="134" x="448" y="198"><successor refid="135" /></node>
+            <node id="135" x="442" y="179"><successor refid="136" /></node>
+            <node id="136" x="435" y="161"><successor refid="137" /></node>
+            <node id="137" x="434" y="161"><successor refid="138" /></node>
+            <node id="138" x="425" y="141"><successor refid="139" /></node>
+            <node id="139" x="415" y="125"><successor refid="140" /></node>
+            <node id="140" x="406" y="106"><successor refid="141" /></node>
+            <node id="141" x="400" y="87"><successor refid="142" /></node>
+            <node id="142" x="399" y="60"><successor refid="143" /></node>
+            <node id="143" x="399" y="40"><successor refid="144" /></node>
+            <node id="144" x="408" y="22"><successor refid="145" /></node>
+            <node id="145" x="423" y="5"><successor refid="146" /></node>
+            <node id="146" x="427" y="0" goal="goal" />
+
+
+
+        </path>
+        <towerzones>
+            <rectangle x="41" y="40" width="101" height="23" />
+            <rectangle x="441" y="63" width="26" height="75" />
+            <rectangle x="338" y="72" width="40" height="58" />
+            <rectangle x="109" y="109" width="50" height="65" />
+            <rectangle x="222" y="190" width="21" height="101" />
+            <rectangle x="356" y="237" width="23" height="19" />
+            <rectangle x="130" y="247" width="38" height="107" />
+            <rectangle x="478" y="249" width="19" height="137" />
+            <rectangle x="291" y="275" width="34" height="52" />
+            <rectangle x="20" y="334" width="79" height="358" />
+            <rectangle x="205" y="367" width="33" height="65" />
+            <rectangle x="296" y="384" width="66" height="31" />
+        </towerzones>
+        <towers>
+            <tower className="SmallTower" count="20" />
+            <tower className="LargeTower" count="14" />
         </towers>
         <pads>
             <pad className="TeleportPad">
-                <rectangle x="200" y="200" width="5" height="5" />
+                <rectangle x="96" y="83" width="5" height="5" />
             </pad>
             <pad className="TeleportPad">
-                <rectangle x="100" y="100" width="5" height="5" />
+                <rectangle x="456" y="394" width="5" height="5" />
             </pad>
         </pads>
     </level>

@@ -16,20 +16,21 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
-* Author: Andreas, Arvid.
-* File: GameScreenPanel
-* Created: 2016-12-6
-* Description: Game screen where the level, unit and etc will be displayed for the user.
-*/
+ * Author: Andreas, Arvid.
+ * File: GameScreenPanel
+ * Created: 2016-12-6
+ * Description: Game screen where the level, unit and etc will be displayed for the user.
+ * Modifications made by: Fredrik Johansson (Marked in docs)
+ */
 public class GameScreenPanel {
 
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
     private HashMap<String, BufferedImage> entityImages = new HashMap<>();
 
-    private List<Sprite> sprites = new CopyOnWriteArrayList<>();
+    private List<Sprite> drawingSprites = new CopyOnWriteArrayList<>();
     private List<Sprite> newSprites = new CopyOnWriteArrayList<>();
-    private List<Line2D.Double> lasers = new CopyOnWriteArrayList<>();
+    private List<Line2D.Double> drawingLasers = new CopyOnWriteArrayList<>();
     private List<Line2D.Double> newLasers = new CopyOnWriteArrayList<>();
 
 	private List<Observer> observers =  new ArrayList<>();
@@ -68,14 +69,26 @@ public class GameScreenPanel {
 	 * them to ensure that the game runs smoothly.
 	 */
 	public void refresh() {
-		sprites.clear();
-		lasers.clear();
-		sprites.addAll(newSprites);
-		lasers.addAll(newLasers);
-		newSprites.clear();
-		newLasers.clear();
+        transferSprites();
 
 		SwingUtilities.invokeLater(() -> gameScreen.repaint());
+    }
+
+    /**
+     * As the game loop and the swing "loop" is not in sync, steps must be
+     * taken to ensure that all sprites are always drawn once, but never
+     * not drawn, as that would create flickering. This method transfers
+     * new sprites to be drawn to currently drawn sprites
+     *
+     * Created by Fredrik Johansson
+     */
+    private void transferSprites() {
+        drawingSprites.clear();
+        drawingLasers.clear();
+        drawingSprites.addAll(newSprites);
+        drawingLasers.addAll(newLasers);
+        newSprites.clear();
+        newLasers.clear();
     }
 
     /**
@@ -157,8 +170,8 @@ public class GameScreenPanel {
 		g2d.setRenderingHints(rh);
 
 		// Draw sprites based on y position
-		sprites.sort(Comparator.comparingDouble(Sprite::getY));
-		for (Sprite sprite : sprites) {
+		drawingSprites.sort(Comparator.comparingDouble(Sprite::getY));
+		for (Sprite sprite : drawingSprites) {
 			sprite_origo_x = level_origo_X - (sprite.getImage().getWidth() / 2);
 			sprite_origo_y = level_origo_Y - (sprite.getImage().getHeight() / 2);
 
@@ -184,7 +197,7 @@ public class GameScreenPanel {
 		g2d.setStroke(new BasicStroke(4));
 		g2d.setColor(Color.BLUE);
 
-		for (Line2D laser : lasers) {
+		for (Line2D laser : drawingLasers) {
 			g2d.drawLine((int) laser.getX1(), (int) laser.getY1(),
 				(int) laser.getX2(), (int) laser.getY2());
 		}

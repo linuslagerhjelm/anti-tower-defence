@@ -73,6 +73,14 @@ class DefaultTroupe implements Troupe {
 
     /**
      * {@inheritDoc}
+     *
+     * Pad spawned event will never happen for this troupe
+     */
+    @Override
+    public void setPadSpawnedListener(PadSpawnListener listener) {}
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void update(double dt) {

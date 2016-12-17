@@ -33,7 +33,7 @@ public class Renderer {
                     entity.getPosition().getY());
         }
     }
-//sad
+
     public void renderLasers(Collection<Line> shots) {
         for (Line shot : shots) {
             board.drawLaser(shot.getPos1().getX(), shot.getPos1().getY(),
@@ -41,8 +41,21 @@ public class Renderer {
         }
     }
 
+    public void renderPassed(int passed, int outOf) {
+        info.setPassed(passed);
+        info.setRequiredPasses(outOf);
+    }
+
     public void renderMoney(String money) {
         info.setMoney(money);
+    }
+
+    public void renderHighscore(int highscore) {
+        info.setHighScore(highscore);
+    }
+
+    public void renderScore(int score) {
+        info.setScore(score);
     }
 
     public void setLevelTexture(String path) {

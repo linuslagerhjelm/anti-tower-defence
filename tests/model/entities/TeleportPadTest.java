@@ -39,5 +39,4 @@ public class TeleportPadTest {
     public void testGetWidth() throws Exception {
         assertEquals(pad.getWidth(), WIDTH);
     }
-
 }

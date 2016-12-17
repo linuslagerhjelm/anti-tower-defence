@@ -6,6 +6,7 @@
 package model.entities.troupe;
 
 import model.entities.Node;
+import model.entities.Pad;
 import model.entities.TeleportPad;
 import model.level.Position;
 
@@ -22,6 +23,7 @@ class TeleportTroupe implements Troupe {
 
     private KilledListener killedListener;
     private GoalListener goalListener;
+    private PadSpawnListener padSpawnListener;
     private Position position;
     private int health = STATS.getHealth();
     private Node currentNode;
@@ -77,6 +79,14 @@ class TeleportTroupe implements Troupe {
      * {@inheritDoc}
      */
     @Override
+    public void setPadSpawnedListener(PadSpawnListener listener) {
+        this.padSpawnListener = listener;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void update(double dt) {
         double angle = position.angle(currentNode.getPosition());
         double nextX = nextX(angle, dt);
@@ -108,7 +118,13 @@ class TeleportTroupe implements Troupe {
      * On interaction this troupe will lay out TeleportPad {@link TeleportPad}
      */
     @Override
-    public void interact() { }
+    public void interact() {
+        Pad pad = new TeleportPad(getPosition().getX()-5,
+                                  getPosition().getY()-5, 10, 10);
+        if (padSpawnListener != null) {
+            padSpawnListener.onPadSpawned(pad);
+        }
+    }
 
     /**
      * {@inheritDoc}

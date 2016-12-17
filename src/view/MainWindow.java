@@ -171,9 +171,9 @@ public class MainWindow {
                 // Just wait for swing thread to finish
             });
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            // ignore
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            // can't happen, no code runs
         }
         return gameScreenPanel;
     }
@@ -184,9 +184,9 @@ public class MainWindow {
                 // Just wait for swing thread to finish
             });
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            // ignore
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            // can't happen, no code runs
         }
         return infoPanel;
     }
@@ -216,13 +216,11 @@ public class MainWindow {
             SwingUtilities.invokeAndWait(() -> {
                 // add html to make word wraps
                 JOptionPane.showMessageDialog(frame,
-                        "<html><body><p style='width: 300px;'>"+message+"</p></body></html>", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                        "<html><body><p style='width: 300px;'>"+message+"</p></body></html>",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             });
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | InvocationTargetException e) {
+            // ignore
         }
     }
 

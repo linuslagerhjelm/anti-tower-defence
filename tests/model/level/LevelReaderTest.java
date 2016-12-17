@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * Description: Test cases for the LevelReader class.
  */
 public class LevelReaderTest {
-    private final String FILE_NAME = "level.xml";
+    private final String FILE_NAME = "level_example.xml";
     private final String SCHEMA_NAME = "level_schema.xsd";
 
     @Test
