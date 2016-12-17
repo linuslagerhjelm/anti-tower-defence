@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <levels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="level_schema.xsd">
-    <level name="Level1" width="800" height="600" troupesToWin="10" texture="/images/levels/Portal.png">
+    <level name="Level1" width="800" height="600" troupesToWin="10" texture="/images/levels/level3.png">
         <path>
             <node id="1" x="0" y="0" start="start">
                 <successor refid="2" />

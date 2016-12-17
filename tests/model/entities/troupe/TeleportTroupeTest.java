@@ -7,7 +7,6 @@ package model.entities.troupe;
 
 import model.entities.Node;
 import model.entities.Path;
-import model.entities.troupe.Troupe;
 import model.level.Position;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class TeleportTroupeTest {
     private static Path path;
 
     @BeforeClass
-    public static void beforeClass() {
+    public static void beforeClass() throws Exception {
         HashMap<Integer, Node> nodes = new HashMap<>();
         Node start = new Node(1, 0, 0);
         start.setStart();

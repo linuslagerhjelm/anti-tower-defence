@@ -11,13 +11,14 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Author: Linus Lagerhjelm
+ * Author: Linus Lagerhjelm & Fredrik Johansson
  * File: LevelReader
  * Created: 16-11-28
  * Description: Validates and parses an XML-file containing levels. Supports
@@ -25,7 +26,7 @@ import java.net.URL;
  * callback interface.
  */
 public class LevelReader implements Runnable {
-    private File file;
+
     private ParseResult callback;
     private LevelXMLHandler handler;
     private InputStream validateStream;
@@ -37,11 +38,18 @@ public class LevelReader implements Runnable {
      * @param schema name of schema file (not path)
      * @param callback callback interface
      */
-    public LevelReader(String fileName, String schema, ParseResult callback) {
-        String fullPath = getClass().getResource("/" + fileName).getFile();
-        file = new File(fullPath);
-        validateStream = getClass().getResourceAsStream("/"+fileName);
-        parseStream = getClass().getResourceAsStream("/"+fileName);
+    public LevelReader(String fileName, String schema,
+                       boolean fromJar, ParseResult callback)
+                                                throws FileNotFoundException {
+
+
+        if (fromJar) {
+            validateStream = getClass().getResourceAsStream("/" + fileName);
+            parseStream = getClass().getResourceAsStream("/" + fileName);
+        } else {
+            validateStream = new FileInputStream(fileName);
+            parseStream = new FileInputStream(fileName);
+        }
         this.callback = callback;
         if (validate(schema)) {
             handler = new LevelXMLHandler(this.callback);

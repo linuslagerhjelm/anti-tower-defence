@@ -34,7 +34,7 @@ public class PathTest {
     }
 
     @BeforeClass
-    public static void setupInvalidNodes() {
+    public static void setupInvalidNodes() throws Exception {
         invalidNodes = new HashMap<>();
         for (int i = 0; i < NODE_COUNT; i++) {
             Node tmp = new Node(i, i, i);
@@ -48,13 +48,13 @@ public class PathTest {
     }
 
     @Test
-    public void testValidPath() {
+    public void testValidPath() throws Exception {
         Path p = new Path().addNodes(validNodes);
         assertTrue(p.isValid());
     }
 
     @Test
-    public void testInvalidPath() {
+    public void testInvalidPath() throws Exception {
         Path p = new Path().addNodes(invalidNodes);
         assertFalse(p.isValid());
     }

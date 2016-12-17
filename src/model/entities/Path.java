@@ -1,5 +1,6 @@
 package model.entities;
 
+import exceptions.InvalidPathException;
 import model.level.Position;
 
 import java.util.*;
@@ -27,7 +28,7 @@ public class Path {
      * preceding node and there are at least one start and one goal node.
      * @return true/false if the path is valid
      */
-    public boolean isValid() {
+    public boolean isValid() throws InvalidPathException {
         return isValidated ? isValid : validate();
     }
 
@@ -38,7 +39,7 @@ public class Path {
      * each path.
      * @return true/false if valid
      */
-    private boolean validate() {
+    private boolean validate() throws InvalidPathException {
         Set<Node> visited = new HashSet<>();
         LinkedList<Node> walkNodes = new LinkedList<>(nodes.values());
 
@@ -53,12 +54,21 @@ public class Path {
 
         // If all nodes has been visited
         isValid = visited.containsAll(nodes.values());
+        if (!isValid) {
+            throw new InvalidPathException("Path invalid: Every node can't be visited");
+        }
 
         // AND at least one start
         isValid = isValid && (start != null);
+        if (!isValid) {
+            throw new InvalidPathException("Path invalid: no start node");
+        }
 
         // AND at least one end
         isValid = isValid && (goal.size() > 0);
+        if (!isValid) {
+            throw new InvalidPathException("Path invalid: no goal node");
+        }
 
         return isValid;
     }

@@ -23,6 +23,7 @@ import model.level.ParseResult;
 import view.MainWindow;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,18 +46,18 @@ public class Game implements Level.WinListener, ParseResult {
     private static final boolean IS_WINDOWS = System.getProperty("os.name").startsWith("Windows");
 
     public Game() {
-        setup("level.xml");
+        setup("level.xml", true);
     }
 
     public Game(String levelFile) {
-        setup(levelFile);
+        setup(levelFile, false);
     }
 
     /**
      * Calls all the setup methods in order to get going
      * @param levelFile name of the level file
      */
-    private void setup(String levelFile) {
+    private void setup(String levelFile, boolean fromJar) {
         publisher = new Pubsub();
         observer = new GUIObserver(publisher);
 
@@ -88,7 +89,7 @@ public class Game implements Level.WinListener, ParseResult {
 
         ((Observable) mainWindow.getMouseListener()).registerObserver(observer);
 
-        setupLevels(levelFile);
+        setupLevels(levelFile, fromJar);
     }
 
     /**
@@ -96,8 +97,13 @@ public class Game implements Level.WinListener, ParseResult {
      * when levels has finished parsing.
      * @param levelFile filename to level path
      */
-    private void setupLevels(String levelFile) {
-        levelReader = new LevelReader(levelFile, "level_schema.xsd", this);
+    private void setupLevels(String levelFile, boolean fromJar) {
+        try {
+            levelReader = new LevelReader(levelFile, "level_schema.xsd", fromJar, this);
+        } catch (FileNotFoundException e) {
+            onError(e);
+            return;
+        }
         levelReader.run();
     }
 

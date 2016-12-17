@@ -140,12 +140,16 @@ public class LevelXMLHandler extends DefaultHandler {
 
         } else if (qName.equalsIgnoreCase("path")) {
             createPath();
-            if (path.isValid()) {
-                tmpLevel.addPath(path);
-            } else {
-                callback.onError(new InvalidPathException());
+            try {
+                if (path.isValid()) {
+                    tmpLevel.addPath(path);
+                } else {
+                    callback.onError(new InvalidPathException("Invalid path in xml"));
+                    failed = true;
+                }
+            } catch (InvalidPathException e) {
+                callback.onError(e);
                 failed = true;
-                return;
             }
 
         } else if (qName.equalsIgnoreCase("node")) {

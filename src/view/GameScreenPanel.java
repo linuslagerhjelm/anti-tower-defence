@@ -24,6 +24,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class GameScreenPanel {
 
+    private static final String DEFAULT_IMAGE = "/images/levels/default_level.png";
+
+    private BufferedImage default_image_loaded;
+
     private JPanel gameScreen;
     private BufferedImage levelImage = null;
     private HashMap<String, BufferedImage> entityImages = new HashMap<>();
@@ -47,6 +51,10 @@ public class GameScreenPanel {
 
 		//Creates Default things..
 		levelImage = loadImage(defaultImage);
+        if (levelImage == null) {
+            levelImage = loadImage(DEFAULT_IMAGE);
+            default_image_loaded = levelImage;
+        }
 
 		gameScreen = new JPanel() {
 			@Override
@@ -60,6 +68,10 @@ public class GameScreenPanel {
 
 	    gameScreen.addMouseListener(ml);
 		gameScreen.setBackground(Color.BLACK);
+    }
+
+    public GameScreenPanel(MouseListener ml) {
+        this(ml, DEFAULT_IMAGE);
     }
 
 	/**
@@ -111,6 +123,13 @@ public class GameScreenPanel {
 
     public void setLevelImage(String path) {
     	levelImage = loadImage(path);
+        if (levelImage == null) {
+            if (default_image_loaded != null) {
+                levelImage = default_image_loaded;
+            } else {
+                levelImage = loadImage(DEFAULT_IMAGE);
+            }
+        }
 	}
 
     /**
@@ -133,7 +152,7 @@ public class GameScreenPanel {
     	BufferedImage img;
     	try {
     		img = ImageIO.read(this.getClass().getResource(path));
-		} catch (IOException e) {
+		} catch (IOException | IllegalArgumentException e) {
     		img = null;
 		}
 

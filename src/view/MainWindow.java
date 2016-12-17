@@ -24,7 +24,6 @@ import java.util.List;
 
 public class MainWindow {
 
-    private final String DEFAULT_IMAGE = "/images/levels/default_level.png";
     private JFrame frame;
     private GameMenuListener gameMenuListener;
     private JPanel upperPanel;
@@ -76,7 +75,7 @@ public class MainWindow {
             menuPanel = new MenuPanel(50,50);
             infoPanel = new InfoPanel();
 
-            gameScreenPanel = new GameScreenPanel(mouseListener, DEFAULT_IMAGE);
+            gameScreenPanel = new GameScreenPanel(mouseListener);
 
             setupGameMenu();
             setupInfoMenu();
