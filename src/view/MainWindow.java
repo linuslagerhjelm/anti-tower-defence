@@ -147,6 +147,7 @@ public class MainWindow {
             winLosePanel = loseScreen.getPanel();
             frame.add(winLosePanel, BorderLayout.CENTER);
             frame.repaint();
+            frame.revalidate();
         });
     }
 
@@ -223,11 +224,14 @@ public class MainWindow {
         }
     }
 
-    public void setTroupeInfo(String title, int health, int speed, String description, String icon) {
-        troopMakerPanel.setTroopImage(icon);
-        troopMakerPanel.changeUnitInfo("Type: " + title + "\n" +
-                "Health: " + health + "\n" +
-                "Speed: " + speed + "\n" +
-                "Description: " + description + "\n");
+    public void setTroupeInfo(String title, int health, int speed, int cost, String description, String icon) {
+        SwingUtilities.invokeLater(() -> {
+            troopMakerPanel.setTroopImage(icon);
+            troopMakerPanel.changeUnitInfo("Type: " + title + "\n" +
+                    "Cost: " + cost + "\n" +
+                    "Health: " + health + "\n" +
+                    "Speed: " + speed + "\n" +
+                    "Description: " + description + "\n");
+        });
     }
 }

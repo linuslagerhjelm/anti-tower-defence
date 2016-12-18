@@ -10,6 +10,9 @@ import java.awt.*;
  */
 public class WinLoseScreen {
 
+    private static final Color BACKGROUND_COLOR = new Color(21, 160, 108);
+    private static final Color BORDER_COLOR = new Color(225, 206, 159);
+
     private JPanel winLoseScreen;
     private JButton restartLevel;
     private JButton restartGame;
@@ -60,7 +63,7 @@ public class WinLoseScreen {
         winLoseScreen.setVisible(true);
 
 
-        winLoseScreen.setBorder(BorderFactory.createLineBorder(Color.CYAN, 8, false));
+        winLoseScreen.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, 8, false));
 
         if (winLose.equals("win")) {
             textPanel.add(winLabel);
@@ -71,12 +74,12 @@ public class WinLoseScreen {
 
         }
 
-        textPanel.setBackground(Color.BLUE);
-        emptyPanel1.setBackground(Color.BLUE);
-        emptyPanel2.setBackground(Color.BLUE);
-        emptyPanel3.setBackground(Color.BLUE);
-        buttonPanel.setBackground(Color.BLUE);
-        winLoseScreen.setBackground(Color.BLUE);
+        textPanel.setBackground(BACKGROUND_COLOR);
+        emptyPanel1.setBackground(BACKGROUND_COLOR);
+        emptyPanel2.setBackground(BACKGROUND_COLOR);
+        emptyPanel3.setBackground(BACKGROUND_COLOR);
+        buttonPanel.setBackground(BACKGROUND_COLOR);
+        winLoseScreen.setBackground(BACKGROUND_COLOR);
     }
 
     public JPanel getPanel() {

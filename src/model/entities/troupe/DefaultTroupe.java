@@ -14,7 +14,7 @@ import model.level.Position;
  */
 class DefaultTroupe implements Troupe {
 
-    public static final TroupeStats STATS = new TroupeStats(100, 30,
+    public static final TroupeStats STATS = new TroupeStats(100, 30, 100,
             "Just a regular troupe", "Golem", "/images/troops/golem.png");
 
 

@@ -16,7 +16,7 @@ import model.level.Position;
  */
 class TeleportTroupe implements Troupe {
 
-    public static final TroupeStats STATS = new TroupeStats(100, 12,
+    public static final TroupeStats STATS = new TroupeStats(100, 12, 300,
             "Troupe that places pads that teleports troupes",
             "Wizard", "/images/troops/wizard.png");
 

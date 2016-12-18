@@ -14,6 +14,7 @@ public class TroupeStats implements Stats {
 
     private int speed;
     private int health;
+    private int cost;
     private String description;
     private String title;
     private String imgPath;
@@ -26,11 +27,12 @@ public class TroupeStats implements Stats {
      * @param title A troupes title
      * @param path Path to image which corresponds to the troupe
      */
-    public TroupeStats(int speed, int health, String description,
+    public TroupeStats(int speed, int health, int cost, String description,
                        String title, String path) {
 
         this.speed = speed;
         this.health = health;
+        this.cost = cost;
         this.description = description;
         this.title = title;
         this.imgPath = path;
@@ -74,5 +76,13 @@ public class TroupeStats implements Stats {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }

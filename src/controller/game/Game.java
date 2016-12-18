@@ -22,7 +22,6 @@ import model.level.LevelReader;
 import model.level.ParseResult;
 import view.MainWindow;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
@@ -268,9 +267,12 @@ public class Game implements Level.WinListener, ParseResult {
 
     private void updateTroupeInfo() {
         TroupeStats info = stats.get(troupeIndex);
-        SwingUtilities.invokeLater(() -> {
-            mainWindow.setTroupeInfo(info.getTitle(), info.getHealth(),
-                info.getSpeed(), info.getDescription(), info.getImgPath());
-        });
+        mainWindow.setTroupeInfo(
+                info.getTitle(),
+                info.getCost(),
+                info.getHealth(),
+                info.getSpeed(),
+                info.getDescription(),
+                info.getImgPath());
     }
 }
