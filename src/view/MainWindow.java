@@ -51,7 +51,7 @@ public class MainWindow {
      */
     public static MainWindow getInstance() {
         if(mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare", 800, 600);
+            mainWindowInstance = new MainWindow("Anti- Tower Defence 3000", 800, 600);
         }
         return mainWindowInstance;
     }

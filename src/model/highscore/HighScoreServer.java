@@ -339,6 +339,4 @@ public final class HighScoreServer implements Runnable {
             } catch (InterruptedException ignore) {}
         }
     }
-
-
 }
