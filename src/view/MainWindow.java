@@ -3,7 +3,6 @@ package view;
 /**
  * Created by c15aen on 2016-11-03. teset seteste
  */
-
 import view.listeners.GameMenuListener;
 import view.listeners.InfoMenuListener;
 import view.listeners.MouseEventListener;
@@ -21,7 +20,6 @@ import java.util.List;
  * Created by c15aen on 2016-11-03.
  * Creates the frame and adds all needed components to it.
  */
-
 public class MainWindow {
 
     private JFrame frame;

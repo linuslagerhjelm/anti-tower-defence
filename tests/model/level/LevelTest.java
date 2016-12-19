@@ -19,7 +19,7 @@ import static junit.framework.TestCase.*;
 
 public class LevelTest {
 
-   /* private static Level level;
+    /* private static Level level;
     private static Troupe t;
     private static Node n1;
 
