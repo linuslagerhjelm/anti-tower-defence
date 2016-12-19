@@ -150,7 +150,7 @@ public class Level implements Troupe.KilledListener,
             }
 
             for (Pad pad : pads) {
-                if (onPad2(pad, troupe)) {
+                if (onPad(pad, troupe)) {
                     pad.landOn(troupe);
                 }
             }
@@ -161,7 +161,7 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
-    public boolean onPad2(Pad pad, Troupe troupe) {
+    public boolean onPad(Pad pad, Troupe troupe) {
         double x = troupe.getPosition().getX();
         double y = troupe.getPosition().getY();
 

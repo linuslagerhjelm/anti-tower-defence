@@ -1,5 +1,6 @@
 package model.entities;
 
+import exceptions.InvalidPathException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -56,6 +57,14 @@ public class PathTest {
     @Test
     public void testInvalidPath() throws Exception {
         Path p = new Path().addNodes(invalidNodes);
-        assertFalse(p.isValid());
+        boolean failed = false;
+        try {
+            if (!p.isValid()) {
+                failed = true;
+            }
+        } catch (InvalidPathException e) {
+            failed = true;
+        }
+        assertTrue(failed);
     }
 }
