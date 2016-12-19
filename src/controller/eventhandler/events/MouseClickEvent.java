@@ -6,9 +6,10 @@ import model.level.Position;
  * Author: Linus Lagerhjelm
  * File: MouseClickEvent
  * Created: 2016-12-14
- * Description:
+ * Description: Indicates that the user has clicked somewhere on the board.
+ * Contains the position that the user has clicked
  */
-public class MouseClickEvent extends LevelEvent {
+public class MouseClickEvent implements LevelEvent {
 
     private Position position;
 

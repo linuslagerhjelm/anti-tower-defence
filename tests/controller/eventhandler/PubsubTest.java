@@ -16,19 +16,6 @@ import static org.junit.Assert.*;
 public class PubsubTest {
     private final Pubsub PUBLISHER = new Pubsub();
     private final IsEvent EVENT = new IsEvent();
-    private final IsEventSubscriber SUBSCRIBER = new IsEventSubscriber();
-
-    @Test
-    public void shouldRegistrerSubscriber() throws Exception {
-        PUBLISHER.registerSubscriber(SUBSCRIBER);
-        assertEquals(1, PUBLISHER.getSubscriberCount());
-    }
-
-    @Test
-    public void shouldUnregisterSubscriber() throws Exception {
-        PUBLISHER.unregisterSubscriber(SUBSCRIBER);
-        assertEquals(0, PUBLISHER.getSubscriberCount());
-    }
 
     @Test
     public void shouldRegisterEvent() throws Exception {
@@ -50,11 +37,7 @@ public class PubsubTest {
         assertEquals(0, PUBLISHER.getEventCount());
     }
 
-    private static class IsEventSubscriber implements EventSubscriber {
-
-    }
-
-    private static class IsEvent extends SystemEvent {
+    private static class IsEvent implements SystemEvent {
 
     }
 }

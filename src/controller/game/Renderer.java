@@ -12,6 +12,9 @@ import view.InfoPanel;
 
 import java.util.Collection;
 
+/**
+ * Responsible for painting the game with all it's entities
+ */
 public class Renderer {
 
     private final GameScreenPanel board;
@@ -27,6 +30,10 @@ public class Renderer {
         board.refresh();
     }
 
+    /**
+     * Paints all the entities on the game board
+     * @param entities the entities that is currently active
+     */
     public void render(Collection<? extends Entity> entities) {
         for (Entity entity : entities) {
             board.drawEntity(entity.getFilePath(), entity.getPosition().getX(),
@@ -34,6 +41,10 @@ public class Renderer {
         }
     }
 
+    /**
+     * Paints the lasers of the towers
+     * @param shots the shot to be painted
+     */
     public void renderLasers(Collection<Line> shots) {
         for (Line shot : shots) {
             board.drawLaser(shot.getPos1().getX(), shot.getPos1().getY(),
@@ -46,6 +57,10 @@ public class Renderer {
         info.setRequiredPasses(outOf);
     }
 
+    /**
+     * Updates the money in the info panel
+     * @param money current money
+     */
     public void renderMoney(String money) {
         info.setMoney(money);
     }
@@ -58,6 +73,10 @@ public class Renderer {
         info.setScore(score);
     }
 
+    /**
+     * Paints the texture of the level
+     * @param path filepath to the image texture
+     */
     public void setLevelTexture(String path) {
         board.setLevelImage(path);
     }

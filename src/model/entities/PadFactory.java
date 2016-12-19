@@ -22,7 +22,7 @@ public class PadFactory {
      */
     public static Pad newInstance(String type) throws NoSuchPadException {
 
-        Pad pad = null;
+        Pad pad;
         try {
             pad = (Pad)Class.forName(type).newInstance();
 

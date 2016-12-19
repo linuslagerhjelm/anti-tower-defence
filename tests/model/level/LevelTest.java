@@ -1,6 +1,6 @@
 /*
  * File: LevelTest.java
- * Author: Fredrik Johansson
+ * Author: Fredrik Johansson & Linus Lagerhjelm
  * Date: 2016-12-08
  */
 package model.level;

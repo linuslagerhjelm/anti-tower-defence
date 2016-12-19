@@ -3,7 +3,6 @@ package view;
 /**
  * Created by c15aen on 2016-11-03. teset seteste
  */
-
 import view.listeners.GameMenuListener;
 import view.listeners.InfoMenuListener;
 import view.listeners.MouseEventListener;
@@ -21,7 +20,6 @@ import java.util.List;
  * Created by c15aen on 2016-11-03.
  * Creates the frame and adds all needed components to it.
  */
-
 public class MainWindow {
 
     private JFrame frame;
@@ -51,7 +49,7 @@ public class MainWindow {
      */
     public static MainWindow getInstance() {
         if(mainWindowInstance == null) {
-            mainWindowInstance = new MainWindow("Fiskare", 800, 600);
+            mainWindowInstance = new MainWindow("Anti- Tower Defence 3000", 800, 600);
         }
         return mainWindowInstance;
     }
@@ -224,7 +222,7 @@ public class MainWindow {
         }
     }
 
-    public void setTroupeInfo(String title, int health, int speed, int cost, String description, String icon) {
+    public void setTroupeInfo(String title, int cost, int speed, int health, String description, String icon) {
         SwingUtilities.invokeLater(() -> {
             troopMakerPanel.setTroopImage(icon);
             troopMakerPanel.changeUnitInfo("Type: " + title + "\n" +

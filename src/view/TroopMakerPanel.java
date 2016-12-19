@@ -150,10 +150,21 @@ public class TroopMakerPanel {
         }
     }
 
+    /**
+     * Loadansdjna //TODO: add nice text here
+     *
+     * @param path:int, index at the location of the wanted image.
+     */
     private ImageIcon loadImage(String path) {
         return new ImageIcon(getClass().getResource(path));
     }
 
+    /**
+     * Sets the current viewing troop image to the image from the
+     * image list at the given index.
+     *
+     * @param path:int, index at the location of the wanted image.
+     */
     public void changeUnitInfo(String unitInfo) {
         unitInfoText.setText(unitInfo);
     }
