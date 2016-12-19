@@ -4,9 +4,10 @@ package controller.eventhandler.events;
  * Author: Linus Lagerhjelm
  * File: NewPadEvent
  * Created: 2016-12-12
- * Description:
+ * Description: Represents that a new pad has been placed on the board.
+ * Contains information about the pad's placement, size and type.
  */
-public class NewPadEvent extends LevelEvent {
+public class NewPadEvent implements LevelEvent {
     private String type;
     private int x;
     private int y;

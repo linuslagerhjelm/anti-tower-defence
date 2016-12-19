@@ -11,20 +11,18 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Author: Linus Lagerhjelm
  * File: Pubsub
  * Created: 2016-12-06
- * Description:
+ * Description: Handles synchronization between event-passing between the
+ * event dispatch thread and the main thread. Every operation in this class
+ * is thread safe.
  */
 public class Pubsub {
-    private List<EventSubscriber> subscribers = new ArrayList<>();
     private LinkedBlockingQueue<SystemEvent> eventQ = new LinkedBlockingQueue<>();
 
-    public synchronized void registerSubscriber(EventSubscriber subscriber) {
-        subscribers.add(subscriber);
-    }
-
-    public synchronized void unregisterSubscriber(EventSubscriber subscriber) {
-        subscribers.remove(subscriber);
-    }
-
+    /**
+     * Adds a system event to the event dispatch Queue
+     * @param event the event to register
+     * @throws UnableToRegisterEventException
+     */
     public void registerEvent(SystemEvent event)
             throws UnableToRegisterEventException {
 
@@ -36,17 +34,22 @@ public class Pubsub {
         }
     }
 
+    /**
+     * Gets all the SystemEvents currently on the Queue. Calls to this method
+     * will consume all the events on the Queue.
+     * @return list of all enqueued events
+     */
     public List<SystemEvent> getEvents() {
         List<SystemEvent> returnCollection = new ArrayList<>();
         eventQ.drainTo(returnCollection);
         return returnCollection;
     }
 
-    public int getSubscriberCount() {
-        return subscribers.size();
-    }
-
-    public int getEventCount() {
+    /**
+     * Returns the current size of the Queue.
+     * @return size of the queue
+     */
+    public synchronized int getEventCount() {
         return eventQ.size();
     }
 }

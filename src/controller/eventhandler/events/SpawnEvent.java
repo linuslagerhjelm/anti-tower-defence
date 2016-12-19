@@ -4,9 +4,10 @@ package controller.eventhandler.events;
  * Author: Linus Lagerhjelm
  * File: SpawnEvent
  * Created: 2016-12-07
- * Description:
+ * Description: This event represents that a new troupe should be spawned.
+ * The event contains information of what type of troupe to spawn
  */
-public class SpawnEvent extends LevelEvent {
+public class SpawnEvent implements LevelEvent {
     private String type;
 
     public SpawnEvent() {}

@@ -12,7 +12,9 @@ import java.awt.event.ActionEvent;
  * Author: Linus Lagerhjelm
  * File: GUIObserver
  * Created: 2016-12-07
- * Description:
+ * Description: Object that implements the Observer interface in order for
+ * it to observe the GUI. Handles the mapping between GUI events and system
+ * events.
  */
 public class GUIObserver implements Observer {
     private Pubsub publisher;
@@ -72,6 +74,14 @@ public class GUIObserver implements Observer {
         }
     }
 
+    /**
+     * Parses an action event with param-string as action event into a new
+     * mouse-event that the system can understand and registers it at the
+     * Pubsub.
+     * @param event ActionEvent where the action command is a mouse event
+     *              param string.
+     * @throws UnableToRegisterEventException
+     */
     private void handleMouseEvent(ActionEvent event) throws UnableToRegisterEventException {
         String[] parts = event.getActionCommand().replaceAll("[()]", "").split(",");
         publisher.registerEvent(new MouseClickEvent(Integer.parseInt(parts[1]),Integer.parseInt(parts[2])));

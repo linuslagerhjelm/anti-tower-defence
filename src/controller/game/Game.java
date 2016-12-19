@@ -27,6 +27,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Game is the main controller of the system. It is responsible for opening
+ * levels, updating the game, and synchronize communication between the view
+ * and the model.
+ */
 public class Game implements Level.WinListener, ParseResult {
 
     private Pubsub publisher;
@@ -265,6 +270,9 @@ public class Game implements Level.WinListener, ParseResult {
         });
     }
 
+    /**
+     * Sets the Troupe info stats in the view
+     */
     private void updateTroupeInfo() {
         TroupeStats info = stats.get(troupeIndex);
         mainWindow.setTroupeInfo(

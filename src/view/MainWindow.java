@@ -224,7 +224,7 @@ public class MainWindow {
         }
     }
 
-    public void setTroupeInfo(String title, int health, int speed, int cost, String description, String icon) {
+    public void setTroupeInfo(String title, int cost, int speed, int health, String description, String icon) {
         SwingUtilities.invokeLater(() -> {
             troopMakerPanel.setTroopImage(icon);
             troopMakerPanel.changeUnitInfo("Type: " + title + "\n" +
