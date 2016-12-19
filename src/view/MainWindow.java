@@ -1,7 +1,11 @@
 package view;
 
 /**
- * Created by c15aen on 2016-11-03. teset seteste
+ * Date: 2016-11-03
+ *
+ * @author Andreas
+ * @author Arvid
+ * @version 2
  */
 import view.listeners.GameMenuListener;
 import view.listeners.InfoMenuListener;
@@ -17,8 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by c15aen on 2016-11-03.
- * Creates the frame and adds all needed components to it.
+ * File: MainWindow
+ * Created: 2016-12-6
+ * Singleton mainframe for the antiTowerDefence game.
+ *
+ * @author Andreas
  */
 public class MainWindow {
 
@@ -43,6 +50,7 @@ public class MainWindow {
     private MainWindow(){
         // Exists only to defeat instantiation.
     }
+
     /**
      * Creates an instance of the main window if no main windows has been made earlier.
      * @return The instance.
@@ -120,11 +128,18 @@ public class MainWindow {
         return guiListeners;
     }
 
+    /**
+     * returns the mouse listener being used.
+     * @return mouseListener
+     */
     public MouseListener getMouseListener() {
 
         return mouseListener;
     }
 
+    /**
+     * Shows the win screen on the frame.
+     */
     public void showWin() {
         SwingUtilities.invokeLater(() -> {
             frame.remove(rightPanel);
@@ -137,6 +152,9 @@ public class MainWindow {
         });
     }
 
+    /**
+     * Shows the lose screen on the frame.
+     */
     public void showLose() {
         SwingUtilities.invokeLater(() -> {
             frame.remove(rightPanel);
@@ -149,6 +167,9 @@ public class MainWindow {
         });
     }
 
+    /**
+     * Shows the game screen on the frame.
+     */
     public void showGame() {
         SwingUtilities.invokeLater(() -> {
             if (winLosePanel != null) {
@@ -163,6 +184,11 @@ public class MainWindow {
     }
 
 
+    /**
+     * Get the gameScreen panel.
+     *
+     * @return GameScreenPanel:JPanel,
+     */
     public GameScreenPanel getGameScreen() {
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -176,6 +202,10 @@ public class MainWindow {
         return gameScreenPanel;
     }
 
+    /**
+     * Gets the information panel
+     * @return InfoPanel
+     */
     public InfoPanel getInfoPanel() {
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -189,6 +219,9 @@ public class MainWindow {
         return infoPanel;
     }
 
+    /**
+     * Setups the GameMenu for the main frame.
+     */
     private void setupGameMenu() {
         String[] menuButtonNames = {"New Game","Pause","Quit"};
         gameMenuListener = new GameMenuListener(menuButtonNames);
@@ -202,6 +235,9 @@ public class MainWindow {
         menuPanel.createMenu(menuButtonNames, "Main Menu", gameMenuListener);
     }
 
+    /**
+     * Setups the information menu for the main frame.
+     */
     private void setupInfoMenu() {
         String[] infoButtonNames = {"About","Help", "Highscores"};
         InfoMenuListener infoMenuListener = new InfoMenuListener(infoButtonNames);
@@ -209,6 +245,10 @@ public class MainWindow {
         menuPanel.createMenu(infoButtonNames, "Info", infoMenuListener);
     }
 
+    /**
+     * Creates a message in the event of a fatal error.
+     * @param message:string error code.
+     */
     public void fatalError(String message) {
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -222,6 +262,16 @@ public class MainWindow {
         }
     }
 
+    /**
+     * Sets the troupe information panel to the given parameters value.
+     *
+     * @param title:string
+     * @param cost:int
+     * @param speed:int
+     * @param health:int
+     * @param description:String
+     * @param icon:Sring, to icon path.
+     */
     public void setTroupeInfo(String title, int cost, int speed, int health, String description, String icon) {
         SwingUtilities.invokeLater(() -> {
             troopMakerPanel.setTroopImage(icon);

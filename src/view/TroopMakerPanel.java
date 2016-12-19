@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Author: Andreas, Arvid
  * File: TroopMakerPanel
  * Created: 16-11-23
  * Description: A panel object to create a TroopMaker JPanel for a frame.
+ *
+ * @author Andreas
+ * @author Arvid
  */
 public class TroopMakerPanel {
 
@@ -20,10 +22,6 @@ public class TroopMakerPanel {
     private JButton spawnTroop;
     private JButton nextTroop;
     private JButton prevTroop;
-
-    //Sets the default image index to 0.
-    private final int DEFAULT_IMAGE_INDEX = 0;
-    private int currentImage = 0;
 
     // Cache image icon load
     private HashMap<String, ImageIcon> troopIcons = new HashMap<>();
@@ -36,14 +34,13 @@ public class TroopMakerPanel {
     private JPanel troopIconPanel;
     private JTextPane unitInfoText;
 
+    /**
+     * Creates an instance of the troop maker panel.
+     */
     public TroopMakerPanel() {
         label = new JLabel();
         troopMakerPanel = new JPanel();
         panelSetup();
-    }
-
-    public void refresh() {
-        troopIconPanel.repaint();
     }
 
     /**
@@ -92,6 +89,9 @@ public class TroopMakerPanel {
         troopMakerPanel.add(troopIconPanel, BorderLayout.NORTH);
     }
 
+    /**
+     * Setups the troop information panel.
+     */
     private void troopInfoPanelSetup() {
         troopInfoPanel = new JPanel();
         //troopInfoPanel.setPreferredSize(new Dimension(25,320));
@@ -106,6 +106,9 @@ public class TroopMakerPanel {
         //changeUnitInfo("Speed: 20\nCost: 100\nHealth: 45");
     }
 
+    /**
+     * Setups the button panel for the troop maker setup.
+     */
     private void buttonPanelSetup() {
         buttonSetup();
         buttonPanel = new JPanel();
@@ -116,6 +119,10 @@ public class TroopMakerPanel {
         buttonPanel.add(nextTroop, BorderLayout.EAST);
     }
 
+
+    /**
+     * Setups the icon panel.
+     */
     private void troopIconPanelSetup() {
         troopIconPanel = new JPanel();
         troopIconPanel.add(label, BorderLayout.CENTER);
@@ -151,7 +158,7 @@ public class TroopMakerPanel {
     }
 
     /**
-     * Loadansdjna //TODO: add nice text here
+     * Loads the images to the Icon list.
      *
      * @param path:int, index at the location of the wanted image.
      */
@@ -163,26 +170,32 @@ public class TroopMakerPanel {
      * Sets the current viewing troop image to the image from the
      * image list at the given index.
      *
-     * @param path:int, index at the location of the wanted image.
+     * @param unitInfo:String, index at the location of the wanted image.
      */
     public void changeUnitInfo(String unitInfo) {
         unitInfoText.setText(unitInfo);
     }
 
-    public int getIconListSize() {
-        return troopIcons.size();
-    }
-
+    /**
+     * Returns the actionlistiners being used.
+     * @return actionListiners:ArrayList<ActionListener>
+     */
     public ArrayList<ActionListener> getActionListeners() {
         return actionListeners;
     }
 
+    /**
+     * Disables the button at troop maker panel
+     */
     public void disableButtons() {
         spawnTroop.setEnabled(false);
         nextTroop.setEnabled(false);
         prevTroop.setEnabled(false);
     }
 
+    /**
+     * Enables all buttons for the troop maker panel.
+     */
     public void enableButtons() {
         spawnTroop.setEnabled(true);
         nextTroop.setEnabled(true);
