@@ -5,7 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by c15aen on 2016-11-24.
+ * File: Menu
+ * Created: 16-11-23
+ * Description: Menu buttons for the menu panel
+ *
+ * @author Andreas
+ * @author Arvid
+ * @version 2
  */
 public class Menu {
 
@@ -22,20 +28,41 @@ public class Menu {
         }
     }
 
+    /**
+     * Creats a button of type JMenuItem in the menu.
+     * @param s:string, name of button.
+     * @return JMenuItems
+     */
     public JMenuItem createButton(String s) {
         return new JMenuItem(s);
     }
 
+    /**
+     * Sets the action command for the specified button at index to the
+     * given command.
+     *
+     * @param index:int for the position of action command to use
+     * @param command:String the name of action command.
+     */
     public void setActionCommand(int index, String command) {
-
         buttons.get(index).setActionCommand(command);
     }
 
+    /**
+     * Returns a JMenu component of the menu.
+     *
+     * @return menu:JMenu
+     */
     public JMenu getJMenu() {
 
         return menu;
     }
 
+    /**
+     * Retuns the list of buttons from the array list.
+     *
+     * @return buttons:JMenuItem
+     */
     public ArrayList returnButtons() {
 
         return buttons;

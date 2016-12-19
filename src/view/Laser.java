@@ -3,8 +3,12 @@ package view;
 import model.level.Position;
 
 /**
- * Created by c15aen on 2016-12-05.
- * Creates a laser with a startposition and an endposition.
+ * File: Laser
+ * Created: 16-11-23
+ * Description: Laser
+ *
+ * @author Arvid
+ * @version 2
  */
 public class Laser {
 

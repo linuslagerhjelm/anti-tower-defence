@@ -10,17 +10,26 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Created by AnonM on 2016-12-01.
+ * File: PopUpMenu
+ * Created: 16-11-23
+ * Description: Creates a popup menu to be displayed over a diffrent frame.
+ *
+ * @author Andreas
+ * @version 2.13
  */
 public class PopUpMenu {
     private JFrame frame;
     private JTextArea textArea;
 
     /**
-     * @param title
-     * @param message
-     * @param width
-     * @param height
+     * Creates an instance of the klass with the given string title and the
+     * second string as the message being displayed and the last two int
+     * arguments to define the size of the pop up screen.
+     *
+     * @param title:String
+     * @param message:String
+     * @param width:int
+     * @param height:int
      */
     public PopUpMenu(String title, String message, int width, int height) {
         frame = new JFrame(title);
@@ -44,11 +53,21 @@ public class PopUpMenu {
         frame.setVisible(true);
     }
 
+    /**
+     * Sets the message on the pop up menu.
+     *
+     * @param message:String
+     */
     public void setMessage(String message) {
 
         textArea.setText(message);
     }
 
+    /**
+     * appends the message on the pop up menu.
+     *
+     * @param message:String
+     */
     public void appendMessage(String message) {
 
         textArea.append(message);

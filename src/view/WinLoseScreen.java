@@ -6,7 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by c15aen on 2016-12-14.
+ * File: WinLoseScreen
+ * Created: 2016-12-6
+ * A screen that display the win or lose screen for the user.
+ *
+ * @author Arvid
  */
 public class WinLoseScreen {
 
@@ -21,6 +25,13 @@ public class WinLoseScreen {
     private ImageIcon winIcon;
     private ImageIcon loseIcon;
 
+    /**
+     * Constructor for the win lose screen displaying win/lose depending on
+     * the given string argument.
+     *
+     * @param winLose:String
+     * @param gml:GameMenuListener
+     */
     public WinLoseScreen(String winLose, GameMenuListener gml) {
 
         winLoseScreen = new JPanel(new BorderLayout());
@@ -82,6 +93,11 @@ public class WinLoseScreen {
         winLoseScreen.setBackground(BACKGROUND_COLOR);
     }
 
+    /**
+     * Returns the winLoseScreen as a JPanel to be used as a JComponent
+     *
+     * @return winLoseScreen:JPanel
+     */
     public JPanel getPanel() {
 
         return winLoseScreen;

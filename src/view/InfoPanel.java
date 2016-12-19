@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Author: Andreas, Arvid
  * File: InfoPanel
  * Created: 16-11-23
  * Description: Information panel to display money,
  * highscore and etc.
+ *
+ * @author Andreas
+ * @author Arvid
+ * @version 2
  */
 public class InfoPanel {
 

@@ -3,10 +3,13 @@ package view;
 import java.awt.image.BufferedImage;
 
 /**
- * Author: Andreas, Arvid.
  * File: Sprite.java
  * Created: 2016-12-05
  * Description: Sprite with a position and an buffer image.
+ *
+ * @author Arvid
+ * @author Andreas
+ * @version 2.11
  */
 public class Sprite {
 
