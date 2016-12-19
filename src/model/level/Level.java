@@ -21,7 +21,9 @@ import java.util.*;
  * Author: Linus Lagerhjelm & Fredrik Johansson
  * File: Level
  * Created: 16-11-27
- * Description:
+ * Description: Level holds the system of entities and handle their interactions
+ *              updates and communication. Level is a builder and created by
+ *              setting up all it's add methods
  */
 public class Level implements Troupe.KilledListener,
                               Troupe.GoalListener,
@@ -60,7 +62,16 @@ public class Level implements Troupe.KilledListener,
 
     private boolean build = false;
 
-    public Level(String name, int height, int width, int troupesToWin, String texture) {
+    /**
+     * Setup up a Level with its most basic information
+     * @param name Name of level
+     * @param height Height of level
+     * @param width Width of level
+     * @param troupesToWin Amount of troupes to win the level
+     * @param texture A path to an image which should be drawn as the level
+     */
+    public Level(String name, int height, int width,
+                 int troupesToWin, String texture) {
 
         this.name = name;
         this.height = height;
@@ -106,7 +117,11 @@ public class Level implements Troupe.KilledListener,
     }
 
 
-
+    /**
+     * Clone a level is a great way to simple have a copy of the level or
+     * reset the level
+     * @return A exact copy of the current level
+     */
     @Override
     public Level clone() {
         Level level = new Level(name, height, width, troupesToWin, texture);
@@ -131,10 +146,19 @@ public class Level implements Troupe.KilledListener,
         return level;
     }
 
+    /**
+     * Returns a copy level in its initial state
+     * @return A reseted level
+     */
     public Level reset() {
         return initialState.clone();
     }
 
+    /**
+     * Update the level and all its entities. Makes sure all appropriate
+     * interaction happens between entities, such as {@link Entity#interact()}
+     * @param dt Delta time, time between calls to update
+     */
     public void update(double dt) {
 
         for (Troupe troupe : troupes) {
@@ -161,6 +185,12 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * Checks if a troupe is on a pad
+     * @param pad Pad to check with
+     * @param troupe Troupe to check
+     * @return if a troupe is on a pad
+     */
     public boolean onPad(Pad pad, Troupe troupe) {
         double x = troupe.getPosition().getX();
         double y = troupe.getPosition().getY();
@@ -177,6 +207,10 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * Sets all the listeners for the entities, to ensure Level receives
+     * all the events
+     */
     private void setEntityListeners() {
         troupes.forEach(troupe -> {
             troupe.setGoalListener(this);
@@ -186,10 +220,20 @@ public class Level implements Troupe.KilledListener,
         towers.forEach(tower -> tower.setShootListener(this));
     }
 
+    /**
+     * Sets a listener which is called whenever this level is won, i.e
+     * when enough troupes has reached goals to meet condition.
+     * Only one listener can be set
+     * @param winListener Listener for when level is won
+     */
     public void setWinListener(WinListener winListener) {
         this.winListener = winListener;
     }
 
+    /**
+     * Place all the added towers in random positions within set tower zones.
+     * The randomness is weighted on the tower zones sizes.
+     */
     private void placeTowersInZones() {
         Random generator = new Random();
 
@@ -207,6 +251,11 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * Send events from the system that the Level has to know about and
+     * act upon.
+     * @param levelEvents the broadcasted event
+     */
     public void receiveEvents(List<SystemEvent> levelEvents) {
         if (levelEvents.size() == 0) {
             return;
@@ -219,7 +268,7 @@ public class Level implements Troupe.KilledListener,
                     this.addTroupe(player.createTroupe(e.getTroupeType()));
 
                 } catch (NotEnoughFoundsException e) {
-                    /* TODO: give feedback to user */
+                    // No feedback is given to user as of this point
                 }
             } else if (event instanceof NewPadEvent) {
                 NewPadEvent e = ((NewPadEvent)event);
@@ -230,6 +279,11 @@ public class Level implements Troupe.KilledListener,
         });
     }
 
+    /**
+     * Infers the type of pad to create based on the event and returns the
+     * new pad
+     * @param e the broadcasted event
+     */
     private void createPadFromEvent(NewPadEvent e) {
         try {
             Pad pad = PadFactory.newInstance(e.getType());
@@ -244,6 +298,10 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * Inserts a teleport pad into the level:s list of entities
+     * @param pad the pad to insert
+     */
     private void addTeleportPad(TeleportPad pad) {
         if (teleportPads.size() % 2 != 0) {
             teleportPads.get(teleportPads.size() - 1).setTarget(pad);
@@ -252,10 +310,19 @@ public class Level implements Troupe.KilledListener,
         pad.setNextNode(path.getNextNodeFrom(pad.getPosition()));
     }
 
+    /**
+     * Returns the current balance on the user's account on this level
+     * @return formatted currency string
+     */
     public String getMoney() {
         return player.getCurrency();
     }
 
+    /**
+     * Triggers a click event on this level which is propagated to all the
+     * relevant entities
+     * @param positionClicked position of click event
+     */
     public void onClick(Position positionClicked) {
         double clickRange = 20;
 
@@ -278,6 +345,9 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onKilled(Troupe troupe) {
         final double earnModifier = 1;
@@ -287,6 +357,9 @@ public class Level implements Troupe.KilledListener,
                 new Currency((int) Math.round(troupe.getLengthWalked()*earnModifier)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onGoal(Troupe troupe) {
         troupesToRemove.add(troupe);
@@ -298,6 +371,9 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPadSpawned(Pad pad) {
         pads.add(pad);
@@ -307,29 +383,48 @@ public class Level implements Troupe.KilledListener,
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onShoot(Position from, Position to) {
+        shots.add(new Line(from, to));
+    }
+
+    /**
+     * Returns true/false if the user has won this level
+     * @return boolean
+     */
     public boolean hasWon() {
         return troupesInGoal >= troupesToWin;
     }
 
+    /**
+     * Returns the current user score on this level
+     * @return Score
+     */
     public Score getScore() {
         int elapsedSeconds = (int)(new Date().getTime() - startTime)/1000;
         return new Score(Math.max(MAX_SCORE - elapsedSeconds, 0));
     }
 
+    /**
+     * Returns true/false if the user has lost this level
+     * @return boolean
+     */
     public boolean hasLost() {
         boolean a = player.canAfford(TroupeFactory.getCheapestCost());
         boolean b = troupes.size() > 0;
         return !a && !b;
     }
 
+    /**
+     * Tells this level to start counting scores
+     */
     public void start() {
         startTime = new Date().getTime();
     }
 
-    @Override
-    public void onShoot(Position from, Position to) {
-        shots.add(new Line(from, to));
-    }
 
     private int randomIntInRange(Random generator, int min, int max) {
         return generator.nextInt((max - min) + 1) + min;
@@ -347,6 +442,10 @@ public class Level implements Troupe.KilledListener,
         return new Position(x, y);
     }
 
+    /**
+     * Sets the initial state of this level
+     * @param initialState state
+     */
     public void setInitialState(Level initialState) {
         this.initialState = initialState;
     }
