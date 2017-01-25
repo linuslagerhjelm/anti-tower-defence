@@ -5,12 +5,20 @@
  */
 package controller.game;
 
+import javafx.print.Collation;
 import model.entities.Entity;
+import model.highscore.HighScoreServer;
 import model.level.Line;
 import view.GameScreenPanel;
 import view.InfoPanel;
+import view.MainWindow;
+import view.PopUpMenu;
+import view.listeners.InfoMenuListener;
 
+import javax.swing.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Responsible for painting the game with all it's entities
@@ -67,6 +75,27 @@ public class Renderer {
 
     public void renderHighscore(int highscore) {
         info.setHighScore(highscore);
+    }
+
+    public void displayHighScore() {
+        if (HighScoreServer.getInstance().getInitialized()) {
+            HighScoreServer.getInstance().getHighScores(result -> {
+                Collection<String> res = result.stream()
+                        .map(highScore -> highScore.getHighScoreString()+"\n")
+                        .collect(Collectors.toList());
+                String buf = "Level        Time        Score      \n";
+                for (String str:res) {
+                    buf += str;
+                }
+                JOptionPane.showMessageDialog(
+                        MainWindow.getInstance().getGameScreen().getJPanel(),
+                        buf,
+                        "HighScores",
+                        JOptionPane.PLAIN_MESSAGE);
+            });
+        }
+
+
     }
 
     public void renderScore(int score) {

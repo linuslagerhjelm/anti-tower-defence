@@ -32,17 +32,19 @@ public class WinLoseScreen {
      * @param winLose:String
      * @param gml:GameMenuListener
      */
-    public WinLoseScreen(String winLose, GameMenuListener gml) {
+    public WinLoseScreen(String winLose, GameMenuListener gml, boolean lastLevel) {
 
         winLoseScreen = new JPanel(new BorderLayout());
         restartGame = new JButton("New Game");
         restartLevel = new JButton("Restart Level");
         quit = new JButton("Quit");
-        nextLevel = new JButton("Next Level");
+        if (!lastLevel) {
+            nextLevel = new JButton("Next Level");
+            nextLevel.addActionListener(gml);
+        }
         restartGame.addActionListener(gml);
         restartLevel.addActionListener(gml);
         quit.addActionListener(gml);
-        nextLevel.addActionListener(gml);
 
         winIcon = new ImageIcon(this.getClass().getResource("/images/text/levelcomplete.png"));
         loseIcon = new ImageIcon(this.getClass().getResource("/images/text/gameover.png"));
@@ -55,7 +57,10 @@ public class WinLoseScreen {
         JPanel emptyPanel2 = new JPanel();
         JPanel emptyPanel3 = new JPanel();
 
-        buttonPanel.add(nextLevel);
+        if (nextLevel != null) {
+            buttonPanel.add(nextLevel);
+        }
+
         buttonPanel.add(restartLevel);
         buttonPanel.add(restartGame);
         buttonPanel.add(quit);

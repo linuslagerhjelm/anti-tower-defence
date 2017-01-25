@@ -202,7 +202,12 @@ public class Game implements Level.WinListener, ParseResult {
     @Override // from Level.WinListener
     public void onWin(Score score) {
         postScore(score);
-        mainWindow.showWin();
+        if (currentLevel < levels.size()-1) {
+            mainWindow.showWin();
+        } else {
+            mainWindow.showWinLast();
+            renderer.displayHighScore();
+        }
         isPaused = true;
     }
 
@@ -212,6 +217,7 @@ public class Game implements Level.WinListener, ParseResult {
     private void nextLevel() {
         currentLevel = Math.min(levels.size()-1, currentLevel+1);
         levels.get(currentLevel).setWinListener(this);
+        levels.get(currentLevel).start();
         renderer.setLevelTexture(levels.get(currentLevel).getTexture());
         mainWindow.showGame();
     }
@@ -256,9 +262,10 @@ public class Game implements Level.WinListener, ParseResult {
                 nextLevel();
             } else if (e instanceof RestartEvent) {
                 mainWindow.showGame();
-                postScore(levels.get(currentLevel).getScore());
+                //postScore(levels.get(currentLevel).getScore());
                 levels.set(currentLevel, levels.get(currentLevel).reset());
                 levels.get(currentLevel).setWinListener(this);
+                levels.get(currentLevel).start();
                 isPaused = false;
             } else if (e instanceof NextTroupeEvent) {
                 troupeIndex = (++troupeIndex) % stats.size();

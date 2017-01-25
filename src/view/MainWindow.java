@@ -42,6 +42,7 @@ public class MainWindow {
     private InfoPanel infoPanel;
     private WinLoseScreen winScreen;
     private WinLoseScreen loseScreen;
+    private WinLoseScreen winLastLevel;
     private List<ActionListener> guiListeners = new ArrayList<>();
     private MouseListener mouseListener = new MouseEventListener();
 
@@ -85,15 +86,15 @@ public class MainWindow {
 
             setupGameMenu();
             setupInfoMenu();
-            winScreen = new WinLoseScreen("win", gameMenuListener);
-            loseScreen = new WinLoseScreen("lose", gameMenuListener);
+            winScreen = new WinLoseScreen("win", gameMenuListener, false);
+            loseScreen = new WinLoseScreen("lose", gameMenuListener, false);
+            winLastLevel = new WinLoseScreen("win", gameMenuListener, true);
 
             //Build panels
             upperPanel = menuPanel.returnPanel();
             rightPanel = troopMakerPanel.getJPanel();
             lowerPanel = infoPanel.getPanel();
             centerPanel = gameScreenPanel.getJPanel();
-            //winLosePanel = winScreen.getPanel();
 
             guiListeners.addAll(troopMakerPanel.getActionListeners());
 
@@ -146,6 +147,18 @@ public class MainWindow {
             frame.remove(lowerPanel);
             frame.remove(centerPanel);
             winLosePanel = winScreen.getPanel();
+            frame.add(winLosePanel, BorderLayout.CENTER);
+            frame.repaint();
+            frame.revalidate();
+        });
+    }
+
+    public void showWinLast() {
+        SwingUtilities.invokeLater(() -> {
+            frame.remove(rightPanel);
+            frame.remove(lowerPanel);
+            frame.remove(centerPanel);
+            winLosePanel = winLastLevel.getPanel();
             frame.add(winLosePanel, BorderLayout.CENTER);
             frame.repaint();
             frame.revalidate();
