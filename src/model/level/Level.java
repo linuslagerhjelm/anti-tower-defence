@@ -306,6 +306,7 @@ public class Level implements Troupe.KilledListener,
      */
     private void addTeleportPad(TeleportPad pad) {
         Node nextNode = path.getNextNodeFrom(pad.getPosition());
+        pad.setNextNode(nextNode);
 
         if (teleportPads.size() % 2 != 0) {
             TeleportPad previous = teleportPads.get(teleportPads.size() - 1);
@@ -321,7 +322,6 @@ public class Level implements Troupe.KilledListener,
         }
         teleportPads.add(pad);
         pads.add(pad);
-        pad.setNextNode(nextNode);
     }
 
     /**

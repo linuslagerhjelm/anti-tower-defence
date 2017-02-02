@@ -146,6 +146,6 @@ public class TeleportPad implements Pad {
      * @return Length to start
      */
     public double getLengthToStart() {
-        return 0;
+        return nextNode.getLengthToStart();
     }
 }
