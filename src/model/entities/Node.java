@@ -21,6 +21,7 @@ public class Node {
     private boolean goal = false;
     private List<Node> successors = new ArrayList<>();
     private Node nextNode;
+    private double lengthToStart;
 
     /**
      * Creates a new nodes on the specified coordinates
@@ -159,5 +160,13 @@ public class Node {
      */
     public Position getPosition() {
         return position.clone();
+    }
+
+    public double getLengthToStart() {
+        return lengthToStart;
+    }
+
+    public void setLengthToStart(double lengthToStart) {
+        this.lengthToStart = lengthToStart;
     }
 }

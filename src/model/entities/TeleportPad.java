@@ -31,7 +31,8 @@ public class TeleportPad implements Pad {
      * @param width Width of pad
      * @param height Height of pad
      */
-    public TeleportPad(double x, double y, int width, int height) {
+    public TeleportPad(double x, double y,
+                       int width, int height) {
         setProperties(x, y, width, height);
     }
 
@@ -133,5 +134,18 @@ public class TeleportPad implements Pad {
     @Override
     public int getWidth() {
         return width;
+    }
+
+    public Node getNode() {
+        return nextNode;
+    }
+
+    /**
+     * Get length to start spawn from this tower. Can be used to
+     * compare if teleport pads are before or after each other
+     * @return Length to start
+     */
+    public double getLengthToStart() {
+        return 0;
     }
 }

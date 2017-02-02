@@ -55,7 +55,8 @@ public class Path {
         // If all nodes has been visited
         isValid = visited.containsAll(nodes.values());
         if (!isValid) {
-            throw new InvalidPathException("Path invalid: Every node can't be visited");
+            throw new InvalidPathException(
+                    "Path invalid: Every node can't be visited");
         }
 
         // AND at least one start
@@ -70,7 +71,21 @@ public class Path {
             throw new InvalidPathException("Path invalid: no goal node");
         }
 
+        calculateNodeLengthToStart(start, 0);
+
         return isValid;
+    }
+
+    private void calculateNodeLengthToStart(Node root, double currentLength) {
+        root.setLengthToStart(currentLength);
+
+        if (!root.isGoal()) {
+            for (Node successor : root.getSuccessors()) {
+                double newLength = currentLength +
+                        root.getPosition().lengthTo(successor.getPosition());
+                calculateNodeLengthToStart(successor, newLength);
+            }
+        }
     }
 
     /**
@@ -144,6 +159,18 @@ public class Path {
      */
     public boolean isGoal(Node node) {
         return goal.contains(node);
+    }
+
+    public double getLengthToGoalFrom(Node from) {
+        double length = 0;
+        Node next;
+        Node node = from;
+        while (node.hasSuccessor()) {
+            next = node.getNext();
+            length += node.getPosition().lengthTo(next.getPosition());
+            node = next;
+        }
+        return length;
     }
 
     /**

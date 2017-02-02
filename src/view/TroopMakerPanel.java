@@ -98,11 +98,11 @@ public class TroopMakerPanel {
         unitInfoText = new JTextPane();
         troopInfoPanel.add(unitInfoText);
         unitInfoText.setEditable(false);
-        unitInfoText.setBackground(Color.GRAY);
+        //unitInfoText.setBackground(Color.GRAY);
         unitInfoText.setPreferredSize(new Dimension(220, 319));
         unitInfoText.setBorder(BorderFactory.createTitledBorder("Info"));
-        unitInfoText.setFont(new Font("Serif", Font.BOLD, 16));
-        unitInfoText.setForeground(Color.CYAN);
+        //unitInfoText.setFont(new Font("Serif", Font.BOLD, 16));
+        //unitInfoText.setForeground(Color.CYAN);
         //changeUnitInfo("Speed: 20\nCost: 100\nHealth: 45");
     }
 

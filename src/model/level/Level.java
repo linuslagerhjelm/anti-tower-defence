@@ -17,6 +17,8 @@ import model.player.Player;
 
 import java.util.*;
 
+import static java.lang.Math.abs;
+
 /**
  * Author: Linus Lagerhjelm & Fredrik Johansson
  * File: Level
@@ -303,11 +305,23 @@ public class Level implements Troupe.KilledListener,
      * @param pad the pad to insert
      */
     private void addTeleportPad(TeleportPad pad) {
+        Node nextNode = path.getNextNodeFrom(pad.getPosition());
+
         if (teleportPads.size() % 2 != 0) {
-            teleportPads.get(teleportPads.size() - 1).setTarget(pad);
+            TeleportPad previous = teleportPads.get(teleportPads.size() - 1);
+
+            if (abs(previous.getLengthToStart() - pad.getLengthToStart()) <
+                    pad.getHeight() + pad.getWidth()) {
+                return;
+            } else if (previous.getLengthToStart() < pad.getLengthToStart()) {
+                previous.setTarget(pad);
+            } else {
+                pad.setTarget(previous);
+            }
         }
         teleportPads.add(pad);
-        pad.setNextNode(path.getNextNodeFrom(pad.getPosition()));
+        pads.add(pad);
+        pad.setNextNode(nextNode);
     }
 
     /**
@@ -324,7 +338,7 @@ public class Level implements Troupe.KilledListener,
      * @param positionClicked position of click event
      */
     public void onClick(Position positionClicked) {
-        double clickRange = 20;
+        double clickRange = 30;
 
         for (Tower tower : towers) {
             if (positionClicked.inRange(tower.getPosition(), clickRange)) {
@@ -376,10 +390,11 @@ public class Level implements Troupe.KilledListener,
      */
     @Override
     public void onPadSpawned(Pad pad) {
-        pads.add(pad);
 
         if (pad instanceof TeleportPad) {
             addTeleportPad((TeleportPad) pad);
+        } else {
+            pads.add(pad);
         }
     }
 
