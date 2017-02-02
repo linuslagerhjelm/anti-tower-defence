@@ -168,18 +168,6 @@ public class Path {
         return goal.contains(node);
     }
 
-    public double getLengthToGoalFrom(Node from) {
-        double length = 0;
-        Node next;
-        Node node = from;
-        while (node.hasSuccessor()) {
-            next = node.getNext();
-            length += node.getPosition().lengthTo(next.getPosition());
-            node = next;
-        }
-        return length;
-    }
-
     /**
      * {@inheritDoc}
      *
