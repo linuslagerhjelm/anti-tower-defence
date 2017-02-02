@@ -87,11 +87,15 @@ public class Renderer {
                 for (String str:res) {
                     buf += str;
                 }
-                JOptionPane.showMessageDialog(
-                        MainWindow.getInstance().getGameScreen().getJPanel(),
-                        buf,
-                        "HighScores",
-                        JOptionPane.PLAIN_MESSAGE);
+                JDialog dialog = new JDialog();
+                JTextArea label = new JTextArea(buf);
+                label.setEditable(false);
+                dialog.setLocationRelativeTo(null);
+                dialog.setTitle("Scores");
+                dialog.add(label);
+                dialog.setModal(true);
+                dialog.pack();
+                dialog.setVisible(true);
             });
         }
 
