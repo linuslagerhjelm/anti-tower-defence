@@ -162,10 +162,21 @@ public class Node {
         return position.clone();
     }
 
+    /**
+     * Get the length this node has to the start node
+     * @return Length to start node (not straight
+     *                      line but along path)
+     */
     public double getLengthToStart() {
         return lengthToStart;
     }
 
+    /**
+     * Set the length this node has to the start node, when walking along the
+     * path
+     * @param lengthToStart Length to start node (not straight
+     *                      line but along path)
+     */
     public void setLengthToStart(double lengthToStart) {
         this.lengthToStart = lengthToStart;
     }

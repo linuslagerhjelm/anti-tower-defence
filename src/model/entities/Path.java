@@ -76,6 +76,13 @@ public class Path {
         return isValid;
     }
 
+    /**
+     * Calculate how long each node has to the start. Will traverse the
+     * whole path if the start node is used as parameter.
+     * @param root Node to start traversing from, should be the start node
+     * @param currentLength The length to root node has to the start node,
+     *                      should be zero if root node is start node
+     */
     private void calculateNodeLengthToStart(Node root, double currentLength) {
         root.setLengthToStart(currentLength);
 

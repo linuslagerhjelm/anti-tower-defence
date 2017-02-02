@@ -136,6 +136,10 @@ public class TeleportPad implements Pad {
         return width;
     }
 
+    /**
+     * Return the closest node this pad has
+     * @return Closest node
+     */
     public Node getNode() {
         return nextNode;
     }
